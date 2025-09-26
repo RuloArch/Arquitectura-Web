@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3bf16;
+    margin: 0;
+    padding: 20px;
+    font-size: 10px;
+}
+h1 {
+    color: #333;
+    text-align: center;
+    font-size: 30px;
+
+}
+#DarthVader {
+    font-size: 40px;
+    
+}
+
+#Luke {
+    font-size: 1.5em;
+}
+
+#Mandalorian{
+    color: red;
+    font-size: 0.5em;
+}
