@@ -1,0 +1,73 @@
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img{
+    width: 100%;
+    height: auto;
+}
+
+a{
+    transition: all 0.3s ease-in-out;
+    color: rgb(1, 199, 206);
+    padding: 5px;
+    margin: 10px;
+    width: auto;
+    text-align: center;
+    text-decoration: none;
+}
+
+ul {
+    background-color: rgb(54, 54, 65);
+    color: white;
+    display: flex; /* Habilita el modo flex */
+    align-items: center; /* Centra los elementos hijos (logo y <li>) verticalmente */
+    padding: 0 10px; /* Añade un poco de espacio a los lados y quita el padding por defecto */
+    list-style: none; /* Opcional: Remueve las viñetas si las hubiera */
+}
+
+h1, h2 {
+    margin-top: 100px;
+    text-align: center;
+    font-weight: bold;
+}
+p{
+    margin-bottom: 100px;
+    text-align: center;
+}
+footer{
+    background-color: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+li{
+    display: inline-block;
+}
+li a {
+    text-decoration: none;
+    color: white;
+    padding: 20px; /* Esto da la altura a los enlaces */
+    display: block; /* o flex; - Puedes usar block aquí ya que el li es el que se centra */
+}
+
+a:hover{
+    background-color: rgb(1, 199, 206);
+    color: white;
+    border-radius: 10px;
+}
+#logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    /* margin: 4px; o puedes quitarlo */
+    /* Ya NO necesitas: display: block; */
+    /* Ya NO necesitas: margin-top: 25px; */
+}
