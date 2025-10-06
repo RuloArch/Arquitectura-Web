@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 11 CSS Grind y variables</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="item item1">1</div>
+        <div class="item item2">2</div>
+        <div class="item item3">3</div>
+        <div class="item item4">4</div>
+        <div class="item item5">5</div>
+        <div class="item item6">6</div>
+        <div class="item item7">7</div>
+        <div class="item item8">8</div>
+        <div class="item item9" id="explosive">9</div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Bienvenido a la Práctica 11 CSS Grid y variables</h1>
+        </header>
+    </div>
+
+    <script>
+        const explosive = document.getElementById("explosive");
+
+        explosive.addEventListener("click", (e) => {
+            const explosion = document.createElement("div");
+            explosion.classList.add("explosion");
+
+            // Ubicar la explosión en el centro del número 9
+            const rect = explosive.getBoundingClientRect();
+            explosion.style.left = rect.left + rect.width/2 - 100 + "px";
+            explosion.style.top = rect.top + rect.height/2 - 100 + "px";
+
+            document.body.appendChild(explosion);
+
+            // Quitar la explosión después de animarse
+            setTimeout(() => {
+                explosion.remove();
+            }, 600);
+        });
+    </script>
+
+</body>
+</html>

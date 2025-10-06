@@ -1,0 +1,70 @@
+
+        body {
+            background-color: gray;
+            font-size: 16px;
+            margin: 0px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            display : grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 30px;
+            padding: 10px;
+        }
+
+        .item {
+            background-color: lightblue;
+            border: 2px solid rgb(0, 0, 0);
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+            font-family: Arial, sans-serif;
+            height: 100px;
+            display : flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .item:hover{
+            background-color: rgb(207, 130, 29);
+            cursor: pointer;
+            color: white;
+            transform: scale(1.05);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* 💥 Estilo de la explosión */
+        .explosion {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, yellow 20%, red 60%, transparent 80%);
+            animation: boom 0.6s ease-out forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes boom {
+            0% {
+                transform: scale(0.2);
+                opacity: 1;
+            }
+            70% {
+                transform: scale(2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+    
+ 
