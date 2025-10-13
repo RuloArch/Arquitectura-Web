@@ -1,0 +1,42 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(222, 223, 215);
+}
+h1 {
+    font-family: "Story Script", sans-serif;
+    text-align: center;
+    font-size: 40px;
+    color: rgb(38, 86, 124);
+}
+h2 {
+      font-family: "Kode Mono", monospace;
+      text-align: center;
+      color: rgb(44, 114, 81);
+      font-size: 30px;
+}
+p {
+      font-family: "Kode Mono", monospace;
+      color: rgb(0, 68, 107);
+      font-size: 30px;
+}
+
+#cuadro{
+            background-color: rgb(121, 121, 141); 
+        padding:50ppx; 
+        margin: 100px;
+        border: 10px solid black;
+    }
+
+    .circulo{
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        border-radius: 50%;
+        display: flex;
+        text-align: center;
+        margin: 100px;
+        justify-content: center;
+        align-items: center;
+    }
