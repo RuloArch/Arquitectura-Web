@@ -301,3 +301,41 @@ form button {
     background: var(--secondary);
     transform: scale(1.03);
 }
+
+/* =======================
+   PRODUCTOS EN CELULAR
+======================= */
+@media (max-width: 600px) {
+
+    .productos-grid {
+        grid-template-columns: 1fr; /* UN SOLO PRODUCTO POR FILA */
+        gap: 20px;
+    }
+
+    .product-card {
+        height: auto;          /* Permite que el contenido respire */
+        padding: 20px;
+        font-size: 20px;       /* Reduce el texto para que no se vea gigante */
+    }
+
+    .product-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+
+    /* Precio mejor visible en móvil */
+    .product-card .precio {
+        font-size: 28px;       /* Más grande pero moderado */
+        font-weight: 900;
+        margin: 10px 0 5px 0;
+    }
+
+    /* Botones más grandes y fáciles de tocar */
+    .product-card button {
+        width: 100%;
+        padding: 12px;
+        font-size: 18px;
+    }
+}
+
