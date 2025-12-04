@@ -1,0 +1,303 @@
+/* =======================================
+   PALETA PRINCIPAL (Tienda Profesional)
+======================================= */
+:root {
+    --primary: #153e85;       /* azul marino moderno */
+    --secondary: #d32f2f;     /* rojo acento */
+    --bg: #b4abab;            /* fondo blanco */
+    --text: #0b3081;          /* texto oscuro */
+    --card: #a72e2e;          /* tarjetas blancas */
+    --border: #188d83;        /* gris suave para bordes */
+}
+
+/* =======================================
+   BODY / GLOBAL
+======================================= */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: black;
+      background: linear-gradient(135deg, #0a3e8b, #8e8f8f);
+}
+.inicio, .fomulario, .productos, .carrito, .pago {
+    padding: 20px;
+    color: orange
+}
+
+
+
+/* =======================================
+   NAVBAR (Bootstrap + Custom)
+======================================= */
+.navbar {
+    background: var(--primary) !important;
+    padding: 15px 20px;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: rgb(224, 221, 221) !important;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.navbar .nav-link:hover {
+    color: var(--secondary) !important;
+}
+
+.navbar-toggler {
+    border-color: #5c6e8a;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+/* =======================================
+   HERO
+======================================= */
+.hero {
+    text-align: center;
+    padding: 120px 20px;
+    background: url('https://images.pexels.com/photos/159303/baseball-ball-sports-159303.jpeg')
+               no-repeat center/cover;
+    color: white;
+    text-shadow: 2px 2px 8px black;
+    min-height: 55vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* =======================================
+ /* SECCIÓN PRODUCTOS
+======================================= */
+.productos-section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.product-card {
+    background: linear-gradient(135deg, #ffffff, #e6e9ef); /* fondo bonito y suave */
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    transition: transform .2s, box-shadow .2s;
+    text-align: center;
+    color: #0a1a3c;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 480px;
+    font-weight: bold;
+        font-size: 20px;
+    min-height: 40px; /* mantiene alineado el precio */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+/* HOVER */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Imagen */
+.product-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* --- TITULO DEL PRODUCTO --- */
+.product-card h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #0d1b45;
+}
+
+/* --- PRECIO ESTILO MEJORADO --- */
+.product-card .precio {
+      font-weight: 800;
+    font-size: 22px;
+    color: #000000;   /* rojo beisbol */
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+/* --- DESCRIPCIÓN --- */
+.product-card p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #2a355c;
+        font-weight: 800;
+    font-size: 22px;
+    color: #000000;   /* rojo beisbol */
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+
+/* BOTONES */
+.btn {
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.add-btn {
+    background: var(--primary);
+    color: rgb(28, 117, 113);
+}
+
+.add-btn:hover {
+    background: #c7a81d;
+}
+
+.delete-btn {
+    background: var(--secondary);
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #726d6d;
+}
+
+/* =======================================
+   FORMULARIOS & PAGO
+======================================= */
+.form-section,
+.payment-section {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+form input,
+form button {
+    width: 60%;
+    padding: 12px;
+    margin: 12px auto;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 15px;
+}
+
+.payment-form {
+    background: var(--card);
+    padding: 25px;
+    width: 420px;
+    margin: auto;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.payment-row {
+    display: flex;
+    gap: 10px;
+}
+
+/* =======================================
+   CARRITO
+======================================= */
+#carrito-lista div {
+    background: var(--card);
+    padding: 15px;
+    margin: 10px auto;
+    border-radius: 10px;
+    width: 420px;
+    border: 1px solid var(--border);
+    box-shadow: 0 3px 10px rgba(17, 111, 173, 0.05);
+}
+
+.login-box {
+    width: 350px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary);
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ============================
+   FORMULARIO ADMIN DE SUBIDA
+============================ */
+.upload-container {
+    max-width: 500px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 15px;
+    border: 2px solid var(--primary);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.upload-container label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 15px;
+    color: var(--primary);
+}
+
+.upload-container input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-top: 5px;
+    font-size: 15px;
+}
+
+.btn-upload {
+    width: 100%;
+    background: var(--primary);
+    border: none;
+    color: white;
+    padding: 12px;
+    font-size: 17px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-upload:hover {
+    background: var(--secondary);
+    transform: scale(1.03);
+}

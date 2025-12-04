@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="css.css">
+
+<h2 class="text-center mt-4">Productos</h2>
+
+<div id="lista-productos" class="productos-grid"></div>
+
+<script>
+// ---------------------------------------------
+// FUNCIÓN: Mostrar productos
+// ---------------------------------------------
+function mostrarProductos() {
+    const listaProductos = document.getElementById("lista-productos");
+    if (!listaProductos) return;
+
+    // Limpia el grid
+    listaProductos.innerHTML = "";
+
+    // Verifica si es admin
+    const isAdmin = localStorage.getItem("role") === "admin";
+
+    // Recorre los productos
+    productos.forEach((prod, index) => {
+        const card = `
+            <div class="product-card">
+                <img src="${prod.img}" class="product-img">
+
+                <h3 class="product-title">${prod.nombre}</h3>
+                <p class="product-price">$${prod.precio}</p>
+
+                <button class="btn btn-success" onclick="agregarAlCarrito(${index})">
+                    Agregar al carrito
+                </button>
+
+                ${isAdmin ? `
+                <button class="btn btn-danger delete-btn" onclick="eliminarProducto(${index})">
+                    Eliminar
+                </button>
+                ` : ""}
+            </div>
+        `;
+
+        listaProductos.innerHTML += card;
+    });
+}
+</script>
+<script>
+if (!localStorage.getItem("role")) {
+    window.location.href = "login.html";
+}
+</script>

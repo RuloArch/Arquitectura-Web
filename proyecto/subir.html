@@ -1,0 +1,26 @@
+<h2 class="text-center mt-4">Subir Producto</h2>
+
+<form id="formProducto" class="container mt-3">
+    <input class="form-control mt-2" type="text" id="nombre" placeholder="Nombre del producto" required>
+    <input class="form-control mt-2" type="number" id="precio" placeholder="Precio" required>
+    <input class="form-control mt-2" type="file" id="imagen" accept="image/*" required>
+    <button class="btn btn-primary w-100 mt-3">Subir</button>
+</form>
+
+<button class="btn btn-secondary w-100 mt-3" onclick="cargar('inicio.html')">⬅ Volver</button>
+
+<script>
+document.getElementById("formProducto").addEventListener("submit", subirProducto);
+if (localStorage.getItem("role") !== "admin") {
+    document.body.innerHTML = "<h2 class='text-center mt-5'>Acceso denegado</h2>";
+}
+</script>
+<script>
+const isAdmin = localStorage.getItem("role") === "admin";
+
+// Si NO es admin → ocultar panel
+if (!isAdmin) {
+    const panel = document.getElementById("admin-panel");
+    if (panel) panel.style.display = "none";
+}
+</script>

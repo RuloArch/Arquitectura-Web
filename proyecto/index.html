@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Béisbol</title>
+
+    <link rel="stylesheet" href="css.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="#" onclick="cargar('inicio.html')">ProBaseball Shop</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="cargar('inicio.html')">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="cargar('productos.html')">Productos</a>
+                </li>
+
+                <li id="nav-subir" class="nav-item" style="display:none;">
+                    <a class="nav-link" href="#" onclick="cargar('subir.html')">Subir Producto</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="cargar('carrito.html')">Carrito</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="cargar('pago.html')">Método de Pago</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Iniciar Sesión</a>
+                </li>
+            </ul>
+        </div> 
+    </div>
+</nav>
+
+<!-- CONTENIDO DINÁMICO -->
+<div id="contenidodiv"></div>
+
+<script src="js.js"></script>
+<script src="auth.js"></script>
+
+<script>
+function cargar(archivo) {
+    fetch(archivo)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("contenidodiv").innerHTML = html;
+
+            // Ejecutar scripts internos del archivo cargado
+            const scripts = document.querySelectorAll("#contenidodiv script");
+            scripts.forEach(s => eval(s.innerHTML));
+
+            mostrarProductos();
+            mostrarCarrito();
+            actualizarNavbarSegunRol();
+
+            window.scrollTo(0, 0);
+        });
+}
+
+// Cargar inicio al abrir
+document.addEventListener("DOMContentLoaded", () => {
+    cargar("inicio.html");
+    actualizarNavbarSegunRol();
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+if (!localStorage.getItem("role")) {
+    window.location.href = "login.html";
+}
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const isAdmin = localStorage.getItem("role") === "admin";
+
+    const panel = document.getElementById("admin-panel");
+    if (panel && !isAdmin) {
+        panel.style.display = "none"; // Oculta el panel desde el inicio
+    }
+});
+</script>
+
+
+<script>
+// Mostrar u ocultar "Subir producto" según el rol
+function actualizarNavbarSegunRol() {
+    const isAdmin = localStorage.getItem("role") === "admin";
+    const navSubir = document.getElementById("nav-subir");
+
+    if (navSubir) {
+        navSubir.style.display = isAdmin ? "block" : "none";
+    }
+}
+
+// Cargar páginas internas
+function cargar(archivo) {
+    fetch(archivo)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById("contenidodiv").innerHTML = html;
+
+            // Ejecutar scripts internos
+            const scripts = document.querySelectorAll("#contenidodiv script");
+            scripts.forEach(s => eval(s.innerHTML));
+
+            // Llamadas seguras (solo si existen)
+            if (typeof mostrarProductos === "function") mostrarProductos();
+            if (typeof mostrarCarrito === "function") mostrarCarrito();
+
+            actualizarNavbarSegunRol();
+
+            window.scrollTo(0, 0);
+        });
+}
+
+// Al entrar al sitio
+document.addEventListener("DOMContentLoaded", () => {
+    if (!localStorage.getItem("role")) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    cargar("inicio.html");
+    actualizarNavbarSegunRol();
+});
+</script>
+
+
+
+
+</body>
+</html>

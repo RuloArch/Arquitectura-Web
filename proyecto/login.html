@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="css.css">
+    <style>
+ .login-container {
+    width: 320px;
+    margin: 90px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 0 10px #0003;
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #008037;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-login:hover {
+    background: #00692d;
+}
+
+#login-error {
+    color: red;
+    margin-top: 10px;
+}
+
+
+</style>
+</head>
+<body>
+    <link rel="stylesheet" href="login.css">
+
+<div class="login-container">
+    <h2>Iniciar sesión</h2>
+
+    <form onsubmit="login(event)">
+        <input type="text" id="username" placeholder="Usuario" required>
+        <input type="password" id="password" placeholder="Contraseña" required>
+
+        <button type="submit" class="btn-login">Entrar</button>
+    </form>
+
+    <p id="login-error"></p>
+</div>
+
+<script src="login.js"></script>
+</body>
