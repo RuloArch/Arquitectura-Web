@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Financiero 2022-2025</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg1:#0f172a; --bg2:#1d4ed8; --panel:#ffffff; --text:#1f2937; --muted:#6b7280; --line:#e5e7eb;
+      --accent:#2563eb; --accent2:#7c3aed; --ok:#16a34a; --warn:#f59e0b; --bad:#dc2626; --soft:#eff6ff;
+    }
+    body {
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height: 100vh; color: var(--text); font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .wrapper { max-width: 1500px; margin: 22px auto; padding: 0 12px; }
+    .glass { background: rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius: 24px; padding: 18px; backdrop-filter: blur(8px); box-shadow: 0 20px 50px rgba(0,0,0,.22);}
+    .hero {
+      color:#fff; padding:28px; border-radius:22px; margin-bottom:18px;
+      background: radial-gradient(circle at top right, rgba(255,255,255,.22), transparent 30%), linear-gradient(135deg, rgba(37,99,235,.96), rgba(124,58,237,.96));
+      box-shadow: 0 16px 36px rgba(0,0,0,.16);
+    }
+    .hero h1 { font-size: 2rem; font-weight:800; margin-bottom: 6px;}
+    .hero p { margin:0; opacity: .96; }
+    .badge-soft { background: rgba(255,255,255,.16); color:#fff; border:1px solid rgba(255,255,255,.18); padding: 8px 12px; border-radius:999px; font-weight:600; }
+    .panel {
+      background: var(--panel); border-radius: 22px; padding: 22px; box-shadow: 0 14px 30px rgba(0,0,0,.09); border: 1px solid rgba(0,0,0,.05); margin-bottom: 18px;
+    }
+    .section-title { font-size: 1.08rem; font-weight: 800; margin-bottom: 14px; }
+    .kpi-card { background: linear-gradient(180deg,#fff,#f8fbff); border:1px solid var(--line); border-radius: 18px; padding: 16px; height:100%; box-shadow: 0 8px 20px rgba(0,0,0,.05); }
+    .kpi-label { color: var(--muted); font-size: .88rem; font-weight:600; }
+    .kpi-value { color: var(--accent); font-weight:800; font-size: 1.5rem; line-height:1.1; margin-top: 6px; }
+    .kpi-sub { color: var(--muted); font-size: .78rem; }
+    .chart-card { background:#fff; border-radius:20px; border:1px solid var(--line); padding:16px; height:100%; box-shadow: 0 8px 18px rgba(0,0,0,.05); }
+    .chart-wrap { height: 320px; position: relative; }
+    .chart-title { font-weight:800; margin-bottom: 8px; }
+    .year-btn { border:1px solid #bfdbfe; background:#eff6ff; color:#1d4ed8; font-weight:700; border-radius: 999px; padding: 7px 14px; }
+    .year-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent2)); color:#fff; border-color: transparent; }
+    .traffic-card { border-radius:18px; padding:16px; color:#fff; height:100%; }
+    .traffic-green { background: linear-gradient(135deg,#16a34a,#15803d); }
+    .traffic-yellow { background: linear-gradient(135deg,#f59e0b,#d97706); }
+    .traffic-red { background: linear-gradient(135deg,#ef4444,#dc2626); }
+    .mini-label { opacity: .9; font-size: .82rem; }
+    .traffic-value { font-size:1.45rem; font-weight:800; }
+    .pill { display:inline-block; padding: 6px 10px; border-radius: 999px; background:#eff6ff; color:#1d4ed8; font-weight:700; font-size:.82rem; margin-right: 8px; margin-bottom: 6px; }
+    .note-card { border:1px solid var(--line); border-radius:18px; padding:18px; background: linear-gradient(180deg,#fff,#f9fafb); height:100%; }
+    .note-card h6 { font-weight:800; margin-bottom:10px; }
+    .table thead th { white-space: nowrap; }
+    .footer-note { color:#dbeafe; text-align:center; font-size:.86rem; margin-top:8px; }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="glass">
+    <section class="hero">
+      <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+        <div>
+          <h1>Dashboard Financiero para Toma de Decisiones</h1>
+          <p>Empresa digital · Periodo 2022–2025 · Estado de situación financiera, estado de resultados, indicadores, semáforos y apoyo a decisiones.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+          <span class="badge-soft"></span>
+          <span class="badge-soft"></span>
+          <span class="badge-soft"></span>
+          <span class="badge-soft"></span>
+        </div>
+      </div>
+    </section>
+
+    <div class="panel">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+          <div class="section-title mb-1">Selector de año</div>
+          <div class="text-secondary">Los KPIs, semáforos e interpretación se actualizan con el año seleccionado.</div>
+        </div>
+        <div id="yearButtons" class="d-flex flex-wrap gap-2"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-title">Resumen del proyecto</div>
+      <div class="row g-3">
+        <div class="col-lg-4"><div class="note-card"><h6>Objetivo del dashboard</h6><div>Visualizar y analizar la evolución financiera de una empresa digital entre 2022 y 2025, usando indicadores contables y financieros para apoyar decisiones estratégicas.</div></div></div>
+        <div class="col-lg-4"><div class="note-card"><h6>Finalidad</h6><div>Centralizar información financiera relevante, facilitar la interpretación rápida del desempeño económico e identificar tendencias, riesgos y oportunidades.</div></div></div>
+        <div class="col-lg-4"><div class="note-card"><h6>Elementos incluidos</h6><div>Gráficas comparativas, tendencias, KPIs, semáforos financieros, interpretación breve y 3 aportaciones adicionales: proyección, crecimiento y alertas.</div></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-title">KPIs del año seleccionado</div>
+      <div class="row g-3" id="kpiGrid"></div>
+    </div>
+
+    <div class="panel">
+      <div class="section-title">Semáforos financieros</div>
+      <div class="row g-3" id="trafficGrid"></div>
+      <div class="mt-3" id="trafficInterpretation"></div>
+    </div>
+
+    <div class="panel">
+      <div class="section-title">Dashboard visual</div>
+      <div class="row g-3">
+        <div class="col-xl-6"><div class="chart-card"><div class="chart-title">Estructura financiera: Activo, Pasivo y Capital</div><div class="chart-wrap"><canvas id="chartBalance"></canvas></div></div></div>
+        <div class="col-xl-6"><div class="chart-card"><div class="chart-title">Estado de resultados comparativo</div><div class="chart-wrap"><canvas id="chartResults"></canvas></div></div></div>
+        <div class="col-xl-6"><div class="chart-card"><div class="chart-title">Razones financieras</div><div class="chart-wrap"><canvas id="chartFinancial"></canvas></div></div></div>
+        <div class="col-xl-6"><div class="chart-card"><div class="chart-title">Rentabilidad</div><div class="chart-wrap"><canvas id="chartProfitability"></canvas></div></div></div>
+        <div class="col-xl-6"><div class="chart-card"><div class="chart-title">Indicadores de gestión (días)</div><div class="chart-wrap"><canvas id="chartManagement"></canvas></div></div></div>
+        <div class="col-xl-6"><div class="chart-card"><div class="chart-title">Liquidez operativa: Cash Flow y capital de trabajo</div><div class="chart-wrap"><canvas id="chartCash"></canvas></div></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-title">Aportaciones para la toma de decisiones</div>
+      <div class="row g-3">
+        <div class="col-lg-4"><div class="note-card"><h6>Proyección 2026</h6><div id="projectionText"></div></div></div>
+        <div class="col-lg-4"><div class="note-card"><h6>Indicadores de crecimiento</h6><div id="growthText"></div></div></div>
+        <div class="col-lg-4"><div class="note-card"><h6>Alertas y variaciones</h6><div id="alertsText"></div></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-title">Tablas base</div>
+      <ul class="nav nav-tabs" id="tabs" role="tablist">
+        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabBalance" type="button">Balance y resultados</button></li>
+        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabRatios" type="button">Indicadores</button></li>
+      </ul>
+      <div class="tab-content pt-3">
+        <div class="tab-pane fade show active" id="tabBalance">
+          <div class="table-responsive"><table class="table table-striped align-middle" id="tableBalance"></table></div>
+        </div>
+        <div class="tab-pane fade" id="tabRatios">
+          <div class="table-responsive"><table class="table table-striped align-middle" id="tableRatios"></table></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="section-title">Interpretación y conclusión</div>
+      <div class="row g-3">
+        <div class="col-lg-6"><div class="note-card"><h6>Interpretación de resultados</h6><div id="interpretationText"></div></div></div>
+        <div class="col-lg-6"><div class="note-card"><h6>Propuestas para mejorar la toma de decisiones</h6><div id="decisionText"></div></div></div>
+      </div>
+    </div>
+
+    <div class="footer-note">Dashboard elaborado por Raúl Álvarez Nuño y un poco de la ayuda de ChatGPT</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const data = {"years": [2022, 2023, 2024, 2025], "balances": {"Activo total": [7110, 7470, 7240, 7270], "Pasivo total": [2270, 2330, 2105, 2020], "Capital contable": [4840, 5140, 5135, 5250], "Activo circulante": [840, 920, 1080, 970], "Pasivo corto plazo": [810, 970, 625, 720], "Inventarios": [900, 1100, 1000, 1050], "Cuentas por cobrar": [700, 800, 900, 770], "Cuentas por pagar": [500, 550, 430, 450], "Cash Flow": [970, 1250, 1195, 1275], "Generación bruta de fondos": [1170, 1430, 1385, 1445]}, "results": {"Ingresos": [5050, 5180, 5400, 5980], "Costos del servicio": [2700, 2500, 2700, 3050], "Gastos operativos": [1180, 1250, 1315, 1485], "Resultado neto": [770, 800, 795, 795]}, "financial": {"Tesorería": [0.5308641975, 0.6597938144, 0.816, 0.7638888889], "Liquidez": [1.5679012346, 1.6082474227, 2.544, 2.1111111111], "Autonomía": [0.6807313643, 0.688085676, 0.7092541436, 0.7221458047], "Endeudamiento": [0.4690082645, 0.453307393, 0.4099318403, 0.3847619048], "Capital de trabajo neto": [460, 590, 965, 800]}, "profitability": {"Rentabilidad financiera": [0.2004132231, 0.1906614786, 0.1918208374, 0.1838095238], "Rentabilidad recursos propios": [0.1590909091, 0.1556420233, 0.1548198637, 0.1514285714], "ROI": [0.1082981716, 0.1070950469, 0.1098066298, 0.1093535076], "ROE": [0.2566666667, 0.2666666667, 0.265, 0.265], "Rentabilidad ventas": [0.154, 0.1568627451, 0.15, 0.1347457627], "Margen sobre ventas": [0.4653465347, 0.5173745174, 0.5, 0.4899665552]}, "management": {"Inventario días": [121.6666666667, 160.6, 135.1851851852, 125.6557377049], "Pago a proveedores días": [70.1923076923, 74.3518518519, 60.3653846154, 52.9838709677], "Cobro a clientes días": [51.1, 57.2549019608, 61.9811320755, 47.6355932203], "Rotación de tesorería": [60.3653846154, 86.5185185185, 71.5961538462, 64.7580645161], "Productividad": [0.9915254237, 1.144, 1.0532319392, 0.9730639731], "Ciclo operativo": [172.7666666667, 217.8549019608, 197.1663172607, 173.2913309253], "Ciclo financiero": [102.5743589744, 143.5030501089, 136.8009326453, 120.3074599575]}};
+const projection = {"ingresos_2026": 6155, "resultado_2026": 807.5, "cashflow_2026": 1387.5};
+const growth = {"ingresos": 10.7407407407, "resultado": 0.0, "cashflow": 6.6945606695, "activo": 0.4143646409};
+const years = data.years.map(String);
+let selectedYear = "2025";
+let charts = {};
+
+function fmtMoney(v) {
+  return new Intl.NumberFormat("es-MX", { style:"currency", currency:"MXN", maximumFractionDigits:0 }).format(v);
+}
+function fmtNum(v, d=0) {
+  return new Intl.NumberFormat("es-MX", { minimumFractionDigits:d, maximumFractionDigits:d }).format(v);
+}
+function fmtPct(v, d=1) {
+  return fmtNum(v*100, d) + "%";
+}
+function yearIndex() {
+  return years.indexOf(selectedYear);
+}
+function buildYearButtons() {
+  const wrap = document.getElementById("yearButtons");
+  wrap.innerHTML = years.map(y => `<button class="year-btn ${y===selectedYear?'active':''}" onclick="setYear('${y}')">${y}</button>`).join("");
+}
+function setYear(y) {
+  selectedYear = y;
+  buildYearButtons();
+  renderKPIs();
+  renderTraffic();
+  renderNarratives();
+}
+function renderKPIs() {
+  const i = yearIndex();
+  const cards = [
+    ["Activo total", data.balances["Activo total"][i], "Base patrimonial del negocio", "money"],
+    ["Pasivo total", data.balances["Pasivo total"][i], "Obligaciones financieras", "money"],
+    ["Capital contable", data.balances["Capital contable"][i], "Recursos propios", "money"],
+    ["Ingresos", data.results["Ingresos"][i], "Servicios digitales y otros ingresos", "money"],
+    ["Resultado neto", data.results["Resultado neto"][i], "Utilidad o pérdida del ejercicio", "money"],
+    ["Liquidez", data.financial["Liquidez"][i], "Capacidad de pago a corto plazo", "ratio"],
+    ["ROE", data.profitability["ROE"][i], "Rendimiento sobre capital social", "pct"],
+    ["Ciclo financiero", data.management["Ciclo financiero"][i], "Tiempo neto de operación financiada", "days"]
+  ];
+  document.getElementById("kpiGrid").innerHTML = cards.map(c => `
+    <div class="col-xl-3 col-md-6">
+      <div class="kpi-card">
+        <div class="kpi-label">${c[0]}</div>
+        <div class="kpi-value">${c[3]==='money' ? fmtMoney(c[1]) : c[3]==='ratio' ? fmtNum(c[1],2)+'x' : c[3]==='pct' ? fmtPct(c[1],1) : fmtNum(c[1],1)+' días'}</div>
+        <div class="kpi-sub">${c[2]}</div>
+      </div>
+    </div>`).join("");
+}
+function trafficClass(metric, value) {
+  if(metric==="Liquidez") return value >= 2 ? "traffic-green" : value >= 1.5 ? "traffic-yellow" : "traffic-red";
+  if(metric==="Endeudamiento") return value <= 0.4 ? "traffic-green" : value <= 0.5 ? "traffic-yellow" : "traffic-red";
+  if(metric==="Rentabilidad ventas") return value >= 0.15 ? "traffic-green" : value >= 0.12 ? "traffic-yellow" : "traffic-red";
+  if(metric==="Ciclo financiero") return value <= 120 ? "traffic-green" : value <= 140 ? "traffic-yellow" : "traffic-red";
+  return "traffic-yellow";
+}
+function trafficText(metric, value) {
+  if(metric==="Liquidez") return value >= 2 ? "Sólida" : value >= 1.5 ? "Aceptable" : "Presión de corto plazo";
+  if(metric==="Endeudamiento") return value <= 0.4 ? "Bajo" : value <= 0.5 ? "Moderado" : "Elevado";
+  if(metric==="Rentabilidad ventas") return value >= 0.15 ? "Fuerte" : value >= 0.12 ? "Media" : "Débil";
+  if(metric==="Ciclo financiero") return value <= 120 ? "Controlado" : value <= 140 ? "Atención" : "Lento";
+  return "Revisar";
+}
+function renderTraffic() {
+  const i = yearIndex();
+  const items = [
+    ["Liquidez", data.financial["Liquidez"][i], fmtNum(data.financial["Liquidez"][i],2)+"x"],
+    ["Endeudamiento", data.financial["Endeudamiento"][i], fmtPct(data.financial["Endeudamiento"][i],1)],
+    ["Rentabilidad ventas", data.profitability["Rentabilidad ventas"][i], fmtPct(data.profitability["Rentabilidad ventas"][i],1)],
+    ["Ciclo financiero", data.management["Ciclo financiero"][i], fmtNum(data.management["Ciclo financiero"][i],1)+" días"]
+  ];
+  document.getElementById("trafficGrid").innerHTML = items.map(x => `
+    <div class="col-lg-3 col-md-6">
+      <div class="traffic-card ${trafficClass(x[0],x[1])}">
+        <div class="mini-label">${x[0]}</div>
+        <div class="traffic-value">${x[2]}</div>
+        <div>${trafficText(x[0],x[1])}</div>
+      </div>
+    </div>`).join("");
+  document.getElementById("trafficInterpretation").innerHTML = `
+    <span class="pill">Liquidez ${trafficText("Liquidez", data.financial["Liquidez"][i])}</span>
+    <span class="pill">Endeudamiento ${trafficText("Endeudamiento", data.financial["Endeudamiento"][i])}</span>
+    <span class="pill">Rentabilidad ${trafficText("Rentabilidad ventas", data.profitability["Rentabilidad ventas"][i])}</span>
+    <span class="pill">Ciclo ${trafficText("Ciclo financiero", data.management["Ciclo financiero"][i])}</span>
+  `;
+}
+function destroyCharts() {
+  Object.values(charts).forEach(c => c && c.destroy());
+  charts = {};
+}
+function commonLineOptions(isRatio=false, suffix="") {
+  return {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:"bottom"} },
+    scales:{ y:{ ticks:{ callback:(v)=> isRatio ? Number(v).toFixed(2) : v + suffix } } }
+  };
+}
+function commonBarOptions() {
+  return { responsive:true, maintainAspectRatio:false, plugins:{ legend:{position:"bottom"} } };
+}
+function createCharts() {
+  destroyCharts();
+  charts.balance = new Chart(document.getElementById("chartBalance"), {
+    type:"line",
+    data:{ labels:years, datasets:[
+      {label:"Activo total", data:data.balances["Activo total"], borderColor:"#2563eb", backgroundColor:"rgba(37,99,235,.08)", tension:.3},
+      {label:"Pasivo total", data:data.balances["Pasivo total"], borderColor:"#dc2626", backgroundColor:"rgba(220,38,38,.08)", tension:.3},
+      {label:"Capital contable", data:data.balances["Capital contable"], borderColor:"#16a34a", backgroundColor:"rgba(22,163,74,.08)", tension:.3}
+    ]}, options:commonLineOptions()
+  });
+  charts.results = new Chart(document.getElementById("chartResults"), {
+    type:"bar",
+    data:{ labels:years, datasets:[
+      {label:"Ingresos", data:data.results["Ingresos"], backgroundColor:"#2563eb"},
+      {label:"Costos", data:data.results["Costos del servicio"], backgroundColor:"#f59e0b"},
+      {label:"Gastos", data:data.results["Gastos operativos"], backgroundColor:"#7c3aed"},
+      {label:"Resultado neto", data:data.results["Resultado neto"], backgroundColor:"#16a34a"}
+    ]}, options:commonBarOptions()
+  });
+  charts.financial = new Chart(document.getElementById("chartFinancial"), {
+    type:"line",
+    data:{ labels:years, datasets:[
+      {label:"Liquidez", data:data.financial["Liquidez"], borderColor:"#2563eb", tension:.3},
+      {label:"Autonomía", data:data.financial["Autonomía"], borderColor:"#16a34a", tension:.3},
+      {label:"Endeudamiento", data:data.financial["Endeudamiento"], borderColor:"#dc2626", tension:.3}
+    ]}, options:commonLineOptions(true)
+  });
+  charts.profitability = new Chart(document.getElementById("chartProfitability"), {
+    type:"line",
+    data:{ labels:years, datasets:[
+      {label:"ROI", data:data.profitability["ROI"].map(v=>v*100), borderColor:"#2563eb", tension:.3},
+      {label:"ROE", data:data.profitability["ROE"].map(v=>v*100), borderColor:"#7c3aed", tension:.3},
+      {label:"Rent. ventas", data:data.profitability["Rentabilidad ventas"].map(v=>v*100), borderColor:"#16a34a", tension:.3},
+      {label:"Margen sobre ventas", data:data.profitability["Margen sobre ventas"].map(v=>v*100), borderColor:"#f59e0b", tension:.3}
+    ]}, options:commonLineOptions(false,"%")
+  });
+  charts.management = new Chart(document.getElementById("chartManagement"), {
+    type:"line",
+    data:{ labels:years, datasets:[
+      {label:"Inventario días", data:data.management["Inventario días"], borderColor:"#2563eb", tension:.3},
+      {label:"Cobro clientes", data:data.management["Cobro a clientes días"], borderColor:"#7c3aed", tension:.3},
+      {label:"Pago proveedores", data:data.management["Pago a proveedores días"], borderColor:"#16a34a", tension:.3},
+      {label:"Ciclo financiero", data:data.management["Ciclo financiero"], borderColor:"#dc2626", tension:.3}
+    ]}, options:commonLineOptions(false," días")
+  });
+  charts.cash = new Chart(document.getElementById("chartCash"), {
+    type:"bar",
+    data:{ labels:years, datasets:[
+      {label:"Cash Flow", data:data.balances["Cash Flow"], backgroundColor:"#16a34a"},
+      {label:"Capital de trabajo neto", data:data.financial["Capital de trabajo neto"], backgroundColor:"#0ea5e9"}
+    ]}, options:commonBarOptions()
+  });
+}
+function renderProjectionGrowthAlerts() {
+  document.getElementById("projectionText").innerHTML = `
+    <div>Usando una proyección lineal simple sobre 2022–2025:</div>
+    <ul class="mb-0 mt-2">
+      <li>Ingresos 2026 estimados: <strong>${fmtMoney(projection.ingresos_2026)}</strong></li>
+      <li>Resultado neto 2026 estimado: <strong>${fmtMoney(projection.resultado_2026)}</strong></li>
+      <li>Cash Flow 2026 estimado: <strong>${fmtMoney(projection.cashflow_2026)}</strong></li>
+    </ul>
+    <div class="mt-2 text-secondary">Esto ayuda a planear capacidad, gasto operativo y metas comerciales.</div>`;
+  document.getElementById("growthText").innerHTML = `
+    <ul class="mb-0">
+      <li>Ingresos 2025 vs 2024: <strong>${fmtNum(growth.ingresos,1)}%</strong></li>
+      <li>Cash Flow 2025 vs 2024: <strong>${fmtNum(growth.cashflow,1)}%</strong></li>
+      <li>Activo total 2025 vs 2024: <strong>${fmtNum(growth.activo,1)}%</strong></li>
+      <li>Resultado neto 2025 vs 2024: <strong>${fmtNum(growth.resultado,1)}%</strong></li>
+    </ul>
+    <div class="mt-2 text-secondary">Estos indicadores muestran qué tan sostenible es el crecimiento observado.</div>`;
+  document.getElementById("alertsText").innerHTML = `
+    <ul class="mb-0">
+      <li>El <strong>resultado neto</strong> se mantuvo plano entre 2024 y 2025 a pesar del mayor ingreso.</li>
+      <li>Los <strong>costos y gastos</strong> crecieron, por lo que conviene revisar eficiencia operativa y margen.</li>
+      <li>El <strong>ciclo financiero</strong> mejoró frente a 2023, pero sigue en zona de atención en 2025.</li>
+      <li>La <strong>liquidez</strong> es saludable en 2025 y el endeudamiento baja, lo que da margen para decidir con menor presión.</li>
+    </ul>`;
+}
+function renderTables() {
+  const balanceRows = [
+    ["Activo total", ...data.balances["Activo total"]],
+    ["Pasivo total", ...data.balances["Pasivo total"]],
+    ["Capital contable", ...data.balances["Capital contable"]],
+    ["Activo circulante", ...data.balances["Activo circulante"]],
+    ["Pasivo corto plazo", ...data.balances["Pasivo corto plazo"]],
+    ["Ingresos", ...data.results["Ingresos"]],
+    ["Costos del servicio", ...data.results["Costos del servicio"]],
+    ["Gastos operativos", ...data.results["Gastos operativos"]],
+    ["Resultado neto", ...data.results["Resultado neto"]],
+    ["Cash Flow", ...data.balances["Cash Flow"]]
+  ];
+  document.getElementById("tableBalance").innerHTML = `
+    <thead><tr><th>Concepto</th>${years.map(y=>`<th>${y}</th>`).join("")}</tr></thead>
+    <tbody>${balanceRows.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(v=>`<td>${fmtMoney(v)}</td>`).join("")}</tr>`).join("")}</tbody>`;
+  const ratioRows = [
+    ["Liquidez", ...data.financial["Liquidez"].map(v=>fmtNum(v,2)+"x")],
+    ["Autonomía", ...data.financial["Autonomía"].map(v=>fmtPct(v,1))],
+    ["Endeudamiento", ...data.financial["Endeudamiento"].map(v=>fmtPct(v,1))],
+    ["ROI", ...data.profitability["ROI"].map(v=>fmtPct(v,1))],
+    ["ROE", ...data.profitability["ROE"].map(v=>fmtPct(v,1))],
+    ["Rent. ventas", ...data.profitability["Rentabilidad ventas"].map(v=>fmtPct(v,1))],
+    ["Margen sobre ventas", ...data.profitability["Margen sobre ventas"].map(v=>fmtPct(v,1))],
+    ["Inventario días", ...data.management["Inventario días"].map(v=>fmtNum(v,1))],
+    ["Cobro clientes días", ...data.management["Cobro a clientes días"].map(v=>fmtNum(v,1))],
+    ["Pago proveedores días", ...data.management["Pago a proveedores días"].map(v=>fmtNum(v,1))],
+    ["Ciclo operativo", ...data.management["Ciclo operativo"].map(v=>fmtNum(v,1))],
+    ["Ciclo financiero", ...data.management["Ciclo financiero"].map(v=>fmtNum(v,1))]
+  ];
+  document.getElementById("tableRatios").innerHTML = `
+    <thead><tr><th>Indicador</th>${years.map(y=>`<th>${y}</th>`).join("")}</tr></thead>
+    <tbody>${ratioRows.map(r=>`<tr><td>${r[0]}</td>${r.slice(1).map(v=>`<td>${v}</td>`).join("")}</tr>`).join("")}</tbody>`;
+}
+function renderNarratives() {
+  const i = yearIndex();
+  const ingresos = data.results["Ingresos"][i];
+  const utilidad = data.results["Resultado neto"][i];
+  const liquidez = data.financial["Liquidez"][i];
+  const deuda = data.financial["Endeudamiento"][i];
+  const roe = data.profitability["ROE"][i];
+  const ciclo = data.management["Ciclo financiero"][i];
+  document.getElementById("interpretationText").innerHTML = `
+    <p>En <strong>${selectedYear}</strong>, la empresa registró <strong>${fmtMoney(ingresos)}</strong> en ingresos y <strong>${fmtMoney(utilidad)}</strong> de resultado neto.</p>
+    <p>La <strong>liquidez</strong> fue de <strong>${fmtNum(liquidez,2)}x</strong>, lo que indica capacidad adecuada para cubrir compromisos de corto plazo. El <strong>endeudamiento</strong> cerró en <strong>${fmtPct(deuda,1)}</strong>, mostrando una carga controlada.</p>
+    <p>El <strong>ROE</strong> se ubicó en <strong>${fmtPct(roe,1)}</strong>, pero el crecimiento de costos y gastos limita la expansión del beneficio. El <strong>ciclo financiero</strong> de <strong>${fmtNum(ciclo,1)} días</strong> sugiere seguir mejorando la rotación operativa.</p>`;
+  document.getElementById("decisionText").innerHTML = `
+    <ul class="mb-0">
+      <li>Reforzar decisiones comerciales que sostengan el crecimiento de ingresos sin elevar costos al mismo ritmo.</li>
+      <li>Controlar gastos operativos para recuperar expansión del resultado neto.</li>
+      <li>Reducir días de inventario y días de cobro para acortar el ciclo financiero.</li>
+      <li>Aprovechar la menor presión de deuda para priorizar inversiones con retorno claro.</li>
+      <li>Usar la proyección 2026 como base para metas, presupuesto y escenarios de crecimiento.</li>
+    </ul>`;
+}
+function init() {
+  buildYearButtons();
+  renderKPIs();
+  renderTraffic();
+  createCharts();
+  renderProjectionGrowthAlerts();
+  renderTables();
+  renderNarratives();
+}
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
