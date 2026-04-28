@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ramenchito México | Ramen Asiático en Guadalajara</title>
+  <meta name="description" content="Ramenchito México. Ramen auténtico importado desde Tailandia. Conoce sabores, sucursales, mayoreo y contacto." />
+
+  <link rel="icon" href="https://drive.google.com/thumbnail?id=1RSURwpBKf5qQZmq21-8mhX4YoqM-2z4g&sz=w1000" type="image/png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" href="css/estilos.css" />
+</head>
+<script>
+  const instaSlider = document.getElementById('instagramSlider');
+  const instaPrev = document.querySelector('.insta-prev');
+  const instaNext = document.querySelector('.insta-next');
+
+  if (instaSlider && instaPrev && instaNext) {
+    const getScrollAmount = () => {
+      const firstCard = instaSlider.querySelector('.insta-card');
+      if (!firstCard) return 300;
+      const gap = 16;
+      return firstCard.offsetWidth + gap;
+    };
+
+    instaPrev.addEventListener('click', () => {
+      instaSlider.scrollBy({
+        left: -getScrollAmount(),
+        behavior: 'smooth'
+      });
+    });
+
+    instaNext.addEventListener('click', () => {
+      instaSlider.scrollBy({
+        left: getScrollAmount(),
+        behavior: 'smooth'
+      });
+    });
+  }
+</script>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="site-header">
+    <nav class="navbar-site container-site">
+      <a href="#home" class="brand">
+        <img src="https://drive.google.com/thumbnail?id=1RSURwpBKf5qQZmq21-8mhX4YoqM-2z4g&sz=w1000" alt="Ramenchito México">
+        <span>Ramenchito México</span>
+      </a>
+
+      <div class="nav-wrap">
+        <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navMenu">
+          <li><a href="#home">Inicio</a></li>
+          <li><a href="#about">Nosotros</a></li>
+          <li><a href="#products">Sabores</a></li>
+          <li><a href="#locations">Sucursales</a></li>
+          <li><a href="#wholesale">Mayoreo</a></li>
+          <li><a href="#contact">Contacto</a></li>
+        </ul>
+
+        <a href="#contact" class="btn-main nav-cta-desktop">Haz tu pedido</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="container-site hero-grid">
+      <div class="hero-copy" data-aos="fade-up">
+        <span class="hero-badge">Auténtico • Práctico • Delicioso</span>
+
+        <h1>
+          El ramen que
+          <span>sí se antoja</span>
+        </h1>
+
+        <p>
+          En Ramenchito llevamos a México una experiencia auténtica de ramen asiático con sabores intensos,
+          presentación atractiva y productos importados desde <strong>Tailandia</strong>.
+          Ideal para disfrutar, vender o pedir por mayoreo.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#products" class="btn-main">Ver sabores</a>
+          <a href="#locations" class="btn-outline">Ver sucursales</a>
+        </div>
+
+        <div class="hero-points">
+          <div class="hero-point">
+            <strong>+8</strong>
+            <span>productos destacados</span>
+          </div>
+          <div class="hero-point">
+            <strong>GDL</strong>
+            <span>sucursales activas</span>
+          </div>
+          <div class="hero-point">
+            <strong>Mayoreo</strong>
+            <span>y distribución</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual" data-aos="zoom-in" data-aos-delay="120">
+        <div class="hero-card">
+          <div class="hero-card-top">
+            <span class="dot dot-1"></span>
+            <span class="dot dot-2"></span>
+            <span class="dot dot-3"></span>
+          </div>
+
+          <div class="hero-card-body">
+            <p class="eyebrow">Favorito del momento</p>
+            <h3>Pollo con Curry Verde</h3>
+            <p>
+              Aromático, intenso y con una presentación que roba la atención desde el primer vistazo.
+            </p>
+
+            <div class="tag-row">
+              <span class="tag">Tailandia</span>
+              <span class="tag">Sabor intenso</span>
+              <span class="tag">Ramenchito</span>
+            </div>
+
+            <div class="hero-product-image">
+              <img src="https://drive.google.com/thumbnail?id=1avpDibKF9_vcU0RmXc8h5Aa5YwQWIbvY&sz=w1000" alt="Pollo con Curry Verde">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section about">
+    <div class="container-site">
+      <div class="section-head" data-aos="fade-up">
+        <span class="section-kicker">Nuestra propuesta</span>
+        <h2>Ramenchito no solo vende ramen. Vende antojo.</h2>
+        <p class="section-sub">
+          Diseñamos una experiencia visual y de sabor que conecta con el público desde la presentación del producto,
+          la intensidad del caldo y la practicidad de consumo.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <article class="info-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="icon-box"><i class="fa-solid fa-fire"></i></div>
+          <h3>Sabor que impacta</h3>
+          <p>Sabores intensos, memorables y listos para destacar en anaquel, menú o redes.</p>
+        </article>
+
+        <article class="info-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="icon-box"><i class="fa-solid fa-bowl-food"></i></div>
+          <h3>Imagen que vende</h3>
+          <p>Productos con empaque atractivo, colorido y con una identidad visual muy fuerte.</p>
+        </article>
+
+        <article class="info-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="icon-box"><i class="fa-solid fa-store"></i></div>
+          <h3>Ideal para negocio</h3>
+          <p>Perfecto para sucursales, distribuidores, tiendas, puntos de venta y mayoreo.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="section products">
+    <div class="container-site">
+      <div class="section-head" data-aos="fade-up">
+        <span class="section-kicker">Sabores destacados</span>
+        <h2>Una línea pensada para llamar la atención</h2>
+        <p class="section-sub">
+          Desde sabores clásicos hasta opciones más atrevidas, cada producto está pensado para despertar curiosidad,
+          antojo y recompra.
+        </p>
+      </div>
+
+      <div class="products-grid">
+
+        <article class="product-card" data-aos="fade-up" data-aos-delay="50">
+          <div class="product-media media-1">
+            <img src="https://drive.google.com/thumbnail?id=1lP7cYUxiV5Rer35BrAmjslDBN_mgAVZw&sz=w1000" alt="Pollo">
+          </div>
+          <h3>Pollo</h3>
+          <p>Clásico, cálido y muy fácil de amar. El sabor perfecto para entrar al mundo Ramenchito.</p>
+        </article>
+
+        <article class="product-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="product-media media-2">
+            <img src="https://drive.google.com/thumbnail?id=14abZ-wGYzxAMTMmcwoLEXcGdMnb5whmx&sz=w1000" alt="Carne">
+          </div>
+          <h3>Carne</h3>
+          <p>Profundo, intenso y con carácter. Ideal para quien busca un ramen más robusto.</p>
+        </article>
+
+        <article class="product-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="product-media media-3">
+            <img src="https://drive.google.com/thumbnail?id=14fhT7jSwcUIQNIfNFv9EVd775u3X-Goe&sz=w1000" alt="Camarón">
+          </div>
+          <h3>Camarón</h3>
+          <p>Una opción marina con perfil especiado y gran presencia visual.</p>
+        </article>
+
+        <article class="product-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="product-media media-4">
+            <img src="https://drive.google.com/thumbnail?id=1N0u1P451PwjdZ_OFMfkeKzLZmxTQJdyT&sz=w1000" alt="Picante">
+          </div>
+          <h3>Picante y condimentado</h3>
+          <p>Explosivo, atrevido y perfecto para quienes buscan una experiencia más intensa.</p>
+        </article>
+
+        <article class="product-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="product-media media-5">
+            <img src="https://drive.google.com/thumbnail?id=1b-QuAutyeMpp8aCxkErj_kA4Rhw2hsme&sz=w1000" alt="Tom Yum">
+          </div>
+          <h3>Tom Yum</h3>
+          <p>Notas cítricas, personalidad tailandesa y un sabor que destaca por su frescura.</p>
+        </article>
+
+        <article class="product-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="product-media media-6">
+            <img src="https://drive.google.com/thumbnail?id=1fpTnS8ThTErf006l4nfz7rnWGX_m7pe0&sz=w1000" alt="Vegetales">
+          </div>
+          <h3>Vegetales</h3>
+          <p>Ligero, balanceado y con una propuesta amable para distintos públicos.</p>
+        </article>
+
+        <article class="product-card" data-aos="fade-up" data-aos-delay="350">
+          <div class="product-media media-7">
+            <img src="https://drive.google.com/thumbnail?id=1avpDibKF9_vcU0RmXc8h5Aa5YwQWIbvY&sz=w1000" alt="Pollo con Curry Verde">
+          </div>
+          <h3>Pollo con Curry Verde</h3>
+          <p>Aromático, moderno y muy atractivo visualmente. Uno de los más llamativos de la línea.</p>
+        </article>
+
+        <article class="product-card" data-aos="fade-up" data-aos-delay="400">
+          <div class="product-media media-8">
+            <img src="https://drive.google.com/thumbnail?id=11TAJwkqneM1uuHvumb5oLXjv-SHyKUUG&sz=w1000" alt="Maxi Soda">
+          </div>
+          <h3>Maxi Soda</h3>
+          <p>El complemento ideal para una experiencia más fresca, dulce y visualmente atractiva.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOWCASE -->
+  <section class="section showcase">
+    <div class="container-site showcase-grid">
+      <div class="showcase-copy" data-aos="fade-right">
+        <span class="section-kicker">¿Por qué funciona?</span>
+        <h2>Producto correcto + diseño correcto = más atención</h2>
+        <p>
+          Una marca de comida vende mejor cuando se ve antojable, clara y confiable.
+          Por eso la página está pensada para mostrar producto, despertar hambre y empujar a la acción.
+        </p>
+
+        <ul class="benefit-list">
+          <li><i class="fa-solid fa-check"></i> Imagen atractiva y moderna</li>
+          <li><i class="fa-solid fa-check"></i> Producto visualmente memorable</li>
+          <li><i class="fa-solid fa-check"></i> Comunicación clara para cliente y distribuidor</li>
+          <li><i class="fa-solid fa-check"></i> Estructura enfocada en conversión</li>
+        </ul>
+      </div>
+
+      <div class="showcase-carousel" data-aos="fade-left">
+        <div id="ramenCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2800">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#ramenCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#ramenCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#ramenCarousel" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#ramenCarousel" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#ramenCarousel" data-bs-slide-to="4"></button>
+            <button type="button" data-bs-target="#ramenCarousel" data-bs-slide-to="5"></button>
+            <button type="button" data-bs-target="#ramenCarousel" data-bs-slide-to="6"></button>
+            <button type="button" data-bs-target="#ramenCarousel" data-bs-slide-to="7"></button>
+          </div>
+
+          <div class="carousel-inner showcase-box">
+            <div class="carousel-item active">
+              <img src="https://drive.google.com/thumbnail?id=1lP7cYUxiV5Rer35BrAmjslDBN_mgAVZw&sz=w1000" class="showcase-img" alt="Pollo">
+            </div>
+            <div class="carousel-item">
+              <img src="https://drive.google.com/thumbnail?id=14abZ-wGYzxAMTMmcwoLEXcGdMnb5whmx&sz=w1000" class="showcase-img" alt="Carne">
+            </div>
+            <div class="carousel-item">
+              <img src="https://drive.google.com/thumbnail?id=14fhT7jSwcUIQNIfNFv9EVd775u3X-Goe&sz=w1000" class="showcase-img" alt="Camarón">
+            </div>
+            <div class="carousel-item">
+              <img src="https://drive.google.com/thumbnail?id=1N0u1P451PwjdZ_OFMfkeKzLZmxTQJdyT&sz=w1000" class="showcase-img" alt="Picante">
+            </div>
+            <div class="carousel-item">
+              <img src="https://drive.google.com/thumbnail?id=1b-QuAutyeMpp8aCxkErj_kA4Rhw2hsme&sz=w1000" class="showcase-img" alt="Tom Yum">
+            </div>
+            <div class="carousel-item">
+              <img src="https://drive.google.com/thumbnail?id=1fpTnS8ThTErf006l4nfz7rnWGX_m7pe0&sz=w1000" class="showcase-img" alt="Vegetales">
+            </div>
+            <div class="carousel-item">
+              <img src="https://drive.google.com/thumbnail?id=1avpDibKF9_vcU0RmXc8h5Aa5YwQWIbvY&sz=w1000" class="showcase-img" alt="Pollo con Curry Verde">
+            </div>
+            <div class="carousel-item">
+              <img src="https://drive.google.com/thumbnail?id=11TAJwkqneM1uuHvumb5oLXjv-SHyKUUG&sz=w1000" class="showcase-img" alt="Maxi Soda">
+            </div>
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#ramenCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+
+          <button class="carousel-control-next" type="button" data-bs-target="#ramenCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section id="locations" class="section locations">
+    <div class="container-site">
+      <div class="section-head" data-aos="fade-up">
+        <span class="section-kicker">Puntos de venta</span>
+        <h2>Encuentra Ramenchito en Guadalajara</h2>
+        <p class="section-sub">
+          Estas son algunas de nuestras ubicaciones activas. Selecciona una para ver detalles.
+        </p>
+      </div>
+
+      <div class="location-actions" data-aos="fade-up" data-aos-delay="100">
+        <a class="btn-location" data-bs-toggle="collapse" href="#gdlCollapse" role="button" aria-expanded="false" aria-controls="gdlCollapse">
+          Guadalajara
+        </a>
+
+        <a class="btn-location" data-bs-toggle="collapse" href="#leonCollapse" role="button" aria-expanded="false" aria-controls="leonCollapse">
+          León
+        </a>
+      </div>
+
+      <div class="location-panels" data-aos="fade-up" data-aos-delay="150">
+        <div class="collapse" id="gdlCollapse">
+          <div class="location-card">
+            <h3>Guadalajara</h3>
+
+            <div class="branch">
+              <strong>Sucursal Acuña</strong>
+              <p>C. Manuel Acuña 450, esquina Bernardo de Balbuena, Col. Ladrón de Guevara, 44600 Guadalajara, Jalisco, México.</p>
+              <a href="https://www.google.com/maps/place/Ramenchito/@20.6842164,-103.3724631,52m/data=!3m1!1e3!4m6!3m5!1s0x8428af000955e5d3:0x843795649dc5027!8m2!3d20.6842292!4d-103.3724771!16s%2Fg%2F11l_5vmm3y?entry=ttu&g_ep=EgoyMDI2MDMwMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="maps-btn">Ir a Google Maps</a>
+            </div>
+
+            <div class="branch">
+              <strong>Sucursal Chapultepec</strong>
+              <p>Av. Chapultepec Nte. 151, Col. Ladrón de Guevara, 44600 Guadalajara, Jalisco, México.</p>
+              <a href="https://www.google.com/maps/place/Ramenchito/@20.6843234,-103.372476,1672m/data=!3m1!1e3!4m10!1m2!2m1!1sRamenchito!3m6!1s0x8428af0074bf7e5d:0x28b0df62b1eee5fb!8m2!3d20.6788054!4d-103.3689873!15sCgpSYW1lbmNoaXRvWgwiCnJhbWVuY2hpdG-SARBhc2lhbl9yZXN0YXVyYW504AEA!16s%2Fg%2F11ygxtc77q?entry=ttu&g_ep=EgoyMDI2MDMwMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="maps-btn">Ir a Google Maps</a>
+            </div>
+
+            <div class="branch">
+              <strong>Sucursal Centro Tlaquepaque</strong>
+              <p>Calle Progreso 67, Centro, 45500 San Pedro Tlaquepaque, Jalisco, México.</p>
+              <a href="https://www.google.com/maps/place/Ramenchito/@20.6380819,-103.3115052,167m/data=!3m1!1e3!4m10!1m2!2m1!1sRamenchito!3m6!1s0x8428b3d4cce1f87b:0x78bb6761e94009cc!8m2!3d20.6380817!4d-103.3114269!15sCgpSYW1lbmNoaXRvWgwiCnJhbWVuY2hpdG-SARByYW1lbl9yZXN0YXVyYW504AEA!16s%2Fg%2F11yppr7kby?entry=ttu&g_ep=EgoyMDI2MDQxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="maps-btn">Ir a Google Maps</a>
+            </div>
+
+            <div class="branch">
+              <strong>Sucursal San Juan de Dios</strong>
+              <p>Av. Francisco Javier Mina 281, Col. San Juan de Dios, 45500 San Pedro Tlaquepaque, Jalisco, México.</p>
+              <a href="https://www.google.com/maps/place/Ramenchito/@20.6743955,-103.3374823,211m/data=!3m1!1e3!4m10!1m2!2m1!1sRamenchito!3m6!1s0x8428b10041e82e4f:0x178ca21ca8455392!8m2!3d20.6743826!4d-103.3369609!15sCgpSYW1lbmNoaXRvWgwiCnJhbWVuY2hpdG-SARBhc2lhbl9yZXN0YXVyYW504AEA!16s%2Fg%2F11xzsbsz0_?entry=ttu&g_ep=EgoyMDI2MDQxNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="maps-btn">Ir a Google Maps</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="collapse" id="leonCollapse">
+          <div class="location-card">
+            <h3>León</h3>
+            <p class="coming-soon">Próximamente...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHOLESALE -->
+  <section id="wholesale" class="section wholesale">
+    <div class="container-site">
+      <div class="wholesale-box" data-aos="fade-up">
+        <span class="section-kicker">Venta de mayoreo</span>
+        <h2>Haz crecer tu negocio con Ramenchito</h2>
+        <p>
+          Si te interesa distribuir, vender por volumen o conocer opciones para negocio, estamos listos para darte información.
+        </p>
+
+        <div class="wholesale-actions">
+          <a href="#contact" class="btn-main">Solicitar información</a>
+          <a href="#products" class="btn-outline">Ver productos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <div class="container-site">
+      <div class="section-head" data-aos="fade-up">
+        <span class="section-kicker">Hablemos</span>
+        <h2>Contacto y pedidos</h2>
+        <p class="section-sub">
+          Escríbenos si deseas ordenar, cotizar mayoreo, abrir una franquicia o conocer disponibilidad.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info" data-aos="fade-right">
+          <div class="contact-card">
+            <h3>Atención Ramenchito</h3>
+            <p>Respondemos temas de pedidos, sucursales, distribución y venta de mayoreo.</p>
+
+            <ul class="contact-list">
+              <li><i class="fa-solid fa-check"></i> Pedidos</li>
+              <li><i class="fa-solid fa-check"></i> Franquicias</li>
+              <li><i class="fa-solid fa-check"></i> Distribución</li>
+              <li><i class="fa-solid fa-check"></i> Venta por mayoreo</li>
+            </ul>
+          </div>
+        </div>
+
+        <form class="contact-form needs-validation" novalidate data-aos="fade-left">
+          <div class="mb-3">
+            <label for="correoIme" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="correoIme" placeholder="tucorreo@ejemplo.com" required>
+            <div class="invalid-feedback">Por favor escribe un correo electrónico válido.</div>
+            <div class="form-text">Nunca compartiremos tu correo con nadie.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="nombreIme" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreIme" placeholder="Tu nombre" required>
+            <div class="invalid-feedback">Por favor escribe tu nombre.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="mensajeIme" class="form-label">Mensaje</label>
+            <textarea class="form-control" id="mensajeIme" rows="5" placeholder="Cuéntanos si quieres ordenar, distribuir o comprar por mayoreo..." required></textarea>
+            <div class="invalid-feedback">Por favor escribe un mensaje.</div>
+          </div>
+
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="checkIme">
+            <label class="form-check-label" for="checkIme">Quiero recibir información de mayoreo o franquicias</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Enviar</button>
+          <p class="form-note">Al enviar aceptas ser contactado por Ramenchito México.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM FEED -->
+<section id="instagram-feed" class="section instagram-feed">
+  <div class="container-site">
+    <div class="instagram-head" data-aos="fade-up">
+      <h2>@ramenchito1</h2>
+      <p>#Síguenos en nuestras redes sociales</p>
+    </div>
+
+    <div class="instagram-slider-wrap" data-aos="fade-up" data-aos-delay="100">
+      <button class="insta-arrow insta-prev" type="button" aria-label="Anterior">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="instagram-slider" id="instagramSlider">
+        
+      
+
+        <a href="https://www.instagram.com/ramenchito1/" target="_blank" rel="noopener noreferrer" class="insta-card">
+          <img src="https://drive.google.com/thumbnail?id=1zK1KqgowwCulBgPuDnsFbgWtt3e4mPXY&sz=w1000">
+          <span class="insta-overlay">
+            <i class="fab fa-instagram"></i>
+          </span>
+        </a>
+
+        <a href="https://www.instagram.com/ramenchito.santatere/" target="_blank" rel="noopener noreferrer" class="insta-card">
+          <img src="https://drive.google.com/thumbnail?id=1UlkYu9HCW-4ELgXwJQTFGdreSzbYaUV2&sz=w1000">
+          <span class="insta-overlay">
+            <i class="fab fa-instagram"></i>
+          </span>
+        </a>
+
+      <button class="insta-arrow insta-next" type="button" aria-label="Siguiente">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container-site footer-inner">
+      <div class="footer-brand">
+        <img src="https://drive.google.com/thumbnail?id=1RSURwpBKf5qQZmq21-8mhX4YoqM-2z4g&sz=w1000" alt="Ramenchito México">
+        <div>
+          <h3>Ramenchito México</h3>
+          <p>Auténtico sabor asiático, ahora en México.</p>
+        </div>
+      </div>
+
+      <div class="footer-social">
+        <h3>Síguenos</h3>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/ramenchito1/" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-instagram"></i>
+          </a>
+
+          <a href="https://www.instagram.com/ramenchito.santatere/" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-instagram"></i>
+          </a>
+
+          <a href="https://www.tiktok.com/@ramenchito6?_t=ZS-8wIW0gSVSrv&_r=1&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnFZwKatsBhj3yAyssvFhGXEhYoaIuDBRlUYhdQzDWNZc9KNukz6pkqbxG6ec_aem_VCjgylxIkMDAKKOaLZaPTQ" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+      </div>
+
+      <p class="footer-right">© 2026 Ramenchito México. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    AOS.init({
+      duration: 900,
+      once: true
+    });
+
+    const toggle = document.querySelector(".nav-toggle");
+    const navMenu = document.querySelector(".nav-links");
+    const navbar = document.querySelector(".navbar-site");
+
+    toggle.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!expanded));
+    });
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        navMenu.classList.remove("active");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+
+    (() => {
+      'use strict';
+      const forms = document.querySelectorAll('.needs-validation');
+
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    })();
+  </script>
+</body>
+</html>
