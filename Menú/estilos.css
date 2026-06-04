@@ -1,0 +1,576 @@
+/* ==================================================
+   CSS INICIAL - PROYECTO FINAL
+   Menudería Meléndez Luévano
+   ================================================== */
+
+
+/* ===== 1. VARIABLES DE COLOR ===== */
+
+:root{
+  --color-blanco:#ffffff;
+  --color-negro:#121212;
+  --color-gris-oscuro:#212529;
+  --color-gris:#6c757d;
+  --color-gris-borde:#495057;
+  --color-amarillo:#ffc107;
+  --color-cafe:#6b3f1d;
+  --color-azul-cta:#0d6efd;
+
+  --sombra-negra:rgba(0,0,0,0.5);
+  --sombra-amarilla:rgba(255,193,7,0.5);
+}
+
+
+/* ===== 2. RESET GENERAL ===== */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,
+body{
+  min-height:100%;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  font-family:'Times New Roman', Times, serif;
+  background:linear-gradient(160deg, var(--color-negro), var(--color-gris-oscuro), var(--color-gris-borde));
+  color:var(--color-blanco);
+}
+
+
+/* ===== 3. SELECTORES BASE ===== */
+
+main{
+  flex:1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5{
+  color:var(--color-blanco);
+  text-align:center;
+  font-weight:bold;
+}
+
+p{
+  color:var(--color-blanco);
+  text-align:center;
+  font-size:15px;
+}
+
+a{
+  text-decoration:none;
+}
+
+img{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+ul{
+  padding:0;
+}
+
+
+/* ===== 4. CONTENEDORES ===== */
+
+.menu-container{
+  width:100%;
+  max-width:1000px;
+  margin:0 auto;
+  padding:15px;
+}
+
+.pantalla{
+  background:rgba(33,37,41,0.65);
+  backdrop-filter:blur(6px);
+  border:none;
+  border-radius:20px;
+  padding:18px;
+  margin-top:25px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.35);
+}
+
+
+/* ===== 5. NAVBAR ===== */
+
+.navbar{
+  background:rgba(18,18,18,0.95);
+  border-bottom:3px solid var(--color-amarillo);
+}
+
+.navbar .menu-container{
+  padding-top:8px;
+  padding-bottom:8px;
+}
+
+.navbar-brand{
+  max-width:100%;
+}
+
+.navbar-brand span{
+  color:var(--color-amarillo);
+  font-weight:bold;
+  font-size:18px;
+  line-height:1.1;
+  letter-spacing:0.5px;
+  white-space:normal;
+}
+
+.navbar-centro{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.titulo-navbar,
+.titulo-navbar-MENU{
+  color:var(--color-amarillo);
+  font-family:'Times New Roman', Times, serif;
+  font-size:32px;
+  font-weight:bold;
+  text-align:center;
+  margin:0;
+  letter-spacing:1px;
+  text-shadow:0 0 10px rgba(255,193,7,0.35);
+}
+
+.link-navbar{
+  color:var(--color-amarillo);
+  text-decoration:none;
+}
+
+.link-navbar:hover{
+  color:var(--color-blanco);
+}
+
+
+/* ===== 6. LOGOTIPOS ===== */
+
+.logo-nav{
+  width:80px;
+  height:80px;
+  object-fit:contain;
+  filter:brightness(0) invert(1);
+  opacity:0.95;
+  margin-right:10px;
+}
+
+.barra{
+  height:70px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:var(--color-negro);
+  border:2px solid var(--color-amarillo);
+  border-radius:15px;
+  margin-bottom:15px;
+}
+
+.barra a{
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-decoration:none;
+}
+
+.logo-barra{
+  height:58px;
+  width:auto;
+  object-fit:contain;
+  filter:brightness(0) invert(1);
+  opacity:0.95;
+}
+
+.logo-menu-link{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:35px;
+  margin-bottom:25px;
+}
+
+.logo-barra-menu{
+  width:135px;
+  height:135px;
+  object-fit:contain;
+  filter:brightness(0) invert(1);
+  opacity:0.95;
+}
+
+
+/* ===== 7. IMÁGENES ===== */
+
+.hero,
+.imagen,
+.logo-contacto{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  border-radius:18px;
+  border:none;
+  margin-bottom:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.35);
+}
+
+.logo-contacto{
+  background:var(--color-blanco);
+  padding:15px;
+}
+
+
+/* ===== 8. TEXTOS ===== */
+
+.titulo{
+  color:var(--color-amarillo);
+  font-weight:bold;
+  margin-bottom:10px;
+}
+
+.precio{
+  color:var(--color-amarillo);
+  font-weight:bold;
+  font-size:18px;
+}
+
+
+/* ===== 9. MENÚ PRINCIPAL ===== */
+
+.menu-principal{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  gap:12px;
+  padding-top:55px;
+}
+
+.opcion{
+  width:100%;
+  max-width:400px;
+  display:block;
+  background:var(--color-gris-oscuro);
+  color:var(--color-blanco);
+  border:2px solid var(--color-gris);
+  border-radius:15px;
+  padding:18px;
+  margin:12px 0;
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  letter-spacing:0.5px;
+  text-decoration:none;
+  transition:all 0.3s ease;
+    background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.15);
+}
+
+.opcion:hover{
+  color:var(--color-azul-cta);
+  border-color:var(--color-azul-cta);
+  transform:translateY(-3px);
+}
+
+
+/* ===== 10. BOTONES ===== */
+
+.btn-cta{
+  display:block;
+  width:100%;
+  background:var(--color-azul-cta);
+  color:var(--color-blanco);
+  border:none;
+  padding:13px;
+  border-radius:15px;
+  font-weight:bold;
+  text-align:center;
+  text-decoration:none;
+  margin-top:12px;
+  transition:all 0.3s ease;
+}
+
+.btn-cta:hover{
+  color:var(--color-azul-cta);
+  background:var(--color-blanco);
+}
+
+
+/* ===== 11. LISTAS ===== */
+
+.lista{
+  list-style:none;
+  margin-top:10px;
+}
+
+.lista li{
+  color:var(--color-blanco);
+  border-bottom:1px dashed var(--color-gris);
+  padding:7px 0;
+  text-align:center;
+}
+
+
+/* ===== 12. FORMULARIOS ===== */
+
+input,
+textarea,
+select,
+button{
+  font-family:'Times New Roman', Times, serif;
+  border-radius:10px;
+  padding:10px;
+  border:2px solid var(--color-gris);
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  outline:none;
+  border-color:var(--color-amarillo);
+  box-shadow:0 0 8px var(--sombra-amarilla);
+}
+
+
+/* ===== 13. FOOTER ===== */
+
+.footer{
+  text-align:center;
+  padding:20px;
+  border-top:3px solid var(--color-amarillo);
+  background:var(--color-negro);
+}
+
+.footer p{
+  margin:0;
+}
+
+
+/* ===== 14. CLASES DE APOYO ===== */
+
+.texto-centro{
+  text-align:center;
+}
+
+.color-amarillo{
+  color:var(--color-amarillo);
+}
+
+.fondo-negro{
+  background:var(--color-negro);
+}
+
+.sombra{
+  box-shadow:0 5px 15px rgba(0,0,0,0.4);
+}
+
+
+/* ===== 15. RESPONSIVE DESIGN ===== */
+
+@media(max-width:768px){
+
+  .menu-container{
+    max-width:430px;
+  }
+
+  .navbar-brand span{
+    font-size:15px;
+  }
+
+  .titulo-navbar,
+  .titulo-navbar-MENU{
+    font-size:24px;
+    line-height:1.2;
+  }
+
+  .titulo{
+    font-size:28px;
+  }
+
+  .opcion{
+    font-size:18px;
+  }
+
+  .btn-cta{
+    font-size:14px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+.barra{
+  background:transparent;
+  margin-bottom:10px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+
+/* ===== CONTACTO ===== */
+
+.contacto-card{
+  max-width:520px;
+  margin:30px auto;
+  padding:28px;
+}
+
+.logo-contacto-contenedor{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.logo-contacto-limpio{
+  width:120px;
+  height:auto;
+  object-fit:contain;
+  filter:brightness(0) invert(1);
+  opacity:0.95;
+}
+
+.texto-contacto{
+  margin-bottom:25px;
+  color:rgba(255,255,255,0.85);
+}
+
+.info-contacto{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin-bottom:25px;
+}
+
+.item-contacto{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:15px;
+  padding:14px;
+  color:var(--color-blanco);
+  box-shadow:0 6px 15px rgba(0,0,0,0.25);
+}
+
+.item-contacto i{
+  color:var(--color-amarillo);
+  font-size:22px;
+}
+
+.form-contacto{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:22px;
+}
+
+.form-contacto input,
+.form-contacto textarea{
+  width:100%;
+  background:rgba(255,255,255,0.95);
+  color:#212529;
+  border:none;
+  border-radius:14px;
+  padding:14px;
+  font-size:16px;
+}
+
+.form-contacto textarea{
+  min-height:90px;
+  resize:none;
+}
+
+.form-contacto button{
+  background:var(--color-amarillo);
+  color:var(--color-negro);
+  border:none;
+  border-radius:14px;
+  padding:14px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.acciones-contacto{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.btn-contacto{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:15px;
+  border-radius:16px;
+  font-weight:bold;
+  text-decoration:none;
+  transition:all 0.3s ease;
+}
+
+.btn-mapa{
+  background:var(--color-amarillo);
+  color:var(--color-negro);
+}
+
+.btn-whatsapp{
+  background:#25D366;
+  color:white;
+}
+
+.btn-regresar{
+  background:var(--color-cafe);
+  color:white;
+}
+
+.btn-contacto:hover{
+  transform:translateY(-3px);
+  filter:brightness(1.1);
+  color:white;
+}
+
+
+.complementoaguacate{
+    width:fit-content;
+    margin:20px auto;
+    padding:15px 25px;
+    background:rgba(18,18,18,0.9);
+    border:2px solid var(--color-amarillo);
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 0 12px rgba(255,193,7,0.25);
+}
+
+.complementoaguacate p{
+    margin:0;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.complementoaguacate span{
+    display:block;
+    margin-top:6px;
+    color:var(--color-amarillo);
+    font-size:14px;
+    font-style:italic;
+}
