@@ -228,19 +228,40 @@
 <div class="modulos-container">
 
   <pre class="modulos-texto">
-Frontend:
-- index.html
-- styles.css
-- app.js
-- service.js
+@startuml
+skinparam componentStyle rectangle
 
-Backend:
-- app.js
-- middleware.js
-- routes.js
-- controller.js
-- model.js
-- utils.js
+package "Frontend" {
+
+  [index.html] as Vista
+  [styles.css] as Estilo
+  [app.js] as Logica
+  [service.js] as Servicio
+
+  Vista --> Estilo : usa
+  Vista --> Logica : ejecuta
+  Logica --> Servicio : llama
+}
+
+package "Backend" {
+
+  [app.js] as EntryPoint
+  [middleware.js] as Middleware
+  [routes.js] as Routes
+  [controller.js] as Controller
+  [model.js] as Model
+  [utils.js] as Utils
+
+  EntryPoint --> Middleware
+  EntryPoint --> Routes
+  Routes --> Controller
+  Controller --> Model
+  Controller --> Utils
+}
+
+Servicio --> EntryPoint : HTTP\nGET/POST
+
+@enduml
   </pre>
 
   <img src="Imagen1.png" alt="Diagrama de módulos Frontend Backend" class="modulos-img">
@@ -255,8 +276,65 @@ Backend:
 <div class="seccion-container">
 
 <pre class="seccion-texto">
-Usuario → Formulario → app.js → service.js → Backend
-Backend → Middleware → Routes → Controller → Model → Respuesta JSON
+@startuml
+
+actor Usuario
+
+participant "Formulario\n(index.html)" as Vista
+participant "app.js" as Logica
+participant "service.js" as Servicio
+
+participant "app.js\nBackend" as App
+participant "middleware.js" as Middleware
+participant "routes.js" as Routes
+participant "controller.js" as Controller
+participant "utils.js" as Utils
+participant "model.js" as Model
+database "Lista Libros\nMemoria" as DB
+
+Usuario -> Vista : Captura datos libro
+Usuario -> Vista : Clic Agregar
+
+Vista -> Logica : Datos formulario
+Logica -> Servicio : crearLibro()
+
+Servicio -> App : POST /libros
+
+App -> Middleware : Validar palabra secreta
+
+alt Palabra correcta
+
+Middleware -> Routes : Continuar
+Routes -> Controller : crearLibro()
+
+Controller -> Utils : generarId()
+Utils --> Controller : nuevoId
+
+Controller -> Model : guardarLibro()
+
+Model -> DB : Insertar libro
+DB --> Model : Confirmación
+
+Model --> Controller : Libro creado
+
+Controller --> Routes : JSON libro
+Routes --> App : Respuesta
+App --> Servicio : 201 Created
+
+Servicio --> Logica : Libro JSON
+Logica --> Vista : Actualizar lista
+
+else Palabra incorrecta
+
+Middleware --> App : Error 401
+App --> Servicio : Unauthorized
+Servicio --> Logica : Error
+Logica --> Vista : No mostrar libro
+Logica -> Logica : Mostrar error en consola
+
+end
+
+@enduml
 </pre>
 
 <img src="Imagen2.png" alt="Diagrama de secuencia" class="seccion-img">
@@ -273,8 +351,21 @@ Backend → Middleware → Routes → Controller → Model → Respuesta JSON
 <div class="seccion-container">
 
 <pre class="seccion-texto">
-Visitante ⇄ Sistema PáginaViva
-(GET /libros | POST /libros)
+@startuml
+
+rectangle "Sistema Librería\nPáginaViva" as Sistema
+
+actor Visitante
+
+Visitante --> Sistema : Solicita catálogo\n(GET /libros)
+
+Sistema --> Visitante : Lista de libros
+
+Visitante --> Sistema : Datos libro\n(título, autor,\nprecio, año,\npalabra secreta)
+
+Sistema --> Visitante : Confirmación\nLibro registrado
+
+@enduml
 </pre>
 
 <img src="Imagen3.png" alt="DFD Nivel 0" class="seccion-img">
@@ -291,13 +382,20 @@ Visitante ⇄ Sistema PáginaViva
 <div class="seccion-container">
 
 <pre class="seccion-texto">
-Libro (
-  id: INT,
-  titulo: TEXT,
-  autor: TEXT,
-  precio: DECIMAL,
-  anio: INT
-)
+@startuml
+
+entity Libro {
+
+  * id : INT
+  --
+  titulo : VARCHAR
+  autor : VARCHAR
+  precio : DECIMAL
+  anio : INT
+
+}
+
+@enduml
 </pre>
 
 <img src="Imagen4.png" alt="Diagrama Entidad Relación" class="seccion-img">
