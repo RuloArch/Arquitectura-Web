@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Examen 3 - PáginaViva</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #0b1220;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111827;
+      padding: 25px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      color: #93c5fd;
+    }
+
+    nav {
+      background: #0f172a;
+      padding: 10px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+    }
+
+    nav a {
+      color: #60a5fa;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #38bdf8;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 5px;
+      margin-top: 40px;
+    }
+
+    h3 {
+      color: #93c5fd;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #111827;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #334155;
+      padding: 8px;
+      font-size: 13px;
+    }
+
+    th {
+      background: #1f2937;
+    }
+
+    pre {
+      background: #0f172a;
+      padding: 15px;
+      overflow-x: auto;
+      border-left: 3px solid #38bdf8;
+    }
+
+    .box {
+      background: #111827;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #111827;
+      margin-top: 40px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .modulos-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.modulos-texto {
+  background: #0f172a;
+  padding: 15px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  flex: 1;
+}
+
+.modulos-img {
+  width: 20%;
+  max-width: 500px;
+  border: 1px solid #334155;
+  border-radius: 8px;
+}
+
+
+.seccion-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.seccion-texto {
+    background: #0f172a;
+    padding: 15px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    flex: 1;
+}
+
+.seccion-img {
+    width: 50%;
+    max-width: 500px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+}
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>EXAMEN 3 — Práctica sobre Diseño del Flujo de Información del Negocio Virtual</h1>
+  <p>18 de junio de 2026 - PáginaViva</p>
+</header>
+
+<nav>
+  <a href="#componentes">Componentes</a>
+  <a href="#modulos">Módulos</a>
+  <a href="#secuencia">Secuencia</a>
+  <a href="#dfd">DFD</a>
+  <a href="#er">ER</a>
+  <a href="#conclusion">Conclusión</a>
+</nav>
+
+<section id="componentes">
+
+<h2>1. Componentes del flujo de información</h2>
+
+<h3>A) Datos</h3>
+
+<table>
+<tr><th>Nombre</th><th>Tipo</th><th>Descripción</th></tr>
+<tr><td>id</td><td>Entero</td><td>Identificador único autogenerado del libro</td></tr>
+<tr><td>titulo</td><td>Texto</td><td>Nombre del libro</td></tr>
+<tr><td>autor</td><td>Texto</td><td>Autor del libro</td></tr>
+<tr><td>precio</td><td>Decimal</td><td>Precio del libro</td></tr>
+<tr><td>anio</td><td>Entero</td><td>Año de publicación</td></tr>
+<tr><td>palabraSecreta</td><td>Texto</td><td>Clave requerida para registrar libros</td></tr>
+<tr><td>listaLibros</td><td>Arreglo JSON</td><td>Colección de libros almacenados</td></tr>
+<tr><td>respuestaJSON</td><td>JSON</td><td>Respuesta enviada por el backend</td></tr>
+</table>
+
+<h3>B) Transformaciones</h3>
+<div class="box">
+<ul>
+<li>Consulta de libros (GET /libros)</li>
+<li>Validación de seguridad de palabra secreta</li>
+<li>Registro de libro con generación de ID</li>
+<li>Renderizado de interfaz en HTML</li>
+<li>Manejo de errores en frontend y backend</li>
+</ul>
+</div>
+
+<h3>C) Responsables</h3>
+<div class="box">
+<ul>
+<li>Usuario / Visitante</li>
+<li>Frontend (service.js)</li>
+<li>Backend (Middleware)</li>
+<li>Backend (Controlador)</li>
+<li>Backend (Modelo)</li>
+</ul>
+</div>
+
+<h3>D) Repositorio</h3>
+<div class="box">
+<p><b>ListaLibrosMemoria:</b> Libro(id, titulo, autor, precio, anio)</p>
+</div>
+
+<h3>E) Controles del flujo de información</h3>
+<div class="box">
+<ul>
+<li>Validación de palabra secreta</li>
+<li>CORS habilitado</li>
+<li>Validación de métodos HTTP</li>
+<li>Manejo de errores</li>
+<li>Generación automática de ID</li>
+</ul>
+</div>
+
+</section>
+
+<section id="modulos">
+
+<h2>2. Diagrama de módulos Frontend–Backend</h2>
+
+<div class="modulos-container">
+
+  <pre class="modulos-texto">
+Frontend:
+- index.html
+- styles.css
+- app.js
+- service.js
+
+Backend:
+- app.js
+- middleware.js
+- routes.js
+- controller.js
+- model.js
+- utils.js
+  </pre>
+
+  <img src="Imagen1.png" alt="Diagrama de módulos Frontend Backend" class="modulos-img">
+
+</div>
+
+</section>
+<section id="secuencia">
+
+<h2>3. Diagrama de secuencia — Crear libro</h2>
+
+<div class="seccion-container">
+
+<pre class="seccion-texto">
+Usuario → Formulario → app.js → service.js → Backend
+Backend → Middleware → Routes → Controller → Model → Respuesta JSON
+</pre>
+
+<img src="Imagen2.png" alt="Diagrama de secuencia" class="seccion-img">
+
+</div>
+
+</section>
+
+
+<section id="dfd">
+
+<h2>4. DFD Nivel 0</h2>
+
+<div class="seccion-container">
+
+<pre class="seccion-texto">
+Visitante ⇄ Sistema PáginaViva
+(GET /libros | POST /libros)
+</pre>
+
+<img src="Imagen3.png" alt="DFD Nivel 0" class="seccion-img">
+
+</div>
+
+</section>
+
+
+<section id="er">
+
+<h2>5. Diagrama Entidad-Relación (ER)</h2>
+
+<div class="seccion-container">
+
+<pre class="seccion-texto">
+Libro (
+  id: INT,
+  titulo: TEXT,
+  autor: TEXT,
+  precio: DECIMAL,
+  anio: INT
+)
+</pre>
+
+<img src="Imagen4.png" alt="Diagrama Entidad Relación" class="seccion-img">
+
+</div>
+
+</section>
+<section id="conclusion">
+
+<h2>Conclusión</h2>
+
+<div class="box">
+En esta práctica aprendí cómo se integra el frontend con el backend mediante el flujo de información de una aplicación web. También identifiqué la función de cada módulo y cómo se comunican para consultar y registrar libros. Los diagramas me ayudaron a comprender mejor la estructura y el funcionamiento del sistema PáginaViva.
+</div>
+
+</section>
+
+<footer>
+Examen 3 - Raúl Álvarez Nuño 
+</footer>
+
+</body>
+</html>
