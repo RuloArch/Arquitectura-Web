@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Investigación de Mercado | Purificadora de Agua | León, Guanajuato
+</title>
+
+<!-- =========================================================
+     LEAFLET
+========================================================= -->
+
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQ3n6t3KQfY5J6p7JwJx7J8X7h8z8kM="
+    crossorigin=""
+/>
+
+<style>
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+    --blue:#1677ff;
+    --blue-dark:#0756c7;
+    --blue-light:#eaf3ff;
+
+    --green:#0b9b68;
+    --green-light:#e8f8f1;
+
+    --orange:#e49a00;
+    --orange-light:#fff4dc;
+
+    --red:#d94255;
+    --red-light:#ffe9ed;
+
+    --bg:#f4f7fb;
+    --card:#ffffff;
+    --text:#172033;
+    --muted:#687386;
+    --line:#e1e7ef;
+
+    --shadow:0 8px 28px rgba(20,35,55,.08);
+    --radius:18px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:
+        Inter,
+        Segoe UI,
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:var(--bg);
+    color:var(--text);
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    background:
+        linear-gradient(
+            135deg,
+            #0756c7 0%,
+            #1677ff 55%,
+            #26a6ff 100%
+        );
+
+    color:white;
+    padding:35px 5%;
+}
+
+.header-inner{
+    max-width:1450px;
+    margin:auto;
+}
+
+.eyebrow{
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    opacity:.85;
+}
+
+.header h1{
+    margin:8px 0;
+    font-size:clamp(28px,4vw,46px);
+}
+
+.header p{
+    max-width:900px;
+    line-height:1.65;
+    margin:0;
+    opacity:.93;
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.container{
+    max-width:1450px;
+    margin:28px auto;
+    padding:0 22px 60px;
+}
+
+.grid{
+    display:grid;
+    gap:18px;
+}
+
+.kpis{
+    grid-template-columns:repeat(6,1fr);
+}
+
+.two{
+    grid-template-columns:1.2fr .8fr;
+}
+
+.three{
+    grid-template-columns:repeat(3,1fr);
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+
+.card-pad{
+    padding:22px;
+}
+
+.kpi{
+    padding:20px;
+}
+
+.kpi-label{
+    color:var(--muted);
+    font-size:12px;
+    font-weight:800;
+}
+
+.kpi-value{
+    font-size:28px;
+    font-weight:900;
+    margin-top:8px;
+}
+
+.kpi-sub{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:12px;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.section{
+    margin-top:24px;
+}
+
+.section-title{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:14px;
+}
+
+.section-title h2{
+    margin:0;
+    font-size:22px;
+}
+
+.section-title p{
+    margin:5px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    padding:5px 10px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:850;
+}
+
+.badge-blue{
+    background:var(--blue-light);
+    color:var(--blue-dark);
+}
+
+.badge-green{
+    background:var(--green-light);
+    color:#08784f;
+}
+
+.badge-orange{
+    background:var(--orange-light);
+    color:#966400;
+}
+
+.badge-red{
+    background:var(--red-light);
+    color:#ad3040;
+}
+
+
+/* =========================================================
+   METRICS
+========================================================= */
+
+.metric-row{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:13px 0;
+    border-bottom:1px solid var(--line);
+}
+
+.metric-row:last-child{
+    border-bottom:0;
+}
+
+.metric-name{
+    color:var(--muted);
+}
+
+.metric-value{
+    font-weight:850;
+}
+
+
+/* =========================================================
+   INSIGHTS
+========================================================= */
+
+.insight{
+    padding:17px;
+    margin-top:12px;
+    border-left:4px solid var(--blue);
+    background:#f5f9ff;
+    border-radius:10px;
+    line-height:1.55;
+}
+
+.insight strong{
+    display:block;
+    margin-bottom:4px;
+}
+
+.insight-success{
+    border-left-color:var(--green);
+    background:#f0fbf6;
+}
+
+.insight-warning{
+    border-left-color:var(--orange);
+    background:#fffaf0;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.price{
+    font-size:35px;
+    font-weight:900;
+    margin:13px 0;
+}
+
+.price small{
+    font-size:14px;
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.control{
+    min-width:190px;
+    flex:1;
+}
+
+.control label{
+    display:block;
+    color:var(--muted);
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+input[type="text"],
+select{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 12px;
+    background:white;
+    outline:none;
+}
+
+input[type="text"]:focus,
+select:focus{
+    border-color:var(--blue);
+}
+
+button{
+    border:0;
+    border-radius:10px;
+    padding:10px 15px;
+    cursor:pointer;
+    font-weight:800;
+}
+
+.btn-primary{
+    background:var(--blue);
+    color:white;
+}
+
+.btn-primary:hover{
+    background:var(--blue-dark);
+}
+
+.btn-light{
+    background:#edf2f8;
+    color:#26344b;
+}
+
+
+/* =========================================================
+   MAP
+========================================================= */
+
+.map-card{
+    overflow:hidden;
+}
+
+.map-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:15px 18px;
+    border-bottom:1px solid var(--line);
+}
+
+.map-counter{
+    font-weight:850;
+}
+
+.map-counter small{
+    display:block;
+    color:var(--muted);
+    font-weight:500;
+    margin-top:3px;
+}
+
+#map{
+    width:100%;
+    height:650px;
+    background:#dfe7ee;
+}
+
+
+/* =========================================================
+   MAP CONTROLS
+========================================================= */
+
+.map-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.map-actions button.active{
+    background:#0756c7;
+    color:white;
+}
+
+
+/* =========================================================
+   POPUP
+========================================================= */
+
+.popup{
+    min-width:245px;
+}
+
+.popup-title{
+    font-size:16px;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.popup-row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:5px 0;
+    border-bottom:1px solid #edf0f4;
+    font-size:12px;
+}
+
+.popup-label{
+    color:#6d7787;
+}
+
+.popup-value{
+    text-align:right;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-wrap{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    min-width:1000px;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:12px 13px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    font-size:13px;
+}
+
+th{
+    background:#f8fafc;
+    color:#566276;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+}
+
+tr:hover td{
+    background:#fafcff;
+}
+
+.empty{
+    padding:30px;
+    text-align:center;
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   LEGEND
+========================================================= */
+
+.map-legend{
+    background:white;
+    padding:10px 12px;
+    border-radius:99px;
+    box-shadow:0 3px 12px rgba(0,0,0,.16);
+    font-size:11px;
+    line-height:1.7;
+}
+
+.legend-title{
+    font-weight:900;
+    margin-bottom:4px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    margin-top:30px;
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1150px){
+    .kpis{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
+
+@media(max-width:850px){
+    .two,
+    .three{
+        grid-template-columns:1fr;
+    }
+
+    #map{
+        height:520px;
+    }
+}
+
+@media(max-width:650px){
+    .kpis{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .container{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .header{
+        padding:28px 20px;
+    }
+
+    #map{
+        height:450px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="eyebrow">
+            Comercialización Virtual · Investigación de mercados
+        </div>
+
+        <h1>
+            Purificadora de Agua
+        </h1>
+
+        <p>
+            Análisis del mercado y competencia para evaluar la oportunidad
+            de establecer una purificadora de agua en León, Guanajuato.
+        </p>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- =========================================================
+     KPI
+========================================================= -->
+
+<section class="grid kpis">
+
+    <div class="card kpi">
+
+        <div class="kpi-label">
+            POBLACIÓN
+        </div>
+
+        <div class="kpi-value">
+            1,721,215
+        </div>
+
+        <div class="kpi-sub">
+            Habitantes
+        </div>
+
+    </div>
+
+
+    <div class="card kpi">
+
+        <div class="kpi-label">
+            VIVIENDAS
+        </div>
+
+        <div class="kpi-value">
+            440,209
+        </div>
+
+        <div class="kpi-sub">
+            Viviendas habitadas
+        </div>
+
+    </div>
+
+
+    <div class="card kpi">
+
+        <div class="kpi-label">
+            AGUA ENTUBADA
+        </div>
+
+        <div class="kpi-value">
+            423,047
+        </div>
+
+        <div class="kpi-sub">
+            96.1% de viviendas
+        </div>
+
+    </div>
+
+
+    <div class="card kpi">
+
+        <div class="kpi-label">
+            COMPETIDORES
+        </div>
+
+        <div class="kpi-value">
+            163
+        </div>
+
+        <div class="kpi-sub">
+            SCIAN 312112
+        </div>
+
+    </div>
+
+
+    <div class="card kpi">
+
+        <div class="kpi-label">
+            RECARGA 20 L
+        </div>
+
+        <div class="kpi-value">
+            $15–$22
+        </div>
+
+        <div class="kpi-sub">
+            Rango observado
+        </div>
+
+    </div>
+
+
+    <div class="card kpi">
+
+        <div class="kpi-label">
+            HABITANTES / VIVIENDA
+        </div>
+
+        <div class="kpi-value">
+            3.9
+        </div>
+
+        <div class="kpi-sub">
+            Promedio
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MERCADO
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                1. Tamaño del mercado
+            </h2>
+
+            <p>
+                Variables demográficas de contexto.
+            </p>
+
+        </div>
+
+        <span class="badge badge-blue">
+            INEGI · Censo 2020
+        </span>
+
+    </div>
+
+
+    <div class="grid two">
+
+
+        <div class="card card-pad">
+
+            <div class="metric-row">
+
+                <span class="metric-name">
+                    Población
+                </span>
+
+                <span class="metric-value">
+                    1,721,215
+                </span>
+
+            </div>
+
+
+            <div class="metric-row">
+
+                <span class="metric-name">
+                    Viviendas habitadas
+                </span>
+
+                <span class="metric-value">
+                    440,209
+                </span>
+
+            </div>
+
+
+            <div class="metric-row">
+
+                <span class="metric-name">
+                    Viviendas con agua entubada
+                </span>
+
+                <span class="metric-value">
+                    423,047
+                </span>
+
+            </div>
+
+
+            <div class="metric-row">
+
+                <span class="metric-name">
+                    Habitantes por vivienda
+                </span>
+
+                <span class="metric-value">
+                    3.9
+                </span>
+
+            </div>
+
+
+            <div class="insight insight-warning">
+
+                <strong>
+                    Interpretación
+                </strong>
+
+                La disponibilidad de agua entubada no significa
+                automáticamente que una vivienda sea consumidora
+                de agua purificada.
+
+            </div>
+
+        </div>
+
+
+        <div class="card card-pad">
+
+            <h3>
+                Mercado residencial
+            </h3>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                León cuenta con una población municipal superior a
+                1.7 millones de habitantes y más de 440 mil viviendas
+                particulares habitadas.
+
+            </p>
+
+            <span class="badge badge-green">
+                Mercado potencial amplio
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PRECIOS
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                2. Precio del mercado
+            </h2>
+
+            <p>
+                Referencias de precio encontradas para recarga de garrafón.
+            </p>
+
+        </div>
+
+        <span class="badge badge-orange">
+            Precios observados
+        </span>
+
+    </div>
+
+
+    <div class="grid three">
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-green">
+                2025
+            </span>
+
+            <div class="price">
+                $15–$22
+                <small>MXN</small>
+            </div>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                Rango reportado para rellenado de garrafones
+                de 20 litros en León.
+
+            </p>
+
+        </div>
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-blue">
+                2024
+            </span>
+
+            <div class="price">
+                $16–$18
+                <small>MXN</small>
+            </div>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                Referencia reportada durante mayo de 2024.
+
+            </p>
+
+        </div>
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-orange">
+                Precaución
+            </span>
+
+            <h3>
+                No es promedio oficial
+            </h3>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                Los valores son referencias encontradas en fuentes
+                periodísticas/comerciales y no constituyen una
+                estadística oficial de precios.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DEMANDA
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                3. Señales de demanda
+            </h2>
+
+            <p>
+                Indicadores encontrados en información periodística.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid three">
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-green">
+                2025
+            </span>
+
+            <h2>
+                +70%
+            </h2>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                TV4 reportó un crecimiento del 70% en el
+                rellenado de garrafones en León.
+
+            </p>
+
+        </div>
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-orange">
+                Temporada de calor
+            </span>
+
+            <h2>
+                60 → 120
+            </h2>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                Caso reportado de crecimiento de garrafones
+                vendidos por turno.
+
+            </p>
+
+        </div>
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-orange">
+                Temporada de calor
+            </span>
+
+            <h2>
+                80 → 160
+            </h2>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                Otro establecimiento reportó duplicar sus ventas
+                diarias durante el periodo señalado.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAPA INTERACTIVO
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                4. Mapa interactivo de competencia
+            </h2>
+
+            <p>
+                Marcadores individuales y mapa de calor calculados
+                a partir de las coordenadas reales del DENUE.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card map-card">
+
+
+        <div class="map-toolbar">
+
+            <div>
+
+                <div class="map-counter">
+                    <span id="mapCounter">
+                        0 establecimientos
+                    </span>
+                </div>
+
+                <div class="map-counter">
+
+                    <small id="coordinateCounter">
+                        0 con coordenadas
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="map-actions">
+
+                <button
+                    id="markersButton"
+                    class="btn-primary active"
+                    onclick="toggleMarkers()"
+                >
+                    📍 Marcadores
+                </button>
+
+                <button
+                    id="heatButton"
+                    class="btn-light"
+                    onclick="toggleHeatmap()"
+                >
+                    🔥 Heatmap
+                </button>
+
+                <button
+                    class="btn-light"
+                    onclick="fitAllMarkers()"
+                >
+                    ⛶ Ver todos
+                </button>
+
+                <button
+                    class="btn-light"
+                    onclick="goToLeon()"
+                >
+                    📍 León
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div id="map"></div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FILTROS
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                5. Explorador de competidores
+            </h2>
+
+            <p>
+                Filtra los establecimientos y actualiza el mapa.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card card-pad">
+
+
+        <div class="controls">
+
+
+            <div class="control">
+
+                <label>
+                    BUSCAR
+                </label>
+
+                <input
+                    type="text"
+                    id="search"
+                    placeholder="Ej. Agua Inmaculada"
+                >
+
+            </div>
+
+
+            <div class="control">
+
+                <label>
+                    PERSONAL OCUPADO
+                </label>
+
+                <select id="staffFilter">
+
+                    <option value="">
+                        Todos
+                    </option>
+
+                    <option value="0-5">
+                        0–5 personas
+                    </option>
+
+                    <option value="6-10">
+                        6–10 personas
+                    </option>
+
+                    <option value="11-30">
+                        11–30 personas
+                    </option>
+
+                    <option value="31-50">
+                        31–50 personas
+                    </option>
+
+                    <option value="51+">
+                        51+ personas
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div style="display:flex;align-items:end;gap:8px;">
+
+                <button
+                    class="btn-light"
+                    onclick="resetFilters()"
+                >
+                    Limpiar
+                </button>
+
+                <button
+                    class="btn-primary"
+                    onclick="downloadCSV()"
+                >
+                    Exportar
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Establecimiento
+                        </th>
+
+                        <th>
+                            Razón social
+                        </th>
+
+                        <th>
+                            Dirección
+                        </th>
+
+                        <th>
+                            Colonia
+                        </th>
+
+                        <th>
+                            Personal
+                        </th>
+
+                        <th>
+                            Teléfono
+                        </th>
+
+                        <th>
+                            Web
+                        </th>
+
+                        <th>
+                            Latitud
+                        </th>
+
+                        <th>
+                            Longitud
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="tableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            class="empty"
+                        >
+                            Cargando datos...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     COMPETENCIA
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                6. Indicadores de competencia
+            </h2>
+
+            <p>
+                Relaciones descriptivas para dimensionar el mercado.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid three">
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-blue">
+                Competencia
+            </span>
+
+            <h2>
+                163
+            </h2>
+
+            <p style="color:var(--muted);">
+
+                Establecimientos reportados en la actividad
+                SCIAN 312112.
+
+            </p>
+
+        </div>
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-orange">
+                Relación descriptiva
+            </span>
+
+            <h2>
+                ≈10,560
+            </h2>
+
+            <p style="color:var(--muted);">
+
+                Habitantes por establecimiento,
+                calculado como población / 163.
+
+            </p>
+
+        </div>
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-orange">
+                Relación descriptiva
+            </span>
+
+            <h2>
+                ≈2,701
+            </h2>
+
+            <p style="color:var(--muted);">
+
+                Viviendas por establecimiento,
+                calculado como viviendas / 163.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="insight insight-warning">
+
+        <strong>
+            Importante
+        </strong>
+
+        Estos indicadores no representan cuota de mercado,
+        ventas, clientes ni rentabilidad.
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OPORTUNIDAD
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                7. Evaluación preliminar
+            </h2>
+
+            <p>
+                Interpretación comercial de los datos disponibles.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="grid three">
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-green">
+                DEMANDA
+            </span>
+
+            <h3>
+                Señales favorables
+            </h3>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                Se encontraron señales de crecimiento del
+                rellenado de garrafones y sensibilidad de la
+                demanda ante temporadas de calor.
+
+            </p>
+
+        </div>
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-orange">
+                COMPETENCIA
+            </span>
+
+            <h3>
+                Competencia relevante
+            </h3>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                El municipio cuenta con numerosos establecimientos
+                registrados, por lo que la ubicación será una variable
+                crítica.
+
+            </p>
+
+        </div>
+
+
+        <div class="card card-pad">
+
+            <span class="badge badge-blue">
+                PRECIO
+            </span>
+
+            <h3>
+                $15–$22
+            </h3>
+
+            <p style="color:var(--muted);line-height:1.6;">
+
+                Rango observado para recarga de garrafón de 20 L
+                en las fuentes consultadas.
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="card card-pad" style="margin-top:18px;">
+
+        <div class="insight insight-success">
+
+            <strong>
+                Conclusión preliminar
+            </strong>
+
+            León presenta un mercado grande y existen señales
+            favorables de demanda para el rellenado de garrafones.
+
+            Sin embargo, los 163 establecimientos reportados
+            hacen necesario analizar la competencia a nivel de
+            zona o colonia antes de elegir la ubicación.
+
+        </div>
+
+
+        <div class="insight insight-warning">
+
+            <strong>
+                Próximo análisis recomendado
+            </strong>
+
+            Utilizar el mapa de calor para localizar zonas con
+            concentración baja de competidores y posteriormente
+            cruzarlas con población, viviendas, accesibilidad,
+            renta y costos de operación.
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FUENTES
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                8. Fuentes y metodología
+            </h2>
+
+            <p>
+                Información utilizada en el análisis.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card card-pad">
+
+        <p>
+            <strong>INEGI — Censo de Población y Vivienda 2020</strong><br>
+            Población, viviendas y disponibilidad de agua entubada.
+        </p>
+
+
+        <p>
+            <strong>DENUE — Directorio Estadístico Nacional
+            de Unidades Económicas</strong><br>
+            Establecimientos clasificados en SCIAN 312112.
+        </p>
+
+
+        <p>
+            <strong>TV4 Noticias — 2025</strong><br>
+            Referencias sobre incremento del rellenado de garrafones
+            y precios observados.
+        </p>
+
+
+        <p>
+            <strong>TV4 Noticias — 2024</strong><br>
+            Referencias sobre incremento de ventas durante temporada
+            de calor.
+        </p>
+
+
+        <p>
+            <strong>OpenStreetMap</strong><br>
+            Cartografía utilizada como capa base del mapa.
+        </p>
+
+
+        <p style="color:var(--muted);font-size:12px;">
+
+            El mapa utiliza los tiles estándar de OpenStreetMap
+            exclusivamente para visualización interactiva.
+            No se descargan mapas previamente ni se ofrece
+            funcionalidad offline.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<div class="footer">
+
+    <strong>
+        Proyecto académico · Comercialización Virtual
+    </strong>
+
+    <br>
+
+    Investigación de mercado para evaluar una purificadora
+    de agua en León, Guanajuato.
+
+    <br><br>
+
+    Los datos de competencia deben interpretarse de acuerdo
+    con la fecha y cobertura del DENUE utilizado.
+
+    Las conclusiones de oportunidad son preliminares y no
+    sustituyen un estudio financiero o comercial completo.
+
+</div>
+
+
+</main>
+
+
+<!-- =========================================================
+     LEAFLET JS
+========================================================= -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin="">
+</script>
+
+
+<!-- =========================================================
+     LEAFLET HEAT
+========================================================= -->
+
+<script
+    src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js">
+</script>
+
+
+<script>
+
+/* =========================================================
+   DATOS EMBEBIDOS DIRECTAMENTE
+========================================================= */
+
+const RAW_ESTABLISHMENTS = [
+  { name: "ACUAVALLE", business: "", address: "ALHONDIGA 801", colony: "LAS TROJES", postal: "37227", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.13984757", longitude: "-101.6668359" },
+  { name: "AGUA CLARA", business: "", address: "REAL DE COAHUILA SN", colony: "VALLE REAL", postal: "37545", staff: "0 a 5 personas", phone: "4771179045", website: "", latitude: "21.07607904", longitude: "-101.6178474" },
+  { name: "AGUA CLIVA", business: "", address: "CENTENARIO 1127", colony: "LAS MARGARITAS", postal: "37468", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.09776571", longitude: "-101.6837431" },
+  { name: "AGUA CLYVA", business: "", address: "FRAY DANIEL MIRELES 1302", colony: "KILLIAN", postal: "37268", staff: "0 a 5 personas", phone: "4771329960", website: "", latitude: "21.12519441", longitude: "-101.6586104" },
+  { name: "AGUA INMACULADA", business: "", address: "11 DE JUNIO SN", colony: "8 DE MARZO", postal: "37207", staff: "0 a 5 personas", phone: "4774735344", website: "", latitude: "21.17144377", longitude: "-101.63763" },
+  { name: "AGUA INMACULADA", business: "", address: "RAMOS 111", colony: "EL COECILLO", postal: "37260", staff: "6 a 10 personas", phone: "4777085858", website: "", latitude: "21.12543822", longitude: "-101.6713185" },
+  { name: "AGUA INMACULADA", business: "JUAN CARLOS", address: "PONCIANO BURQUIZA 211", colony: "HIDALGO", postal: "37220", staff: "0 a 5 personas", phone: "4771530200", website: "", latitude: "21.15449748", longitude: "-101.6668202" },
+  { name: "AGUA INMACULADA", business: "", address: "MOLINO DEL CUBILETE SN", colony: "PASEOS DEL MOLINO", postal: "37295", staff: "6 a 10 personas", phone: "", website: "", latitude: "21.10062193", longitude: "-101.6090546" },
+  { name: "AGUA MONTEROSA", business: "", address: "PEDRO MORENO 818", colony: "CENTRO", postal: "37000", staff: "0 a 5 personas", phone: "4792209800", website: "", latitude: "21.12101989", longitude: "-101.6734892" },
+  { name: "AGUA PURIFICADA ANDINA", business: "", address: "MAR DE CHINA 111", colony: "SANTA MARÍA DEL GRANJENO", postal: "37520", staff: "0 a 5 personas", phone: "4778751848", website: "", latitude: "21.09352452", longitude: "-101.6503039" },
+  { name: "AGUA PURIFICADA AWA TEC", business: "", address: "JUPITER SN", colony: "VILLA INSURGENTES", postal: "37220", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.14590847", longitude: "-101.6661838" },
+  { name: "AGUA PURIFICADA AWA TEC", business: "", address: "LA LUZ 2349", colony: "INDUSTRIAL LA CAPILLA", postal: "37297", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.11276805", longitude: "-101.6210505" },
+  { name: "AGUA PURIFICADA AWA TEC", business: "", address: "PORTALES SN", colony: "PRO. FRACCIONES DE SAN CARLOS", postal: "37680", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.07742844", longitude: "-101.5931389" },
+  { name: "AGUA PURIFICADA AWA TEC", business: "", address: "PRINCIPAL 112", colony: "SAN JUAN DE ABAJO", postal: "37684", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.05689866", longitude: "-101.6379931" },
+  { name: "AGUA PURIFICADA AWA-TEC", business: "AGUA PURIFICADA AWA-TEC", address: "MADRE REYNA 1002", colony: "DIEZ DE MAYO", postal: "37549", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.0706237", longitude: "-101.6318416" },
+  { name: "AGUA PURIFICADA CIMA", business: "", address: "CARMELITA 216", colony: "PEÑITAS", postal: "37180", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.14451677", longitude: "-101.6819732" },
+  { name: "AGUA PURIFICADA CIMA", business: "CRISTOPHER BROWN", address: "ADOLFO LOPEZ MATEOS 2801", colony: "EL ROSARIO", postal: "37125", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.15756923", longitude: "-101.6839221" },
+  { name: "AGUA PURIFICADA LEOCOPURA", business: "", address: "HERMENEGILDO BUSTOS 2402", colony: "CIUDAD AURORA", postal: "37110", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.17008234", longitude: "-101.666989" },
+  { name: "AGUA PURIFICADA LOS PINOS", business: "", address: "MARRO 231", colony: "EL COECILLO", postal: "37240", staff: "0 a 5 personas", phone: "4775642188", website: "", latitude: "21.1310094", longitude: "-101.6704267" },
+  { name: "AGUA PURIFICADA PERLET", business: "", address: "SATURNO 1504", colony: "SAN FELIPE DE JESÚS", postal: "37250", staff: "0 a 5 personas", phone: "4775816210", website: "", latitude: "21.13254935", longitude: "-101.6499504" },
+  { name: "AGUA PURIFICADA SANTA RITA", business: "", address: "FLAMENCO 322", colony: "JARDINES DE SAN SEBASTIÁN", postal: "37459", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10013321", longitude: "-101.7005584" },
+  { name: "AGUA PURIFICADA WATER ROM", business: "MIGUEL ROMERO", address: "ELECTRICISTAS DE ECHEVESTE 239", colony: "HACIENDA ECHEVESTE", postal: "37100", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.18017431", longitude: "-101.6669225" },
+  { name: "AGUA PURIFICADA WATHER PLUS", business: "", address: "JEREZ DEL DORADO SN", colony: "VALLE DE JEREZ", postal: "37538", staff: "0 a 5 personas", phone: "4772257240", website: "", latitude: "21.0804031", longitude: "-101.6336554" },
+  { name: "AGUA PURIFICADORA ATLANTICA", business: "", address: "CUESTA DE CAMELINAS 322", colony: "SAN JOSÉ EL ALTO", postal: "37545", staff: "0 a 5 personas", phone: "4773801477", website: "", latitude: "21.07069076", longitude: "-101.6084112" },
+  { name: "AGUA PURIFICADORA BI MAS", business: "", address: "CORTAZAR 121", colony: "MODERNA", postal: "37328", staff: "0 a 5 personas", phone: "4777170405", website: "", latitude: "21.134674", longitude: "-101.688485" },
+  { name: "AGUA PURIFICADORA EL DORADO", business: "", address: "DE LA MORADA 232", colony: "VILLA DE LEÓN", postal: "37570", staff: "0 a 5 personas", phone: "4777038921", website: "", latitude: "21.07383831", longitude: "-101.6416838" },
+  { name: "AGUA PURIFICADORA INMACULADA", business: "", address: "JARDIN DE CEDROS 117", colony: "JARDINES DE SANTA JULIA", postal: "37530", staff: "0 a 5 personas", phone: "4776620483", website: "", latitude: "21.08031254", longitude: "-101.6475433" },
+  { name: "AGUA PURISIMA", business: "LUIS PONCE", address: "QUITO 304", colony: "EL CORTIJO", postal: "37250", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.13648135", longitude: "-101.6611694" },
+  { name: "AGUA SAN JORGE", business: "", address: "ASTEROIDES 908", colony: "LOMAS DE LA PISCINA", postal: "37410", staff: "0 a 5 personas", phone: "4773339675", website: "", latitude: "21.11058469", longitude: "-101.7032084" },
+  { name: "AGUA VIDA", business: "", address: "LEON SANTA ROSA CD MANUEL DOBLADO 122", colony: "PLAN DE AYALA (SANTA ROSA)", postal: "37666", staff: "0 a 5 personas", phone: "4778353977", website: "", latitude: "21.07088754", longitude: "-101.7188023" },
+  { name: "AGUAGAR AGUA PURIFICADA", business: "", address: "MANUEL ALVAREZ 618", colony: "PANORAMA", postal: "37160", staff: "0 a 5 personas", phone: "4777281529", website: "", latitude: "21.14947381", longitude: "-101.7021277" },
+  { name: "ALTA CALIDAD SEGUNDA SUCURSAL PURIFICADORA DE AGUA", business: "", address: "HERMENEGILDO BUSTOS 338", colony: "VALLE DEL MORAL", postal: "37148", staff: "0 a 5 personas", phone: "4771926079", website: "", latitude: "21.15440986", longitude: "-101.6755221" },
+  { name: "AQUA CLYVA DEL CARMEN", business: "", address: "BRISAS DE SANTIAGO 520", colony: "BRISAS DEL CARMEN", postal: "37297", staff: "0 a 5 personas", phone: "4773790281", website: "WWW.AQUACLYVADELCARMEN.MX", latitude: "21.10462527", longitude: "-101.6021915" },
+  { name: "AQUA MIEL", business: "AQUA MIEL", address: "CENTENARIO 1404", colony: "SAN MIGUEL", postal: "37390", staff: "6 a 10 personas", phone: "4775558754", website: "", latitude: "21.09391234", longitude: "-101.6846557" },
+  { name: "AWA TEC", business: "", address: "ELECTRICISTAS DE ECHEVESTE 301", colony: "HACIENDA ECHEVESTE", postal: "37100", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.18017836", longitude: "-101.6672321" },
+  { name: "AWA TEC", business: "", address: "AGUSTIN TELLEZ CRUCES SN", colony: "LEÓN I", postal: "37235", staff: "0 a 5 personas", phone: "4775242872", website: "", latitude: "21.14824885", longitude: "-101.6364078" },
+  { name: "AWA TEC", business: "", address: "GONZALEZ BOCANEGRA SN", colony: "AZTECA", postal: "37520", staff: "0 a 5 personas", phone: "4771772799", website: "", latitude: "21.10092906", longitude: "-101.6488526" },
+  { name: "AWA TEC", business: "", address: "LEO 301", colony: "LOMAS DE LA PISCINA", postal: "37440", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10770575", longitude: "-101.7045365" },
+  { name: "AWA -TEC", business: "", address: "CONSTELACIONES 703", colony: "VILLAS DE SAN JUAN SEGUNDA SECCIÓN", postal: "37295", staff: "0 a 5 personas", phone: "4775286352", website: "", latitude: "21.10420669", longitude: "-101.5845283" },
+  { name: "AWA TEC PURIFICADORA DE AGUA", business: "", address: "TALABARTEROS DE AURORA 201", colony: "VALLE DE LEÓN", postal: "37179", staff: "0 a 5 personas", phone: "4779233706", website: "", latitude: "21.16850502", longitude: "-101.6659711" },
+  { name: "AWA-TEC", business: "", address: "AVENIDA SION 1424", colony: "SAN FELIPE DE JESÚS", postal: "37250", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.1334314", longitude: "-101.6497623" },
+  { name: "AWA-TEC", business: "", address: "VILLA DEL MEZQUITE SN", colony: "VILLAS DE SANTA JULIA", postal: "37530", staff: "0 a 5 personas", phone: "4772129284", website: "", latitude: "21.08288521", longitude: "-101.6434812" },
+  { name: "AWA-TEC", business: "AWA-TEC", address: "PITAHAYA SN", colony: "LA MOREÑA", postal: "37570", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.07924919", longitude: "-101.6464748" },
+  { name: "BAHIA H2O PURIFICADA", business: "", address: "UNIVERSIDAD CRISTIANA 206", colony: "PRO. PONIENTE SAN PABLO II", postal: "37219", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.165704", longitude: "-101.6485982" },
+  { name: "BANQUISA", business: "", address: "SAMALA 108", colony: "EL PEÑON", postal: "37238", staff: "0 a 5 personas", phone: "4775247784", website: "", latitude: "21.1456866", longitude: "-101.6151241" },
+  { name: "CANA EL AGUA QUE NUNCA FALTA", business: "", address: "REAL DE NUEVO LEON 138", colony: "VALLE DEL REAL II", postal: "37545", staff: "6 a 10 personas", phone: "4771253479", website: "", latitude: "21.07388884", longitude: "-101.6198157" },
+  { name: "CENTRO DE DISTRIBUCION LEON", business: "BONAFONT", address: "RAFAEL CORRALES AYALA 2020", colony: "CENTRO", postal: "37250", staff: "0 a 5 personas", phone: "", website: "WWW.BONAFONT.COM.MX", latitude: "21.15958188", longitude: "-101.6454012" },
+  { name: "CRYSTAL-LITE", business: "", address: "HILARIO MEDINA 4609", colony: "DEPORTIVA I", postal: "37237", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.14367352", longitude: "-101.653363" },
+  { name: "DISTRIBUIDORA DE AGUA PURIFICADA BLUE WATERS", business: "", address: "EL YACIMIENTO SN", colony: "VALLE ANTIGUA", postal: "37353", staff: "6 a 10 personas", phone: "4777776271", website: "", latitude: "21.13010115", longitude: "-101.7247129" },
+  { name: "EL MANANTIAL", business: "", address: "SAN PEDRO 1308", colony: "JARDINES DE JEREZ II Y III", postal: "37530", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.08858826", longitude: "-101.6485355" },
+  { name: "ELABORACION DE AGUAS DE SABOR SIN NOMBRE", business: "", address: "AGUSTIN MELGAR 222", colony: "HÉROES DE CHAPULTEPEC", postal: "37190", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.14132611", longitude: "-101.6790277" },
+  { name: "EMBOTELLADORA AGUA NATURAL", business: "EMBOTELLADORA AGUA NATURAL", address: "PRINCIPAL 402", colony: "SAN JOSÉ EL ALTO", postal: "37545", staff: "31 a 50 personas", phone: "4772741037", website: "", latitude: "21.08580731", longitude: "-101.6177106" },
+  { name: "EXPENDIO DE AGUA ALDIA", business: "", address: "SAN PEDRO 1601", colony: "SAN ISIDRO DE JEREZ", postal: "37530", staff: "0 a 5 personas", phone: "4777989089", website: "", latitude: "21.08276618", longitude: "-101.649932" },
+  { name: "FILTRADORA DE AGUA FRESNO", business: "", address: "FRESNO DE MEDINA SN", colony: "LOMAS DE MEDINA", postal: "37238", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.14652803", longitude: "-101.6188849" },
+  { name: "GOTITAS. DE AGUA", business: "", address: "PASEO DE LA PRESA 1801", colony: "LOMAS DE LA PRESA", postal: "37105", staff: "0 a 5 personas", phone: "4774007134", website: "", latitude: "21.18933644", longitude: "-101.6757056" },
+  { name: "HIDRO PURA PURIFICADORA DE AGUA", business: "MARIO VELAZQUEZ", address: "PASEO DE JEREZ SUR 1816", colony: "JARDINES DE SANTA JULIA", postal: "37530", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.07959561", longitude: "-101.6444351" },
+  { name: "LIFE WATER", business: "", address: "FRESNO DE MEDINA 517", colony: "MEDINA", postal: "37238", staff: "0 a 5 personas", phone: "4777068267", website: "", latitude: "21.14776428", longitude: "-101.6205271" },
+  { name: "LIVERT", business: "", address: "LOS LIMONES 411", colony: "LOS LIMONES", postal: "37448", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10838709", longitude: "-101.6997431" },
+  { name: "LIVERT AGUA PURIFICADA", business: "", address: "NIGER 701", colony: "LA ESCONDIDA", postal: "37470", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.09169921", longitude: "-101.6722457" },
+  { name: "LLENADO DE GARRAFONES", business: "LLENADO DE GARRAFONES", address: "DE LAS AMAZONAS SN", colony: "LAS TIRITAS", postal: "37109", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.19859755", longitude: "-101.6785028" },
+  { name: "MI ACQUA", business: "", address: "HILARIO MEDINA SN", colony: "PRESITAS DEL CONSUELO", postal: "37207", staff: "0 a 5 personas", phone: "4778932821", website: "", latitude: "21.17054914", longitude: "-101.6392341" },
+  { name: "MIZU PURIFIC", business: "", address: "CEREZA 803", colony: "LAS MANDARINAS", postal: "37419", staff: "0 a 5 personas", phone: "4772612042", website: "", latitude: "21.10846279", longitude: "-101.7151647" },
+  { name: "NATURAL LIFE BALANCE AGUA PURIFICADA", business: "MAN EMBOTELLADORA", address: "SAN JUAN BOSCO 3036", colony: "CAÑADA DEL REFUGIO", postal: "37358", staff: "31 a 50 personas", phone: "", website: "WWW.AGUANATURALIFE.COM", latitude: "21.14681253", longitude: "-101.7273807" },
+  { name: "OBI AGUA ALCALINA", business: "OBI AGUA ALCALINA", address: "27 DE SEPTIEMBRE 903", colony: "OBREGÓN", postal: "37320", staff: "0 a 5 personas", phone: "4776360772", website: "", latitude: "21.13385659", longitude: "-101.6824438" },
+  { name: "OCEAN 23 PURIFICADORA DE AGUA", business: "OMAR RAMIREZ", address: "FRANCISCO GONZALEZ BOCANEGRA SN", colony: "LEÓN MODERNO", postal: "37480", staff: "0 a 5 personas", phone: "4773801013", website: "", latitude: "21.10642094", longitude: "-101.6684188" },
+  { name: "PLANTA PURIFICADORA AGUA VIDA", business: "", address: "CIMA DEL SOL 148", colony: "LOMAS DEL SOL", postal: "37157", staff: "6 a 10 personas", phone: "4772307743", website: "", latitude: "21.15017162", longitude: "-101.7131631" },
+  { name: "PLANTA PURIFICADORA DE AGUA", business: "GRACIELA PEREZ", address: "CERRO DEL GIGANTE 1402", colony: "PASEO DE LA CASTELLANA", postal: "37549", staff: "0 a 5 personas", phone: "4771510490", website: "", latitude: "21.07592837", longitude: "-101.6244284" },
+  { name: "PLANTA PURIFICADORA DE AGUA INOLTA", business: "", address: "GUANAJUATO 202", colony: "HIDALGO", postal: "37220", staff: "0 a 5 personas", phone: "4774089897", website: "", latitude: "21.1426593", longitude: "-101.6721021" },
+  { name: "PURIFICADOIRA DE AGUA LA GLORIA", business: "", address: "PASEOS DE LA GLORIA 1244", colony: "VILLAS DE LA GLORIA DOS", postal: "37433", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.08635607", longitude: "-101.7624949" },
+  { name: "PURIFICADORA", business: "JESSICA BARCO", address: "PAULINO DURAN 334", colony: "LEÓN I", postal: "37235", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.14498154", longitude: "-101.6375112" },
+  { name: "PURIFICADORA AGUA AZUL", business: "", address: "PRESA MOJINA 302", colony: "PRESITAS DEL CONSUELO", postal: "37207", staff: "0 a 5 personas", phone: "4777906679", website: "", latitude: "21.17313013", longitude: "-101.6409163" },
+  { name: "PURIFICADORA AGUA AZUL", business: "", address: "GUANAJUATO 3626", colony: "DESARROLLO EL POTRERO", postal: "37296", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.12281166", longitude: "-101.6043579" },
+  { name: "PURIFICADORA AGUA AZUL", business: "", address: "PASEO DE LA PRESA 825", colony: "PRO. PONIENTE VALLE HERMOSO", postal: "37108", staff: "0 a 5 personas", phone: "4777301111", website: "", latitude: "21.18098841", longitude: "-101.674696" },
+  { name: "PURIFICADORA AGUA CLARA", business: "", address: "HERMENEGILDO BUSTOS 4602", colony: "HACIENDA ECHEVESTE", postal: "37100", staff: "0 a 5 personas", phone: "4774950086", website: "", latitude: "21.1808619", longitude: "-101.666953" },
+  { name: "PURIFICADORA AGUA DE MANANTIAL", business: "", address: "VILLA SIDNEY 101", colony: "LAS VILLAS", postal: "37295", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.097655", longitude: "-101.6082223" },
+  { name: "PURIFICADORA AGUA DIAMANTE", business: "", address: "SABILA 156", colony: "VALLE HERMOSO II III Y IV", postal: "37108", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.18343631", longitude: "-101.6731733" },
+  { name: "PURIFICADORA AGUA INMACULADA", business: "", address: "LOMA DEL ROSAL SN", colony: "MEDINA", postal: "37238", staff: "0 a 5 personas", phone: "4774670608", website: "", latitude: "21.15045197", longitude: "-101.6193551" },
+  { name: "PURIFICADORA AGUA MAR", business: "", address: "TORRE LEON 4", colony: "PASEOS DE LAS TORRES", postal: "37669", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.1704799", longitude: "-101.7574865" },
+  { name: "PURIFICADORA AGUA SILA VIDA", business: "", address: "SANTIAGO SN", colony: "LA CARMONA", postal: "37250", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.13218955", longitude: "-101.6623577" },
+  { name: "PURIFICADORA ALTO NIVEL FACILITIES", business: "", address: "BICENTENARIO ORIENTE 132", colony: "POLÍGONO INDUSTRIAL BICENTENARIO", postal: "37669", staff: "6 a 10 personas", phone: "", website: "", latitude: "21.17831674", longitude: "-101.7622435" },
+  { name: "PURIFICADORA ANDINA", business: "RAUL ZAVALA", address: "RIO MAYO 3301", colony: "CUMBRES DE LA PRADERA", postal: "37550", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.08729061", longitude: "-101.6577961" },
+  { name: "PURIFICADORA AQUA ALA", business: "", address: "MIGUEL ALEMAN 1078", colony: "LA MERCED", postal: "37380", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.11544109", longitude: "-101.6877669" },
+  { name: "PURIFICADORA AQUA FARRE", business: "", address: "VICENTE VALTIERRA 1301", colony: "POPULAR ANAYA", postal: "37240", staff: "0 a 5 personas", phone: "4773950207", website: "", latitude: "21.13248368", longitude: "-101.6702403" },
+  { name: "PURIFICADORA AQUA TIVA", business: "", address: "CRISTOBAL DE SORIA 130", colony: "LAS TROJES", postal: "37227", staff: "0 a 5 personas", phone: "4779132654", website: "", latitude: "21.13682499", longitude: "-101.6662246" },
+  { name: "PURIFICADORA AWA TEC", business: "", address: "VELASCO IBARRA SN", colony: "LOS LAURELES", postal: "37416", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10426441", longitude: "-101.7122988" },
+  { name: "PURIFICADORA AWATEC", business: "", address: "ZARZAL DE MEDINA SN", colony: "MEDINA", postal: "37238", staff: "0 a 5 personas", phone: "4771772799", website: "", latitude: "21.15225216", longitude: "-101.624074" },
+  { name: "PURIFICADORA AWA-TEC", business: "", address: "JULIETA 230", colony: "LOMA BONITA", postal: "37420", staff: "0 a 5 personas", phone: "4772841021", website: "", latitude: "21.11391923", longitude: "-101.6992408" },
+  { name: "PURIFICADORA BIO PURA", business: "", address: "ALONDRA 301", colony: "SAN SEBASTIÁN", postal: "37687", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10454291", longitude: "-101.6984358" },
+  { name: "PURIFICADORA BIOHER WATER", business: "", address: "JÚPITER 1701", colony: "HIDALGO", postal: "37220", staff: "0 a 5 personas", phone: "4773565653", website: "", latitude: "21.14274244", longitude: "-101.6669531" },
+  { name: "PURIFICADORA BIORI", business: "", address: "JOSE MARIA CRUZ 633", colony: "PASEOS DEL BOSQUE", postal: "37170", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.16019202", longitude: "-101.6757148" },
+  { name: "PURIFICADORA DE AGUA", business: "", address: "ALERCE SN", colony: "VALLE HERMOSO I Y V", postal: "37106", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.18794153", longitude: "-101.6768905" },
+  { name: "PURIFICADORA DE AGUA", business: "", address: "MADRE REYNA 510", colony: "DIEZ DE MAYO", postal: "37549", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.06780234", longitude: "-101.6269465" },
+  { name: "PURIFICADORA DE AGUA", business: "", address: "NINGUNO SN", colony: "ALBARRADONES", postal: "37683", staff: "0 a 5 personas", phone: "4772890216", website: "", latitude: "21.04762219", longitude: "-101.5152322" },
+  { name: "PURIFICADORA DE AGUA - AWATEC", business: "SALVADOR HERNANDEZ", address: "DOLORES 201", colony: "MODERNA", postal: "37300", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.13412968", longitude: "-101.6884282" },
+  { name: "PURIFICADORA DE AGUA - LIVERT", business: "", address: "ROMITA 809", colony: "SAN ANTONIO", postal: "37328", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.13682007", longitude: "-101.6937889" },
+  { name: "PURIFICADORA DE AGUA AGUA CONTINENTAL", business: "", address: "DE LA IRONIA 303", colony: "EL CONSUELO", postal: "37207", staff: "0 a 5 personas", phone: "4791528669", website: "", latitude: "21.1693002", longitude: "-101.6418099" },
+  { name: "PURIFICADORA DE AGUA AGUA NATURAL", business: "MAN EMBOTELLADORA", address: "PLATA 416", colony: "SAN JOSÉ DEL CONSUELO", postal: "37200", staff: "11 a 30 personas", phone: "", website: "", latitude: "21.16045209", longitude: "-101.6621704" },
+  { name: "PURIFICADORA DE AGUA ALTA CALIDAD", business: "", address: "PELETEROS DE AURORA SN", colony: "CIUDAD AURORA", postal: "37100", staff: "6 a 10 personas", phone: "4773065040", website: "", latitude: "21.1752239", longitude: "-101.6654793" },
+  { name: "PURIFICADORA DE AGUA AQUA CLIVA", business: "", address: "ESTAMBUL 323", colony: "SAN FELIPE DE JESÚS", postal: "37250", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.13114723", longitude: "-101.6478896" },
+  { name: "PURIFICADORA DE AGUA AQUA CLIVA", business: "", address: "LA LUZ 5010", colony: "PORTA ROMANI", postal: "37295", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10791886", longitude: "-101.5894564" },
+  { name: "PURIFICADORA DE AGUA AQUA VALLE SANJAVIER", business: "", address: "CONVERSION DE FE 128", colony: "SAN JORGE (LOS CASTILLOS)", postal: "37208", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.19002488", longitude: "-101.663353" },
+  { name: "PURIFICADORA DE AGUA AWA TEC", business: "", address: "AJUSCO SN", colony: "PILETAS I Y II", postal: "37310", staff: "0 a 5 personas", phone: "4792131593", website: "", latitude: "21.1378727", longitude: "-101.7031286" },
+  { name: "PURIFICADORA DE AGUA AWA TEC", business: "", address: "OCEANO ARTICO 1001", colony: "EL GRANJENO", postal: "37550", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.09235582", longitude: "-101.6558372" },
+  { name: "PURIFICADORA DE AGUA AWA TEC", business: "", address: "DELTA 2533", colony: "AMPLIACIÓN EL CARMEN CTM", postal: "37296", staff: "0 a 5 personas", phone: "4791452005", website: "", latitude: "21.11749421", longitude: "-101.6019647" },
+  { name: "PURIFICADORA DE AGUA AWA TEC", business: "", address: "OLIMPICA SN", colony: "PASEOS DEL MOLINO", postal: "37295", staff: "0 a 5 personas", phone: "4773221466", website: "", latitude: "21.10022627", longitude: "-101.6103418" },
+  { name: "PURIFICADORA DE AGUA AWA TEC", business: "", address: "NINGUNO SN", colony: "SAN JUAN DE ABAJO", postal: "37648", staff: "6 a 10 personas", phone: "4774640392", website: "", latitude: "21.06733642", longitude: "-101.6393146" },
+  { name: "PURIFICADORA DE AGUA AWA-TEC", business: "", address: "DE LA ESPONJA SN", colony: "LA ESPERANZA DE JEREZ", postal: "37538", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.07023348", longitude: "-101.6375376" },
+  { name: "PURIFICADORA DE AGUA AWA-TEC", business: "", address: "JEREZ DE ANTAÑO 120", colony: "VALLE DE JEREZ", postal: "37538", staff: "0 a 5 personas", phone: "4777038921", website: "", latitude: "21.0711429", longitude: "-101.6375439" },
+  { name: "PURIFICADORA DE AGUA BIORI", business: "GERARDO FLORES", address: "IBARRILLA 1186", colony: "ARBOLEDAS DE IBARRILLA", postal: "37200", staff: "0 a 5 personas", phone: "4772438658", website: "", latitude: "21.16656252", longitude: "-101.6617076" },
+  { name: "PURIFICADORA DE AGUA BRISANA", business: "", address: "GUATEMALA 628", colony: "OBRERA", postal: "37340", staff: "0 a 5 personas", phone: "4775679191", website: "", latitude: "21.12977533", longitude: "-101.6927078" },
+  { name: "PURIFICADORA DE AGUA CANTAREL", business: "", address: "NINGUNO SN", colony: "PRO. EL MASTRANZO", postal: "37666", staff: "0 a 5 personas", phone: "4791372682", website: "", latitude: "21.0873268", longitude: "-101.7021342" },
+  { name: "PURIFICADORA DE AGUA CLYVA", business: "OMAR INFANTE", address: "MIGUEL HIDALGO 6204", colony: "JARDINES DEL VALLE", postal: "37118", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.16833382", longitude: "-101.6640444" },
+  { name: "PURIFICADORA DE AGUA DELI PURA", business: "", address: "JULIAN CARRILLO 201", colony: "CASA BLANCA", postal: "37170", staff: "6 a 10 personas", phone: "4774447162", website: "", latitude: "21.15052782", longitude: "-101.6800701" },
+  { name: "PURIFICADORA DE AGUA H2O DPURA", business: "", address: "RIO MAYO SN", colony: "CUMBRES DE LA PRADERA", postal: "37550", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.08871498", longitude: "-101.6591505" },
+  { name: "PURIFICADORA DE AGUA LIVERT", business: "", address: "RIO MAYO 2001", colony: "LAS MARGARITAS", postal: "37468", staff: "0 a 5 personas", phone: "6667306144", website: "", latitude: "21.09678922", longitude: "-101.6825579" },
+  { name: "PURIFICADORA DE AGUA LOBATO", business: "", address: "VASCO DE QUIROGA SN", colony: "BENITO JUAREZ", postal: "37236", staff: "0 a 5 personas", phone: "4774499910", website: "", latitude: "21.14018809", longitude: "-101.6479403" },
+  { name: "PURIFICADORA DE AGUA MAS PURA VILLAS", business: "", address: "PASEO DE LA FRAGUA 626", colony: "PASEOS DE LA FRAGUA", postal: "37357", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.1576189", longitude: "-101.7441635" },
+  { name: "PURIFICADORA DE AGUA MERIVALLE", business: "", address: "JUAN VALLE SN", colony: "SAN JUAN DE DIOS", postal: "37004", staff: "0 a 5 personas", phone: "4774492649", website: "", latitude: "21.11591914", longitude: "-101.6781465" },
+  { name: "PURIFICADORA DE AGUA NATURAVITA", business: "", address: "PRADERA SN", colony: "RINCONADA DEL SUR", postal: "37536", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.09147106", longitude: "-101.6517431" },
+  { name: "PURIFICADORA DE AGUA PURAGUA", business: "", address: "PALMERIN 223", colony: "LEÓN MODERNO", postal: "37480", staff: "0 a 5 personas", phone: "4777124183", website: "", latitude: "21.10388284", longitude: "-101.6634051" },
+  { name: "PURIFICADORA DE AGUA PURITRONIC", business: "", address: "ANTONIO MADRAZO SN", colony: "SANTA ROSA DE LIMA", postal: "37210", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.15157266", longitude: "-101.6547103" },
+  { name: "PURIFICADORA DE AGUA ROCA AZUL DE LEON", business: "AGUA ROCA AZUL DE LEON", address: "DEL MODELISTA 109", colony: "INDUSTRIAL JULIAN DE OBREGÓN", postal: "37290", staff: "31 a 50 personas", phone: "", website: "", latitude: "21.10671839", longitude: "-101.6265" },
+  { name: "PURIFICADORA DE AGUA SAN JUDAS TADEO", business: "", address: "BABEL SN", colony: "LA INDIA", postal: "37209", staff: "6 a 10 personas", phone: "4772477007", website: "", latitude: "21.1919147", longitude: "-101.6594303" },
+  { name: "PURIFICADORA DE AGUA SAN MIGUELITO", business: "", address: "LA CIUDADELA SN", colony: "SAN CARLOS LA RONCHA", postal: "37860", staff: "0 a 5 personas", phone: "4775639729", website: "", latitude: "21.07019562", longitude: "-101.5869015" },
+  { name: "PURIFICADORA DE AGUA SAN PATRICIO", business: "", address: "SELVA DEL CAMPO 115", colony: "ARBOLEDAS DE LA SELVA", postal: "37207", staff: "0 a 5 personas", phone: "4773806505", website: "", latitude: "21.17554357", longitude: "-101.6335384" },
+  { name: "PURIFICADORA DE AGUA SFORZA", business: "", address: "ROSAS MORENO 224", colony: "SAN JUAN DE DIOS", postal: "37000", staff: "6 a 10 personas", phone: "4773956062", website: "", latitude: "21.11798383", longitude: "-101.6817634" },
+  { name: "PURIFICADORA DE AGUA WATER BLUE", business: "", address: "SAN JUAN CRISOSTOMO 117", colony: "SANTA ROSA PLAN DE AYALA", postal: "37666", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.07249134", longitude: "-101.7176765" },
+  { name: "PURIFICADORA DE AWA CERO", business: "", address: "GEMA 101", colony: "GRANJAS MARÍA DOLORES", postal: "37550", staff: "0 a 5 personas", phone: "4776779454", website: "", latitude: "21.09476294", longitude: "-101.6599106" },
+  { name: "PURIFICADORA EL CERRITO", business: "", address: "VOLCAN JORULLO SN", colony: "LA RAZA", postal: "37538", staff: "6 a 10 personas", phone: "4791424184", website: "", latitude: "21.08480325", longitude: "-101.6375515" },
+  { name: "PURIFICADORA EL MANANTIAL", business: "PURIFICADORA", address: "TEPALCATEPEC 510", colony: "MICHOACÁN", postal: "37240", staff: "0 a 5 personas", phone: "4771863924", website: "", latitude: "21.13444043", longitude: "-101.6752925" },
+  { name: "PURIFICADORA ERAVA", business: "ERNESTO TORRES", address: "PURUANDIRO 402", colony: "MICHOACÁN", postal: "37240", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.13555877", longitude: "-101.6763153" },
+  { name: "PURIFICADORA INMACULADA", business: "", address: "HACIENDA DE SAN FRANCISCO 619", colony: "VALLE DE LAS HACIENDAS", postal: "37545", staff: "0 a 5 personas", phone: "4792310021", website: "", latitude: "21.07096715", longitude: "-101.6118979" },
+  { name: "PURIFICADORA LA NUBE DE AGUA", business: "", address: "PRINCIPAL 416", colony: "LOS LÓPEZ", postal: "37680", staff: "0 a 5 personas", phone: "4772944289", website: "", latitude: "21.04712685", longitude: "-101.5730061" },
+  { name: "PURIFICADORA LIVERT", business: "BLANCA HERNANDEZ", address: "HOROSCOPO 509", colony: "SANTA RITA DE LOS NARANJOS", postal: "37444", staff: "0 a 5 personas", phone: "4771772799", website: "", latitude: "21.10600212", longitude: "-101.7069407" },
+  { name: "PURIFICADORA LOS ANGELES", business: "", address: "ALIANZA 202", colony: "LOMAS DE GUADALUPE", postal: "37209", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.19424658", longitude: "-101.6537196" },
+  { name: "PURIFICADORA LOS ANGELES", business: "", address: "DE LA RESURRECCION 202", colony: "LOMAS DE GUADALUPE", postal: "37209", staff: "0 a 5 personas", phone: "4771256857", website: "", latitude: "21.19413724", longitude: "-101.6541012" },
+  { name: "PURIFICADORA OASIS", business: "PEDRO VILLEGAS", address: "CENTENARIO 802", colony: "SAN MIGUEL", postal: "37390", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10267197", longitude: "-101.6829529" },
+  { name: "PURIFICADORA PROGRESIVA", business: "PURIFICADORA PROGRESIVA", address: "ALPES 124", colony: "ARROYO HONDO", postal: "37438", staff: "0 a 5 personas", phone: "4777359049", website: "", latitude: "21.09347962", longitude: "-101.7265021" },
+  { name: "PURIFICADORA PURITRONIC", business: "", address: "MANUEL DE AUSTRI 1301", colony: "SAN JUAN BOSCO", postal: "37330", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.13425214", longitude: "-101.7028951" },
+  { name: "PURIFICADORA SAN PEDRO", business: "", address: "PIRUL DE JEREZ 144", colony: "JARDINES DE JEREZ II Y III", postal: "37530", staff: "0 a 5 personas", phone: "4776995385", website: "", latitude: "21.09068148", longitude: "-101.6481645" },
+  { name: "PURIFICADORA SIN NOMBRE", business: "", address: "CANDELARIA 114", colony: "LA CANDELARIA", postal: "37260", staff: "0 a 5 personas", phone: "4774054300", website: "", latitude: "21.12847144", longitude: "-101.6593673" },
+  { name: "PURIFICADORA SIN NOMBRE", business: "", address: "GUADALUPE ORIENTAL 705", colony: "EL MIRADOR ORIENTAL", postal: "37500", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10864489", longitude: "-101.6545852" },
+  { name: "PURIFICADORA ULTRA LIGTH", business: "", address: "SAN FRANCISCO DE ASIS 804", colony: "SANTA ROSA DE LIMA", postal: "37210", staff: "0 a 5 personas", phone: "4775902692", website: "", latitude: "21.15331415", longitude: "-101.6519814" },
+  { name: "PURIFICADORA VIDA", business: "", address: "MARIANO ESCOBEDO PONIENTE 7722", colony: "LOMAS DE LAS HILAMAS", postal: "37407", staff: "0 a 5 personas", phone: "4772390144", website: "", latitude: "21.10527507", longitude: "-101.7260555" },
+  { name: "PURIFICADORA VITAL AGUA", business: "", address: "MARAVATIO 629", colony: "SAN AGUSTÍN", postal: "37240", staff: "0 a 5 personas", phone: "4771214460", website: "", latitude: "21.1348794", longitude: "-101.6726332" },
+  { name: "PURIFICADORA WATER", business: "SALVADOR HERNANDEZ", address: "GUATEMALA 703", colony: "OBRERA", postal: "37840", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.12995489", longitude: "-101.6928002" },
+  { name: "PURIFICADORA WATER ROM", business: "", address: "ANAXAGORAS 218", colony: "ARBOLEDAS DE SEÑORA", postal: "37205", staff: "0 a 5 personas", phone: "4773271913", website: "", latitude: "21.15688978", longitude: "-101.6553495" },
+  { name: "PURIFICADORA Y RELLENADO DE GARROFON VTTA", business: "", address: "ANTONIO MADRAZO 6301", colony: "VALLE DE SEÑORA II", postal: "37205", staff: "6 a 10 personas", phone: "", website: "", latitude: "21.15800332", longitude: "-101.6510986" },
+  { name: "PURIFICADORS DE AGUA ACUA PUR", business: "", address: "MARIANO ESCOBEDO 4147", colony: "JAIME NUNO", postal: "37510", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10421355", longitude: "-101.6423677" },
+  { name: "PURITRONIC PURIFICADORA DE AGUA", business: "", address: "VICENTE VALTIERRA 7718", colony: "EL CARMEN", postal: "37299", staff: "0 a 5 personas", phone: "4771209884", website: "", latitude: "21.11648732", longitude: "-101.608777" },
+  { name: "PURITRONIC RELLENADO DE AGUA", business: "", address: "AVENIDA SION 2101", colony: "SAN FELIPE DE JESÚS", postal: "37250", staff: "6 a 10 personas", phone: "", website: "", latitude: "21.1344105", longitude: "-101.6496886" },
+  { name: "REBANADORA DE AGUA YER", business: "", address: "CASCADA SN", colony: "PRO. FRACCIONES DE MESA DE MEDINA", postal: "37238", staff: "0 a 5 personas", phone: "4776468339", website: "", latitude: "21.14770199", longitude: "-101.6142149" },
+  { name: "RELLENADO DE AGUA SIN NOMBRE", business: "", address: "ZEUS 610", colony: "EL LUCERO II", postal: "37249", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.13672875", longitude: "-101.6680239" },
+  { name: "RELLENADOR DE GARRAFONES DE AGUA PURIFICADORA LIVERT", business: "", address: "SAN JUAN BOSCO 602", colony: "ESPAÑA", postal: "37330", staff: "0 a 5 personas", phone: "4777019694", website: "", latitude: "21.13222668", longitude: "-101.7004752" },
+  { name: "RELLENADORA DE AGUA ANTORESA", business: "", address: "NUEVA ORLEANS 220", colony: "LAS AMÉRICAS", postal: "37390", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10939243", longitude: "-101.6932746" },
+  { name: "RELLENADORA DE AGUA AWA-TEC", business: "", address: "SAUZ DEL VALLE 301", colony: "VALLE DE LEÓN", postal: "37298", staff: "0 a 5 personas", phone: "4771772799", website: "", latitude: "21.15691434", longitude: "-101.6707292" },
+  { name: "SERICIO DE AGUA PURIFICADA AGUA SAN LORENZO", business: "LORENZO RUIZ", address: "PUERTA DE PLOMO SN", colony: "PUERTA DE SAN CARLOS PRIMERA SECCION", postal: "37547", staff: "0 a 5 personas", phone: "4774791450", website: "", latitude: "21.07869351", longitude: "-101.5925204" },
+  { name: "SERVICIO DE VENTA DE AGUA PURIFICADA LAS VILLAS", business: "", address: "SAN BENEDETTO MANNI SN", colony: "VILLAS DE SAN NICOLÁS II", postal: "37296", staff: "0 a 5 personas", phone: "4771568306", website: "", latitude: "21.11955433", longitude: "-101.5896963" },
+  { name: "VENTA DE AGUA PURIFICADA AGUA INMACULADA SANTA ELENA", business: "JORGE HERNANDEZ", address: "BRISAS DE SAN VICENTE 101", colony: "BRISAS DEL CARMEN", postal: "37297", staff: "0 a 5 personas", phone: "4776078380", website: "", latitude: "21.10773902", longitude: "-101.6034755" },
+  { name: "VENTA Y LLENADO DE GARRAFONES DE AGUA PURIFICADA X OSMOSIS INVERSA", business: "", address: "CUMBRES DE MANZANARES 201", colony: "PARQUE MANZANARES", postal: "37510", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.10692389", longitude: "-101.6513431" },
+  { name: "WATER LIKE", business: "", address: "MADRE PATRIA 146", colony: "DIEZ DE MAYO", postal: "37549", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.07069871", longitude: "-101.6304361" },
+  { name: "WATER STOP", business: "", address: "CONGRESO DE CHILPANCINGO 1609", colony: "DEPORTIVA I", postal: "37237", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.14389375", longitude: "-101.6545521" },
+  { name: "ZA - VA PURA AGUA PURA", business: "", address: "FERROCARRILES NACIONALES 805", colony: "VIBAR", postal: "37353", staff: "0 a 5 personas", phone: "", website: "", latitude: "21.12508089", longitude: "-101.714285" }
+];
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let establishments = [...RAW_ESTABLISHMENTS];
+let filteredEstablishments = [...establishments];
+
+let markerLayer = L.layerGroup();
+let heatLayer = null;
+
+let markersVisible = true;
+let heatVisible = false;
+
+
+/* =========================================================
+   MAPA
+========================================================= */
+
+const LEON = [21.125, -101.685];
+
+const map = L.map("map", {
+    center: LEON,
+    zoom: 11,
+    zoomControl: true,
+    preferCanvas: true
+});
+
+
+/* =========================================================
+   OPENSTREETMAP
+========================================================= */
+
+const osm = L.tileLayer(
+    "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+    }
+);
+
+osm.addTo(map);
+
+
+/* =========================================================
+   CAPAS
+========================================================= */
+
+markerLayer.addTo(map);
+
+
+/* =========================================================
+   CONTROL DE CAPAS
+========================================================= */
+
+L.control.layers(
+    { "OpenStreetMap": osm },
+    { "📍 Competidores": markerLayer },
+    { collapsed: true }
+).addTo(map);
+
+
+/* =========================================================
+   LEYENDA
+========================================================= */
+
+const legend = L.control({ position: "bottomright" });
+
+legend.onAdd = function(){
+    const div = L.DomUtil.create("div", "map-legend");
+    div.innerHTML = `
+        <div class="legend-title">Competencia</div>
+        <div>🔴 Establecimiento</div>
+        <div>🔥 Mayor concentración</div>
+    `;
+    return div;
+};
+
+legend.addTo(map);
+
+
+/* =========================================================
+   ELEMENTOS HTML
+========================================================= */
+
+const tableBody = document.getElementById("tableBody");
+const searchInput = document.getElementById("search");
+const staffFilter = document.getElementById("staffFilter");
+const mapCounter = document.getElementById("mapCounter");
+const coordinateCounter = document.getElementById("coordinateCounter");
+const markersButton = document.getElementById("markersButton");
+const heatButton = document.getElementById("heatButton");
+
+
+/* =========================================================
+   VALIDAR COORDENADAS
+========================================================= */
+
+function validCoordinates(item){
+    const lat = parseFloat(String(item.latitude).replace(",","."));
+    const lon = parseFloat(String(item.longitude).replace(",","."));
+
+    if(!Number.isFinite(lat) || !Number.isFinite(lon)){
+        return null;
+    }
+
+    if(lat < 18 || lat > 23 || lon < -105 || lon > -98){
+        return null;
+    }
+
+    return [lat, lon];
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+function applyFilters(){
+    const search = searchInput.value.toLowerCase().trim();
+    const staff = staffFilter.value;
+
+    filteredEstablishments = establishments.filter(item => {
+        const text = `
+            ${item.name}
+            ${item.business}
+            ${item.address}
+            ${item.colony}
+            ${item.postal}
+        `.toLowerCase();
+
+        if(search && !text.includes(search)){
+            return false;
+        }
+
+        if(staff && !staffMatches(parseStaff(item.staff), staff)){
+            return false;
+        }
+
+        return true;
+    });
+
+    renderTable();
+    renderMarkers();
+}
+
+
+/* =========================================================
+   EVENTOS FILTRO
+========================================================= */
+
+searchInput.addEventListener("input", applyFilters);
+staffFilter.addEventListener("change", applyFilters);
+
+
+/* =========================================================
+   PERSONAL
+========================================================= */
+
+function parseStaff(value){
+    if(!value) return null;
+    const s = String(value).toLowerCase().replace(/\s/g,"");
+
+    if(s.includes("0a5") || s.includes("0-5")) return 3;
+    if(s.includes("6a10") || s.includes("6-10")) return 8;
+    if(s.includes("11a30") || s.includes("11-30")) return 20;
+    if(s.includes("31a50") || s.includes("31-50")) return 40;
+    if(s.includes("51a99") || s.includes("51-99")) return 75;
+
+    const number = parseInt(s.replace(/\D/g,""));
+    return Number.isFinite(number) ? number : null;
+}
+
+function staffMatches(value, filter){
+    if(value === null) return false;
+
+    switch(filter){
+        case "0-5": return value >= 0 && value <= 5;
+        case "6-10": return value >= 6 && value <= 10;
+        case "11-30": return value >= 11 && value <= 30;
+        case "31-50": return value >= 31 && value <= 50;
+        case "51+": return value >= 51;
+        default: return true;
+    }
+}
+
+
+/* =========================================================
+   TABLA
+========================================================= */
+
+function renderTable(){
+    if(!filteredEstablishments.length){
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="9" class="empty">
+                    No hay registros para los filtros actuales.
+                </td>
+            </tr>
+        `;
+        return;
+    }
+
+    tableBody.innerHTML = filteredEstablishments
+        .slice(0, 1000)
+        .map(item => `
+            <tr>
+                <td><strong>${escapeHTML(item.name || "Sin nombre")}</strong></td>
+                <td>${escapeHTML(item.business || "No registrada")}</td>
+                <td>${escapeHTML(item.address || "No registrada")}</td>
+                <td>${escapeHTML(item.colony || "No registrada")}</td>
+                <td>${escapeHTML(item.staff || "No registrado")}</td>
+                <td>${escapeHTML(item.phone || "No registrado")}</td>
+                <td>
+                    ${item.website ? 
+                        `<a href="${safeURL(item.website)}" target="_blank" rel="noopener">Ver</a>` : 
+                        "No registrada"
+                    }
+                </td>
+                <td>${escapeHTML(item.latitude || "—")}</td>
+                <td>${escapeHTML(item.longitude || "—")}</td>
+            </tr>
+        `).join("");
+}
+
+
+/* =========================================================
+   MARCADORES
+========================================================= */
+
+function renderMarkers(){
+    markerLayer.clearLayers();
+
+    const coordinates = filteredEstablishments
+        .map(item => {
+            const coords = validCoordinates(item);
+            return coords ? { item, coords } : null;
+        })
+        .filter(Boolean);
+
+    mapCounter.textContent = `${filteredEstablishments.length} establecimientos`;
+    coordinateCounter.textContent = `${coordinates.length} con coordenadas`;
+
+    coordinates.forEach(({item, coords}) => {
+        const marker = L.circleMarker(coords, {
+            radius: 7,
+            weight: 2,
+            color: "#ffffff",
+            fillColor: "#d94255",
+            fillOpacity: .9
+        });
+
+        const popup = createPopup(item);
+        marker.bindPopup(popup, { maxWidth: 340 });
+        marker.addTo(markerLayer);
+    });
+
+    updateHeatmap(coordinates);
+
+    if(!markersVisible){
+        markerLayer.remove();
+    } else if(!map.hasLayer(markerLayer)){
+        markerLayer.addTo(map);
+    }
+}
+
+
+/* =========================================================
+   POPUP
+========================================================= */
+
+function createPopup(item){
+    const name = escapeHTML(item.name || "Establecimiento sin nombre");
+    const address = escapeHTML(item.address || "No registrada");
+    const colony = escapeHTML(item.colony || "No registrada");
+    const staff = escapeHTML(item.staff || "No registrado");
+    const phone = escapeHTML(item.phone || "No registrado");
+    const postal = escapeHTML(item.postal || "No registrado");
+    const website = item.website ? 
+        `<a href="${safeURL(item.website)}" target="_blank" rel="noopener">Abrir sitio web</a>` : 
+        "No registrada";
+
+    return `
+        <div class="popup">
+            <div class="popup-title">${name}</div>
+            <div class="popup-row">
+                <span class="popup-label">Dirección</span>
+                <span class="popup-value">${address}</span>
+            </div>
+            <div class="popup-row">
+                <span class="popup-label">Colonia</span>
+                <span class="popup-value">${colony}</span>
+            </div>
+            <div class="popup-row">
+                <span class="popup-label">C.P.</span>
+                <span class="popup-value">${postal}</span>
+            </div>
+            <div class="popup-row">
+                <span class="popup-label">Personal</span>
+                <span class="popup-value">${staff}</span>
+            </div>
+            <div class="popup-row">
+                <span class="popup-label">Teléfono</span>
+                <span class="popup-value">${phone}</span>
+            </div>
+            <div class="popup-row" style="border-bottom:0;">
+                <span class="popup-label">Sitio web</span>
+                <span class="popup-value">${website}</span>
+            </div>
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   HEATMAP
+========================================================= */
+
+function updateHeatmap(coordinateObjects){
+    if(heatLayer){
+        map.removeLayer(heatLayer);
+        heatLayer = null;
+    }
+
+    const points = coordinateObjects.map(({coords}) => [coords[0], coords[1], 0.65]);
+
+    if(!points.length) return;
+
+    heatLayer = L.heatLayer(points, {
+        radius: 32,
+        blur: 25,
+        maxZoom: 16,
+        minOpacity: .35,
+        gradient: {
+            0.15: "#3b82f6",
+            0.35: "#22c55e",
+            0.55: "#facc15",
+            0.75: "#f97316",
+            1: "#dc2626"
+        }
+    });
+
+    if(heatVisible){
+        heatLayer.addTo(map);
+    }
+}
+
+
+/* =========================================================
+   TOGGLES Y NAVEGACIÓN
+========================================================= */
+
+function toggleMarkers(){
+    markersVisible = !markersVisible;
+    if(markersVisible){
+        markerLayer.addTo(map);
+        markersButton.classList.add("active");
+    } else {
+        markerLayer.remove();
+        markersButton.classList.remove("active");
+    }
+}
+
+function toggleHeatmap(){
+    heatVisible = !heatVisible;
+    if(heatVisible && heatLayer){
+        heatLayer.addTo(map);
+        heatButton.classList.add("active");
+    } else {
+        if(heatLayer) heatLayer.remove();
+        heatButton.classList.remove("active");
+    }
+}
+
+function fitAllMarkers(){
+    const coordinates = filteredEstablishments.map(validCoordinates).filter(Boolean);
+    if(!coordinates.length){
+        goToLeon();
+        return;
+    }
+    fitCoordinates(coordinates);
+}
+
+function fitCoordinates(coordinates){
+    if(!coordinates.length) return;
+    const bounds = L.latLngBounds(coordinates);
+    map.fitBounds(bounds, { padding: [35, 35] });
+}
+
+function goToLeon(){
+    map.setView(LEON, 11);
+}
+
+function resetFilters(){
+    searchInput.value = "";
+    staffFilter.value = "";
+    filteredEstablishments = [...establishments];
+    renderTable();
+    renderMarkers();
+}
+
+
+/* =========================================================
+   EXPORTAR CSV
+========================================================= */
+
+function downloadCSV(){
+    if(!filteredEstablishments.length){
+        alert("No hay registros para exportar.");
+        return;
+    }
+
+    const headers = [
+        "Establecimiento", "Razon social", "Direccion", "Colonia",
+        "Codigo postal", "Personal", "Telefono", "Sitio web",
+        "Latitud", "Longitud"
+    ];
+
+    const rows = filteredEstablishments.map(item => [
+        item.name, item.business, item.address, item.colony,
+        item.postal, item.staff, item.phone, item.website,
+        item.latitude, item.longitude
+    ]);
+
+    const csv = [headers, ...rows]
+        .map(row => row.map(value => `"${String(value || "").replace(/"/g, '""')}"`).join(","))
+        .join("\n");
+
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "competencia_purificadoras_leon.csv";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+}
+
+
+/* =========================================================
+   SEGURIDAD
+========================================================= */
+
+function escapeHTML(value){
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function safeURL(value){
+    let url = String(value || "").trim();
+    if(!/^https?:\/\//i.test(url)){
+        url = "https://" + url;
+    }
+    return escapeHTML(url);
+}
+
+
+/* =========================================================
+   INICIALIZACIÓN AUTOMÁTICA
+========================================================= */
+
+applyFilters();
+fitAllMarkers();
+
+</script>
+
+</body>
+</html>
