@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Tipos de Clientes | Comercialización Virtual</title>
+
+  <style>
+    :root {
+      --bg: #07111f;
+      --bg-soft: #0d1726;
+      --card: rgba(255,255,255,.06);
+      --card-strong: rgba(255,255,255,.09);
+
+      --text: #f8fbff;
+      --muted: #a9b7c9;
+
+      --line: rgba(255,255,255,.10);
+
+      --blue: #5da9ff;
+      --purple: #8b5cf6;
+      --cyan: #22d3ee;
+      --green: #34d399;
+      --pink: #fb7185;
+      --yellow: #fbbf24;
+
+      --shadow: 0 20px 50px rgba(0,0,0,.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background:
+        radial-gradient(circle at top left, rgba(93,169,255,.16), transparent 30%),
+        radial-gradient(circle at top right, rgba(139,92,246,.15), transparent 28%),
+        linear-gradient(180deg, #07111f 0%, #0a1322 45%, #0d1726 100%);
+
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    /* =========================
+       NAV
+    ========================= */
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      backdrop-filter: blur(16px);
+
+      background:
+        rgba(7,17,31,.72);
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .nav-inner {
+      max-width: 1180px;
+      margin: auto;
+      padding: 14px 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: -.4px;
+    }
+
+    .brand span {
+      color: var(--blue);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    header {
+      position: relative;
+      overflow: hidden;
+
+      padding: 90px 0 80px;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+
+      width: 420px;
+      height: 420px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(93,169,255,.14);
+
+      filter: blur(30px);
+
+      top: -150px;
+      left: -130px;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+
+      width: 360px;
+      height: 360px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(139,92,246,.13);
+
+      filter: blur(30px);
+
+      top: -90px;
+      right: -120px;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+
+      padding: 8px 12px;
+
+      border: 1px solid rgba(93,169,255,.22);
+      border-radius: 999px;
+
+      background:
+        rgba(93,169,255,.08);
+
+      color: #bdddff;
+
+      font-size: 13px;
+      font-weight: 800;
+
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+
+      font-size:
+        clamp(42px, 7vw, 78px);
+
+      line-height: .98;
+
+      letter-spacing: -3px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #ffffff,
+          #bdddff 45%,
+          #d8c8ff
+        );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      margin: 22px 0 0;
+
+      color: var(--muted);
+
+      max-width: 760px;
+
+      font-size: 17px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 48px;
+
+      padding:
+        0 20px;
+
+      border-radius:
+        14px;
+
+      font-weight:
+        800;
+
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+    }
+
+    .btn-primary {
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--purple)
+        );
+
+      box-shadow:
+        0 12px 28px rgba(93,169,255,.18);
+    }
+
+    .btn-secondary {
+      border:
+        1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.05);
+
+      color:
+        #dce6f3;
+    }
+
+    .btn:hover {
+      transform:
+        translateY(-2px);
+    }
+
+    .hero-card {
+      border:
+        1px solid var(--line);
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(255,255,255,.08),
+          rgba(255,255,255,.035)
+        );
+
+      border-radius:
+        28px;
+
+      padding:
+        26px;
+
+      box-shadow:
+        var(--shadow);
+
+      backdrop-filter:
+        blur(18px);
+    }
+
+    .hero-card h3 {
+      margin:
+        0 0 10px;
+    }
+
+    .hero-card p {
+      margin:
+        0;
+
+      font-size:
+        14px;
+
+      line-height:
+        1.6;
+    }
+
+    .mini-stats {
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(2, 1fr);
+
+      gap:
+        12px;
+
+      margin-top:
+        20px;
+    }
+
+    .mini-stat {
+      padding:
+        16px;
+
+      border-radius:
+        16px;
+
+      background:
+        rgba(255,255,255,.045);
+
+      border:
+        1px solid var(--line);
+    }
+
+    .mini-stat strong {
+      display:
+        block;
+
+      font-size:
+        25px;
+
+      margin-bottom:
+        4px;
+    }
+
+    .mini-stat span {
+      color:
+        var(--muted);
+
+      font-size:
+        12px;
+    }
+
+    /* =========================
+       INTRO
+    ========================= */
+
+    section {
+      padding:
+        34px 0;
+    }
+
+    .section-head {
+      margin-bottom:
+        24px;
+    }
+
+    .section-head h2 {
+      margin:
+        0 0 8px;
+
+      font-size:
+        clamp(28px, 4vw, 42px);
+
+      letter-spacing:
+        -1.2px;
+    }
+
+    .section-head p {
+      margin:
+        0;
+
+      max-width:
+        800px;
+
+      color:
+        var(--muted);
+
+      line-height:
+        1.7;
+    }
+
+    /* =========================
+       CLIENT CARDS
+    ========================= */
+
+    .clients-grid {
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+      gap:
+        18px;
+    }
+
+    .client-card {
+      position:
+        relative;
+
+      overflow:
+        hidden;
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        22px;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(18,32,52,.94),
+          rgba(13,24,40,.96)
+        );
+
+      box-shadow:
+        0 12px 30px rgba(0,0,0,.16);
+
+      transition:
+        transform .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease;
+    }
+
+    .client-card:hover {
+      transform:
+        translateY(-5px);
+
+      border-color:
+        rgba(93,169,255,.28);
+
+      box-shadow:
+        0 20px 42px rgba(0,0,0,.23);
+    }
+
+    .client-card::before {
+      content:
+        "";
+
+      position:
+        absolute;
+
+      top:
+        0;
+
+      left:
+        0;
+
+      right:
+        0;
+
+      height:
+        3px;
+
+      background:
+        linear-gradient(
+          90deg,
+          var(--blue),
+          var(--purple),
+          var(--cyan)
+        );
+    }
+
+    .client-header {
+      padding:
+        22px 22px 16px;
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .client-icon {
+      width:
+        46px;
+
+      height:
+        46px;
+
+      border-radius:
+        14px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      font-size:
+        22px;
+
+      margin-bottom:
+        14px;
+
+      background:
+        rgba(93,169,255,.09);
+
+      border:
+        1px solid rgba(93,169,255,.18);
+    }
+
+    .client-header h3 {
+      margin:
+        0;
+
+      font-size:
+        21px;
+    }
+
+    .definition {
+      padding:
+        18px 22px;
+
+      color:
+        #dce6f3;
+
+      line-height:
+        1.65;
+
+      font-size:
+        14px;
+    }
+
+    .examples {
+      padding:
+        0 22px 22px;
+    }
+
+    .examples strong {
+      display:
+        block;
+
+      color:
+        #93c5fd;
+
+      margin-bottom:
+        10px;
+
+      font-size:
+        13px;
+
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        .5px;
+    }
+
+    .example {
+      display:
+        flex;
+
+      gap:
+        10px;
+
+      padding:
+        11px 0;
+
+      border-top:
+        1px solid rgba(255,255,255,.06);
+
+      color:
+        var(--muted);
+
+      font-size:
+        13px;
+
+      line-height:
+        1.5;
+    }
+
+    .example span:first-child {
+      color:
+        var(--green);
+
+      font-weight:
+        900;
+    }
+
+    /* =========================
+       TEST DE CLIENTES
+    ========================= */
+
+    #test-clientes {
+      padding: 60px 0 70px;
+    }
+
+    .test-shell {
+      max-width: 880px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top right, rgba(139,92,246,.10), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(34,211,238,.08), transparent 28%),
+        linear-gradient(180deg, rgba(18,32,52,.96), rgba(13,24,40,.98));
+      box-shadow: var(--shadow);
+    }
+
+    .test-intro {
+      padding: 28px 28px 22px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .test-intro h2 {
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -1.2px;
+    }
+
+    .test-intro p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 760px;
+    }
+
+    .test-body {
+      padding: 28px;
+    }
+
+    .test-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .progress {
+      width: 100%;
+      height: 9px;
+      background: rgba(255,255,255,.07);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 30px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 10%;
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, var(--blue), var(--purple), var(--cyan));
+      transition: width .3s ease;
+    }
+
+    .question-card {
+      animation: questionFade .28s ease;
+    }
+
+    .question-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      height: 52px;
+      padding: 0 14px;
+      border-radius: 16px;
+      background: rgba(93,169,255,.09);
+      border: 1px solid rgba(93,169,255,.16);
+      color: #bdddff;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .question-card h3 {
+      margin: 0 0 22px;
+      font-size: clamp(22px, 3vw, 29px);
+      line-height: 1.35;
+      letter-spacing: -.4px;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .option {
+      width: 100%;
+      min-height: 64px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 16px;
+      background: rgba(255,255,255,.035);
+      color: #dce6f3;
+      font-family: inherit;
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: .18s ease;
+    }
+
+    .option:hover {
+      transform: translateX(4px);
+      border-color: rgba(93,169,255,.35);
+      background: rgba(93,169,255,.06);
+    }
+
+    .option.selected {
+      border-color: var(--blue);
+      background:
+        linear-gradient(135deg, rgba(93,169,255,.15), rgba(139,92,246,.10));
+      box-shadow: 0 0 0 3px rgba(93,169,255,.07);
+    }
+
+    .option-letter {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 11px;
+      background: rgba(255,255,255,.06);
+      color: #bdddff;
+      font-weight: 900;
+    }
+
+    .option.selected .option-letter {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+    }
+
+    .test-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .test-btn {
+      border: none;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 14px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+
+    .test-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .test-btn.primary {
+      background:
+        linear-gradient(135deg, var(--blue), var(--purple));
+      color: white;
+      box-shadow: 0 12px 28px rgba(93,169,255,.16);
+    }
+
+    .test-btn.secondary {
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--line);
+      color: #dce6f3;
+    }
+
+    .test-btn:disabled {
+      opacity: .35;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .test-warning {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 13px;
+      background: rgba(251,191,36,.07);
+      border: 1px solid rgba(251,191,36,.18);
+      color: #fde9a9;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .test-warning.active {
+      display: block;
+    }
+
+    .test-result {
+      display: none;
+      text-align: center;
+      padding: 10px 0 4px;
+      animation: resultFade .45s ease;
+    }
+
+    .test-result.active {
+      display: block;
+    }
+
+    .result-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(52,211,153,.09);
+      border: 1px solid rgba(52,211,153,.18);
+      color: #6ee7b7;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .55px;
+      margin-bottom: 18px;
+    }
+
+    .result-icon {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 18px;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      background:
+        linear-gradient(135deg, rgba(93,169,255,.17), rgba(139,92,246,.18));
+      border: 1px solid rgba(93,169,255,.2);
+    }
+
+    .test-result h2 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 44px);
+      letter-spacing: -1px;
+    }
+
+    .test-result > p {
+      max-width: 650px;
+      margin: 0 auto 22px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .result-analysis {
+      max-width: 680px;
+      margin: 24px auto;
+      padding: 18px;
+      text-align: left;
+      border-radius: 18px;
+      background: rgba(93,169,255,.055);
+      border: 1px solid rgba(93,169,255,.12);
+    }
+
+    .result-analysis strong {
+      display: block;
+      margin-bottom: 7px;
+      color: #bdddff;
+    }
+
+    .result-analysis p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .result-score {
+      margin: 18px auto 0;
+      max-width: 650px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 10px;
+      text-align: left;
+    }
+
+    .score-row {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .score-row strong {
+      color: #dce6f3;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+    }
+
+    @keyframes questionFade {
+      from { opacity: 0; transform: translateX(12px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes resultFade {
+      from { opacity: 0; transform: scale(.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 650px) {
+      .test-body,
+      .test-intro {
+        padding: 20px;
+      }
+
+      .test-buttons {
+        flex-direction: column-reverse;
+      }
+
+      .test-btn {
+        width: 100%;
+      }
+
+      .result-score {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding:
+        30px 20px 40px;
+
+      text-align:
+        center;
+
+      color:
+        #72849c;
+
+      font-size:
+        12px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 900px) {
+
+      .hero {
+        grid-template-columns:
+          1fr;
+      }
+
+      .clients-grid {
+        grid-template-columns:
+          1fr;
+      }
+
+
+    }
+
+    @media (max-width: 650px) {
+
+      .nav-links {
+        display:
+          none;
+      }
+
+      header {
+        padding:
+          70px 0 55px;
+      }
+
+      h1 {
+        letter-spacing:
+          -2px;
+      }
+
+      .mini-stats {
+        grid-template-columns:
+          1fr;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+
+  <nav>
+
+    <div class="nav-inner">
+
+      <div class="brand">
+        Comercialización <span>Virtual</span>
+      </div>
+
+      <div class="nav-links">
+        <a href="#tipos">Tipos de clientes</a>
+        <a href="#test-clientes">Hacer test</a>
+      </div>
+
+    </div>
+
+  </nav>
+
+
+  <!-- HERO -->
+
+  <header>
+
+    <div class="container hero">
+
+      <div>
+
+        <span class="eyebrow">
+           Actividad 1.2.1
+        </span>
+
+        <h1>
+          Tipos de clientes
+        </h1>
+
+        <p>
+          Conocer los diferentes tipos de clientes ayuda a una empresa a entender
+          cómo se comportan las personas antes, durante y después de realizar una
+          compra. Esto permite mejorar la atención, comunicación, promociones y
+          estrategias de mercadotecnia.
+        </p>
+
+        <div class="hero-actions">
+
+          <a class="btn btn-primary" href="#tipos">
+            Ver tipos de clientes
+          </a>
+
+          <a class="btn btn-secondary" href="#test-clientes">
+            Descubrir cuál soy
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div class="hero-card">
+
+        <h3>
+          ¿Qué veremos?
+        </h3>
+
+        <p>
+          Una clasificación práctica basada en el comportamiento de compra
+          y en la relación que tiene el cliente con una empresa.
+        </p>
+
+        <div class="mini-stats">
+
+          <div class="mini-stat">
+
+            <strong>10</strong>
+
+            <span>
+              Tipos de clientes
+            </span>
+
+          </div>
+
+          <div class="mini-stat">
+
+            <strong>30</strong>
+
+            <span>
+              Ejemplos prácticos
+            </span>
+
+          </div>
+
+          <div class="mini-stat">
+
+            <strong>3</strong>
+
+            <span>
+              Ejemplos por tipo
+            </span>
+
+          </div>
+
+          <div class="mini-stat">
+
+            <strong>1</strong>
+
+            <span>
+              Test de identificación
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- TIPOS -->
+
+  <section id="tipos">
+
+    <div class="container">
+
+      <div class="section-head">
+
+        <h2>
+          Principales tipos de clientes
+        </h2>
+
+        <p>
+          No existe una sola clasificación universal. Para esta actividad se
+          utiliza una clasificación sencilla según la manera en que una persona
+          compra y se relaciona con una marca.
+        </p>
+
+      </div>
+
+
+      <div class="clients-grid">
+
+
+        <!-- 1 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              👀
+            </div>
+
+            <h3>
+              Cliente potencial
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Es una persona que todavía no compra, pero tiene una necesidad,
+            interés o características que hacen posible que se convierta en cliente.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Alguien que pide informes de un gimnasio.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Una persona que compara precios de celulares antes de comprar.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Un usuario que solicita información de una universidad.
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 2 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              🆕
+            </div>
+
+            <h3>
+              Cliente nuevo
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Es quien acaba de realizar su primera compra con la empresa y
+            todavía está formando una opinión sobre la marca.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Persona que compra por primera vez en una cafetería.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Usuario que hace su primer pedido en una tienda en línea.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Cliente que contrata por primera vez un plan de internet.
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 3 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              🔄
+            </div>
+
+            <h3>
+              Cliente frecuente
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Compra de manera repetida, aunque eso no significa necesariamente
+            que sea totalmente leal a una sola marca.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Persona que compra agua purificada cada semana.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Cliente que visita una tienda de conveniencia varias veces al mes.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Usuario que pide comida constantemente en la misma aplicación.
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 4 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              ❤️
+            </div>
+
+            <h3>
+              Cliente leal
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Prefiere una marca o empresa constantemente y suele regresar incluso
+            cuando existen otras opciones disponibles.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Persona que siempre compra la misma marca de tenis.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Cliente que lleva años utilizando el mismo banco.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Consumidor que recomienda su cafetería favorita.
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 5 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              📅
+            </div>
+
+            <h3>
+              Cliente ocasional
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Compra solamente en momentos específicos o con poca frecuencia,
+            normalmente debido a una necesidad puntual.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Persona que compra flores únicamente en fechas especiales.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Cliente que renta un traje para una boda.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Usuario que reserva un hotel una vez al año.
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 6 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              ⚡
+            </div>
+
+            <h3>
+              Cliente impulsivo
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Toma decisiones de compra rápidamente, muchas veces motivado por
+            emociones, promociones o presentación del producto.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Persona que agrega dulces al pagar en caja.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Usuario que compra una prenda después de verla en redes sociales.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Cliente que compra porque existe una oferta por tiempo limitado.
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 7 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              🤔
+            </div>
+
+            <h3>
+              Cliente indeciso
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Tiene interés en comprar, pero necesita comparar, preguntar o recibir
+            más información antes de tomar la decisión.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Persona que compara tres modelos de laptop.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Cliente que pregunta varias veces sobre planes de un gimnasio.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Consumidor que revisa reseñas antes de elegir un restaurante.
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 8 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              🏷️
+            </div>
+
+            <h3>
+              Buscador de descuentos
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Da mucha importancia al precio y suele esperar promociones, cupones
+            o descuentos antes de realizar una compra.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Persona que compra ropa durante las rebajas.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Usuario que utiliza cupones en aplicaciones de comida.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Cliente que compara supermercados buscando el precio más bajo.
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 9 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              ⭐
+            </div>
+
+            <h3>
+              Cliente exigente
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Tiene expectativas altas sobre calidad, atención, rapidez,
+            información y cumplimiento.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Cliente que pregunta por ingredientes y procedencia de un alimento.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Persona que revisa especificaciones y garantía de un producto.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Consumidor que espera atención rápida y seguimiento.
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- 10 -->
+
+        <article class="client-card">
+
+          <div class="client-header">
+
+            <div class="client-icon">
+              😕
+            </div>
+
+            <h3>
+              Cliente insatisfecho
+            </h3>
+
+          </div>
+
+          <div class="definition">
+            Es quien tuvo una experiencia que no cumplió sus expectativas y puede
+            presentar una queja, solicitar una solución o dejar de comprar.
+          </div>
+
+          <div class="examples">
+
+            <strong>
+              Ejemplos
+            </strong>
+
+            <div class="example">
+              <span>01</span>
+              Persona que recibe un pedido equivocado y solicita cambio.
+            </div>
+
+            <div class="example">
+              <span>02</span>
+              Cliente que reclama por un servicio entregado tarde.
+            </div>
+
+            <div class="example">
+              <span>03</span>
+              Usuario que deja una reseña negativa por mala atención.
+            </div>
+
+          </div>
+
+        </article>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="test-clientes">
+
+    <div class="container">
+
+      <div class="test-shell">
+
+        <div class="test-intro">
+
+          <span class="eyebrow">
+            🧩 Test interactivo
+          </span>
+
+          <h2>
+            Descubre qué tipo de cliente eres
+          </h2>
+
+          <p>
+            Responde 10 preguntas pensando en cómo actúas normalmente al comprar.
+            Al terminar, el test comparará tus respuestas y te mostrará el tipo de
+            cliente que más se parece a tu comportamiento.
+          </p>
+
+        </div>
+
+        <div class="test-body">
+
+          <div id="testQuestionArea">
+
+            <div class="test-meta">
+              <span id="numeroPregunta">Pregunta 1 de 10</span>
+              <span id="porcentaje">10%</span>
+            </div>
+
+            <div class="progress">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+
+            <div id="preguntaCard" class="question-card">
+
+              <div id="questionNumber" class="question-number">
+                01
+              </div>
+
+              <h3 id="preguntaTexto"></h3>
+
+              <div id="opciones" class="options"></div>
+
+              <div id="testWarning" class="test-warning">
+                Selecciona una respuesta antes de continuar.
+              </div>
+
+            </div>
+
+            <div class="test-buttons">
+
+              <button
+                id="anterior"
+                class="test-btn secondary"
+                type="button"
+              >
+                ← Anterior
+              </button>
+
+              <button
+                id="siguiente"
+                class="test-btn primary"
+                type="button"
+              >
+                Siguiente →
+              </button>
+
+            </div>
+
+          </div>
+
+          <div id="resultadoTest" class="test-result">
+
+            <span class="result-badge">
+              Resultado del test
+            </span>
+
+            <div id="resultadoIcono" class="result-icon">
+              🎯
+            </div>
+
+            <h2 id="resultadoTitulo"></h2>
+
+            <p id="resultadoDescripcion"></p>
+
+            <div class="result-analysis">
+              <strong>¿Por qué salió este resultado?</strong>
+              <p id="resultadoPorque"></p>
+            </div>
+
+            <div class="result-analysis">
+              <strong>¿Cómo puede una empresa atender a un cliente como tú?</strong>
+              <p id="resultadoConsejo"></p>
+            </div>
+
+            <div id="resultadoPuntajes" class="result-score"></div>
+
+            <button
+              id="reiniciarTest"
+              class="test-btn primary"
+              type="button"
+              style="margin-top:22px;"
+            >
+              Volver a realizar el test
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <footer>
+
+    Proyecto académico · Comercialización Virtual · Actividad 1.2.1
+
+  </footer>
+
+  <script>
+    const preguntasTest = [
+      {
+        pregunta: "Cuando quieres comprar algo relativamente caro, ¿qué haces normalmente?",
+        opciones: [
+          { texto: "Comparo diferentes productos, precios y opiniones antes de decidir.", tipo: "Cliente indeciso" },
+          { texto: "Compro la marca que siempre utilizo porque ya confío en ella.", tipo: "Cliente leal" },
+          { texto: "Si me gusta mucho en ese momento, probablemente lo compro.", tipo: "Cliente impulsivo" },
+          { texto: "Espero alguna promoción o descuento.", tipo: "Buscador de descuentos" }
+        ]
+      },
+      {
+        pregunta: "Ves en redes sociales un producto que te gusta mucho. ¿Qué haces?",
+        opciones: [
+          { texto: "Lo compro casi inmediatamente si el precio me parece razonable.", tipo: "Cliente impulsivo" },
+          { texto: "Busco reseñas, comentarios y características antes de decidir.", tipo: "Cliente exigente" },
+          { texto: "Guardo la publicación y espero una promoción.", tipo: "Buscador de descuentos" },
+          { texto: "Prefiero seguir comprando una marca que ya conozco.", tipo: "Cliente leal" }
+        ]
+      },
+      {
+        pregunta: "Cuando una marca cumple muy bien con lo que necesitas, ¿cómo actúas después?",
+        opciones: [
+          { texto: "La vuelvo a comprar y normalmente la recomiendo.", tipo: "Cliente leal" },
+          { texto: "La compro varias veces mientras siga funcionando bien.", tipo: "Cliente frecuente" },
+          { texto: "Aun así comparo con otras opciones antes de cada compra.", tipo: "Cliente indeciso" },
+          { texto: "La vuelvo a comprar solamente si encuentro una buena promoción.", tipo: "Buscador de descuentos" }
+        ]
+      },
+      {
+        pregunta: "Antes de escoger un restaurante nuevo, ¿qué haces normalmente?",
+        opciones: [
+          { texto: "Reviso calificaciones, comentarios, menú, fotos y precios.", tipo: "Cliente exigente" },
+          { texto: "Voy al restaurante que ya conozco y sé que me gusta.", tipo: "Cliente leal" },
+          { texto: "Entro al que se vea interesante en ese momento.", tipo: "Cliente impulsivo" },
+          { texto: "Busco cuál tiene promociones, cupones o descuentos.", tipo: "Buscador de descuentos" }
+        ]
+      },
+      {
+        pregunta: "¿Qué tan importante es el precio cuando vas a comprar algo?",
+        opciones: [
+          { texto: "Es de lo más importante; normalmente busco ahorrar.", tipo: "Buscador de descuentos" },
+          { texto: "Me importa, pero prefiero pagar más por mejor calidad.", tipo: "Cliente exigente" },
+          { texto: "Si confío en una marca, puedo pagar un poco más.", tipo: "Cliente leal" },
+          { texto: "Si realmente lo quiero, a veces compro sin pensarlo demasiado.", tipo: "Cliente impulsivo" }
+        ]
+      },
+      {
+        pregunta: "Si una empresa te ofrece muchas opciones muy parecidas, ¿qué sucede?",
+        opciones: [
+          { texto: "Me cuesta decidir porque quiero escoger la mejor.", tipo: "Cliente indeciso" },
+          { texto: "Analizo calidad, garantía, características y servicio.", tipo: "Cliente exigente" },
+          { texto: "Elijo la opción que tenga mejor descuento.", tipo: "Buscador de descuentos" },
+          { texto: "Elijo rápidamente la que más me llamó la atención.", tipo: "Cliente impulsivo" }
+        ]
+      },
+      {
+        pregunta: "Si recibes un producto o servicio que no cumplió con lo prometido, ¿qué haces?",
+        opciones: [
+          { texto: "Me comunico con la empresa y espero una solución.", tipo: "Cliente insatisfecho" },
+          { texto: "Reviso exactamente qué prometieron y explico con detalle el problema.", tipo: "Cliente exigente" },
+          { texto: "Dejo de comprar esa marca y busco otra opción.", tipo: "Cliente insatisfecho" },
+          { texto: "Si normalmente me funciona bien, le doy otra oportunidad.", tipo: "Cliente leal" }
+        ]
+      },
+      {
+        pregunta: "¿Con qué frecuencia compras productos que no tenías planeado comprar?",
+        opciones: [
+          { texto: "Muy seguido, sobre todo si algo me llama mucho la atención.", tipo: "Cliente impulsivo" },
+          { texto: "Cuando encuentro una promoción que realmente vale la pena.", tipo: "Buscador de descuentos" },
+          { texto: "Casi nunca; primero pienso si realmente lo necesito.", tipo: "Cliente exigente" },
+          { texto: "Suelo repetir compras de productos que ya utilizo.", tipo: "Cliente frecuente" }
+        ]
+      },
+      {
+        pregunta: "Cuando necesitas un producto que compras solamente de vez en cuando, ¿cómo actúas?",
+        opciones: [
+          { texto: "Lo compro únicamente cuando surge la necesidad.", tipo: "Cliente ocasional" },
+          { texto: "Investigo bastante antes de decidir cuál comprar.", tipo: "Cliente indeciso" },
+          { texto: "Espero una promoción porque normalmente no tengo tanta urgencia.", tipo: "Buscador de descuentos" },
+          { texto: "Busco la mejor calidad aunque tenga que pagar más.", tipo: "Cliente exigente" }
+        ]
+      },
+      {
+        pregunta: "¿Cuál de estas frases describe mejor tu forma habitual de comprar?",
+        opciones: [
+          { texto: "Si una marca me funciona, prefiero seguir con ella.", tipo: "Cliente leal" },
+          { texto: "Quiero estar seguro de que elegí la mejor opción antes de pagar.", tipo: "Cliente indeciso" },
+          { texto: "Me gusta encontrar promociones y sentir que pagué un buen precio.", tipo: "Buscador de descuentos" },
+          { texto: "La calidad, información y buen servicio son muy importantes para mí.", tipo: "Cliente exigente" }
+        ]
+      }
+    ];
+
+    const resultadosClientes = {
+      "Cliente leal": {
+        icono: "❤️",
+        descripcion: "Tiendes a confiar en las marcas que ya te han dado buenos resultados y prefieres mantener una relación constante con ellas.",
+        porque: "Tus respuestas muestran que valoras la confianza, la experiencia previa y la seguridad de saber qué esperar de una marca.",
+        consejo: "Una empresa puede conservarte con calidad constante, buena atención, programas de fidelidad, recompensas y beneficios por compras recurrentes."
+      },
+      "Cliente frecuente": {
+        icono: "🔄",
+        descripcion: "Sueles repetir tus compras cuando un producto o servicio te funciona, aunque eso no significa que nunca consideres otras marcas.",
+        porque: "Tu comportamiento refleja repetición de compra y comodidad con opciones conocidas, pero todavía puedes comparar o cambiar si aparece algo mejor.",
+        consejo: "Las empresas pueden mantenerte con buen servicio, facilidad de recompra, recordatorios, suscripciones y beneficios por frecuencia."
+      },
+      "Cliente impulsivo": {
+        icono: "⚡",
+        descripcion: "Tus decisiones de compra pueden estar muy influenciadas por emociones, presentación, promociones o el atractivo inmediato del producto.",
+        porque: "Varias de tus respuestas indican que reaccionas con rapidez cuando algo llama tu atención y no siempre necesitas un análisis largo antes de comprar.",
+        consejo: "Las empresas suelen atraer a este perfil con promociones de tiempo limitado, exhibiciones atractivas, contenido visual y procesos de compra rápidos."
+      },
+      "Cliente indeciso": {
+        icono: "🤔",
+        descripcion: "Te gusta comparar alternativas y sentir seguridad antes de tomar una decisión de compra.",
+        porque: "Tus respuestas muestran que necesitas información, comparaciones y tiempo para confirmar que la opción elegida realmente es la mejor para ti.",
+        consejo: "Las empresas pueden ayudarte con comparadores, reseñas, garantías, demostraciones, preguntas frecuentes y asesoría personalizada."
+      },
+      "Buscador de descuentos": {
+        icono: "🏷️",
+        descripcion: "El precio y la sensación de obtener una buena oferta tienen un peso importante en tus decisiones.",
+        porque: "Elegiste varias respuestas relacionadas con promociones, descuentos, cupones o esperar el momento adecuado para pagar menos.",
+        consejo: "Cupones, descuentos exclusivos, programas de puntos, paquetes y promociones pueden ser estrategias efectivas para atraerte."
+      },
+      "Cliente exigente": {
+        icono: "⭐",
+        descripcion: "Te importa mucho la calidad, la información, el servicio y que una empresa cumpla exactamente lo que promete.",
+        porque: "Tus respuestas muestran que revisas detalles y esperas un nivel alto de calidad antes y después de realizar una compra.",
+        consejo: "Una empresa debe ser transparente, ofrecer información clara, productos de calidad y responder rápido cuando existe algún problema."
+      },
+      "Cliente ocasional": {
+        icono: "📅",
+        descripcion: "Compras ciertos productos o servicios únicamente cuando existe una necesidad específica.",
+        porque: "Tus respuestas indican que algunas compras no forman parte de tu rutina y aparecen solamente en determinadas situaciones.",
+        consejo: "Las empresas pueden atraerte mediante recordatorios, temporadas, fechas especiales y mensajes relacionados con una necesidad puntual."
+      },
+      "Cliente insatisfecho": {
+        icono: "😕",
+        descripcion: "Cuando una experiencia no cumple con tus expectativas, la respuesta de la empresa influye mucho en tu decisión de volver o no.",
+        porque: "Tus respuestas muestran que reaccionas con fuerza ante fallas en producto, entrega o atención y esperas que la empresa responda.",
+        consejo: "Una buena recuperación del servicio, cambios, devoluciones y atención rápida pueden transformar una mala experiencia en una nueva oportunidad."
+      }
+    };
+
+    let preguntaActual = 0;
+    const respuestasTest = new Array(preguntasTest.length).fill(null);
+
+    const numeroPregunta = document.getElementById("numeroPregunta");
+    const porcentaje = document.getElementById("porcentaje");
+    const progressBar = document.getElementById("progressBar");
+    const questionNumber = document.getElementById("questionNumber");
+    const preguntaTexto = document.getElementById("preguntaTexto");
+    const opciones = document.getElementById("opciones");
+    const anterior = document.getElementById("anterior");
+    const siguiente = document.getElementById("siguiente");
+    const warning = document.getElementById("testWarning");
+    const questionArea = document.getElementById("testQuestionArea");
+    const resultadoTest = document.getElementById("resultadoTest");
+
+    function mostrarPregunta() {
+      const pregunta = preguntasTest[preguntaActual];
+      const progreso = ((preguntaActual + 1) / preguntasTest.length) * 100;
+
+      numeroPregunta.textContent = `Pregunta ${preguntaActual + 1} de ${preguntasTest.length}`;
+      porcentaje.textContent = `${Math.round(progreso)}%`;
+      progressBar.style.width = `${progreso}%`;
+      questionNumber.textContent = String(preguntaActual + 1).padStart(2, "0");
+      preguntaTexto.textContent = pregunta.pregunta;
+      warning.classList.remove("active");
+
+      opciones.innerHTML = "";
+
+      pregunta.opciones.forEach((opcion, index) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "option";
+
+        if (respuestasTest[preguntaActual] === index) {
+          btn.classList.add("selected");
+        }
+
+        const letra = String.fromCharCode(65 + index);
+
+        btn.innerHTML = `
+          <span class="option-letter">${letra}</span>
+          <span>${opcion.texto}</span>
+        `;
+
+        btn.addEventListener("click", () => {
+          respuestasTest[preguntaActual] = index;
+          mostrarPregunta();
+        });
+
+        opciones.appendChild(btn);
+      });
+
+      anterior.disabled = preguntaActual === 0;
+      siguiente.textContent =
+        preguntaActual === preguntasTest.length - 1
+          ? "Ver mi resultado 🎯"
+          : "Siguiente →";
+    }
+
+    siguiente.addEventListener("click", () => {
+      if (respuestasTest[preguntaActual] === null) {
+        warning.classList.add("active");
+        return;
+      }
+
+      if (preguntaActual < preguntasTest.length - 1) {
+        preguntaActual++;
+        mostrarPregunta();
+      } else {
+        calcularResultado();
+      }
+    });
+
+    anterior.addEventListener("click", () => {
+      if (preguntaActual > 0) {
+        preguntaActual--;
+        mostrarPregunta();
+      }
+    });
+
+    function calcularResultado() {
+      const puntos = {};
+
+      respuestasTest.forEach((respuesta, index) => {
+        const tipo = preguntasTest[index].opciones[respuesta].tipo;
+        puntos[tipo] = (puntos[tipo] || 0) + 1;
+      });
+
+      const ordenados = Object.entries(puntos).sort((a, b) => b[1] - a[1]);
+      const [resultadoFinal, mayorPuntaje] = ordenados[0];
+      const info = resultadosClientes[resultadoFinal];
+
+      questionArea.style.display = "none";
+      resultadoTest.classList.add("active");
+
+      document.getElementById("resultadoIcono").textContent = info.icono;
+      document.getElementById("resultadoTitulo").textContent = resultadoFinal;
+      document.getElementById("resultadoDescripcion").textContent = info.descripcion;
+      document.getElementById("resultadoPorque").textContent =
+        `${info.porque} Coincidiste con este perfil en ${mayorPuntaje} de las 10 respuestas evaluadas.`;
+      document.getElementById("resultadoConsejo").textContent = info.consejo;
+
+      const scores = document.getElementById("resultadoPuntajes");
+      scores.innerHTML = "";
+
+      ordenados.slice(0, 4).forEach(([tipo, puntos]) => {
+        const row = document.createElement("div");
+        row.className = "score-row";
+        row.innerHTML = `<strong>${tipo}</strong>${puntos} coincidencia${puntos !== 1 ? "s" : ""}`;
+        scores.appendChild(row);
+      });
+    }
+
+    document.getElementById("reiniciarTest").addEventListener("click", () => {
+      preguntaActual = 0;
+      respuestasTest.fill(null);
+
+      resultadoTest.classList.remove("active");
+      questionArea.style.display = "block";
+
+      mostrarPregunta();
+
+      document.getElementById("test-clientes").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+
+    mostrarPregunta();
+  </script>
+
+
+</body>
+</html>
