@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="CasaMatch compara propiedades publicadas en distintos portales inmobiliarios desde una sola búsqueda.">
+  <meta name="theme-color" content="#123C33">
+  <title>CasaMatch · Encuentra tu próximo hogar</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="topbar">
+      <a href="/" class="brand" aria-label="CasaMatch inicio">
+        <img src="logo.svg" alt="CasaMatch, metabuscador inmobiliario" class="brand-logo">
+      </a>
+
+      <nav class="topbar-actions" aria-label="Navegación principal">
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#fuentes">Fuentes</a>
+        <a href="#resultados">Resultados</a>
+
+        <button type="button" class="text-size-btn" id="textSizeBtn" aria-pressed="false">
+          <span aria-hidden="true">A+</span>
+          <span>Texto grande</span>
+        </button>
+
+        <div class="status-pill" id="serverStatus">
+          <span class="status-dot"></span>
+          <span>Comprobando buscador…</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="hero-kicker">
+          <span class="dot"></span>
+          BUSCA UNA VEZ · COMPARA TODO
+        </div>
+
+        <h1>
+          Encuentra tu próximo hogar
+          <em>sin brincar de portal en portal.</em>
+        </h1>
+
+        <p class="lead">
+          Dinos qué necesitas. CasaMatch consulta distintas fuentes, compara las opciones
+          y te muestra primero las propiedades que mejor coinciden con tu búsqueda.
+        </p>
+
+        <div class="hero-benefits">
+          <article>
+            <span class="benefit-icon" aria-hidden="true">✓</span>
+            <div>
+              <strong>Más fácil</strong>
+              <small>Una sola búsqueda</small>
+            </div>
+          </article>
+          <article>
+            <span class="benefit-icon" aria-hidden="true">↗</span>
+            <div>
+              <strong>Más claro</strong>
+              <small>Abres el anuncio original</small>
+            </div>
+          </article>
+          <article>
+            <span class="benefit-icon" aria-hidden="true">★</span>
+            <div>
+              <strong>Más útil</strong>
+              <small>Ranking por compatibilidad</small>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <form class="search-card" id="searchForm" aria-labelledby="searchTitle">
+        <div class="search-card-head">
+          <div>
+            <span class="section-label">CONFIGURA TU BÚSQUEDA</span>
+            <h2 id="searchTitle">¿Qué estás buscando?</h2>
+          </div>
+          <span class="live-tag">● EN VIVO</span>
+        </div>
+
+        <fieldset class="operation-fieldset">
+          <legend>¿Quieres rentar o comprar?</legend>
+          <div class="operation-toggle" role="radiogroup" aria-label="Tipo de operación">
+            <label>
+              <input type="radio" name="operation" value="renta" checked>
+              <span>
+                <b>Rentar</b>
+                <small>Pago mensual</small>
+              </span>
+            </label>
+            <label>
+              <input type="radio" name="operation" value="venta">
+              <span>
+                <b>Comprar</b>
+                <small>Precio total</small>
+              </span>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="form-grid">
+          <label class="field field-wide">
+            <span>Ciudad</span>
+            <div class="input-shell">
+              <span class="field-icon" aria-hidden="true">⌖</span>
+              <input id="city" value="León" autocomplete="address-level2" placeholder="Ej. León">
+            </div>
+          </label>
+
+          <label class="field">
+            <span>Precio máximo</span>
+            <div class="input-shell">
+              <span class="field-icon money" aria-hidden="true">$</span>
+              <input id="maxPrice" type="number" min="0" step="500" value="18000">
+            </div>
+          </label>
+
+          <label class="field">
+            <span>Tipo de inmueble</span>
+            <select id="type">
+              <option value="todos">Casa o departamento</option>
+              <option value="Casa">Casa</option>
+              <option value="Departamento">Departamento</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Recámaras mínimas</span>
+            <div class="stepper">
+              <button type="button" data-step="bedrooms" data-dir="-1" aria-label="Restar recámara">−</button>
+              <input id="bedrooms" type="number" min="0" max="10" value="2">
+              <button type="button" data-step="bedrooms" data-dir="1" aria-label="Agregar recámara">+</button>
+            </div>
+          </label>
+
+          <label class="field">
+            <span>Baños mínimos</span>
+            <div class="stepper">
+              <button type="button" data-step="bathrooms" data-dir="-1" aria-label="Restar baño">−</button>
+              <input id="bathrooms" type="number" min="0" max="10" value="2">
+              <button type="button" data-step="bathrooms" data-dir="1" aria-label="Agregar baño">+</button>
+            </div>
+          </label>
+        </div>
+
+        <button class="primary-btn" type="submit">
+          <span class="btn-copy">
+            <strong>Buscar mejores opciones</strong>
+            <small>Comparar fuentes disponibles</small>
+          </span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
+        </button>
+
+        <p class="form-note">
+          No vendemos propiedades. Comparamos resultados y te llevamos a la publicación original.
+        </p>
+      </form>
+    </section>
+
+    <section class="how-section" id="como-funciona">
+      <div class="section-heading-centered">
+        <span class="section-label">ASÍ FUNCIONA</span>
+        <h2>Encontrar casa no debería ser complicado.</h2>
+        <p>CasaMatch organiza el proceso en cuatro pasos sencillos.</p>
+      </div>
+
+      <div class="how-grid">
+        <article>
+          <div class="how-number">01</div>
+          <div class="how-icon" aria-hidden="true">⌖</div>
+          <h3>Define tus filtros</h3>
+          <p>Ciudad, presupuesto, tipo de inmueble, recámaras y baños.</p>
+        </article>
+
+        <article>
+          <div class="how-number">02</div>
+          <div class="how-icon" aria-hidden="true">⌕</div>
+          <h3>Consultamos fuentes</h3>
+          <p>CasaMatch revisa varias páginas de forma paralela.</p>
+        </article>
+
+        <article>
+          <div class="how-number">03</div>
+          <div class="how-icon" aria-hidden="true">≋</div>
+          <h3>Comparamos</h3>
+          <p>Ordenamos las opciones para que veas primero las más compatibles.</p>
+        </article>
+
+        <article>
+          <div class="how-number">04</div>
+          <div class="how-icon" aria-hidden="true">✓</div>
+          <h3>Tú decides</h3>
+          <p>Revisa la opción y abre directamente la publicación original.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="sources-section" id="fuentes">
+      <div class="section-head">
+        <div>
+          <span class="section-label">TRANSPARENCIA</span>
+          <h2>Fuentes consultadas</h2>
+        </div>
+        <p>
+          Te mostramos cuáles portales respondieron, cuántos candidatos aportaron y cuáles requieren una integración especial.
+        </p>
+      </div>
+
+      <div class="sources-grid" id="sourcesGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="results-section" id="resultados">
+      <div class="section-head results-heading">
+        <div>
+          <span class="section-label">COMPARACIÓN</span>
+          <h2>Mejores opciones</h2>
+          <p id="resultsSummary">Haz una búsqueda para comenzar.</p>
+        </div>
+
+        <label class="sort-control">
+          <span>Ordenar por</span>
+          <select id="sortBy">
+            <option value="match">Mejor coincidencia</option>
+            <option value="price">Menor precio</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="loading-card" id="loadingCard" hidden>
+        <div class="loader" aria-hidden="true"></div>
+        <div>
+          <strong>Consultando fuentes</strong>
+          <p>Estamos comparando propiedades y eliminando posibles duplicados.</p>
+        </div>
+      </div>
+
+      <div class="results-grid" id="resultsGrid" aria-live="polite"></div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-orbit">
+          <span aria-hidden="true">⌂</span>
+        </div>
+        <h3>Aquí aparecerán tus mejores opciones</h3>
+        <p>Ajusta los parámetros de arriba y CasaMatch hará la comparación.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <img src="logo.svg" alt="CasaMatch" class="footer-logo">
+      <p>Los anuncios y datos pertenecen a sus fuentes originales.</p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

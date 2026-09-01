@@ -1,0 +1,9 @@
+<svg width="180" height="52" viewBox="0 0 180 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="1" width="50" height="50" rx="16" fill="#123C33"/>
+  <path d="M13.5 26.5L26 15L38.5 26.5V38C38.5 39.6569 37.1569 41 35.5 41H16.5C14.8431 41 13.5 39.6569 13.5 38V26.5Z" fill="#F6F0E7"/>
+  <path d="M22 41V30.5C22 29.6716 22.6716 29 23.5 29H28.5C29.3284 29 30 29.6716 30 30.5V41" stroke="#B96146" stroke-width="3"/>
+  <circle cx="36.5" cy="17.5" r="7.5" fill="#DDE9D7" stroke="#123C33" stroke-width="3"/>
+  <path d="M42 23L47 28" stroke="#123C33" stroke-width="4" stroke-linecap="round"/>
+  <text x="62" y="22" fill="#123C33" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700">CasaMatch</text>
+  <text x="62" y="37" fill="#6E766F" font-family="Arial, Helvetica, sans-serif" font-size="10">Metabuscador inmobiliario</text>
+</svg>

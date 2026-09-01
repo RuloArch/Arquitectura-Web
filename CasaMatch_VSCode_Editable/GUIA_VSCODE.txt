@@ -1,0 +1,60 @@
+CASAMATCH — GUÍA RÁPIDA PARA VS CODE
+
+ABRIR:
+1. Descomprime esta carpeta.
+2. En Visual Studio Code:
+   Archivo > Abrir carpeta
+3. Selecciona: CasaMatch_VSCode_Editable
+
+ARCHIVOS IMPORTANTES:
+
+public/index.html
+- Estructura de la página
+- Textos
+- Secciones
+- Botones
+- Formulario
+
+public/styles.css
+- Colores
+- Tamaños de letra
+- Espacios
+- Diseño
+- Responsive
+- Tarjetas
+- Botones
+
+public/app.js
+- Interacciones
+- Botones + / -
+- Búsqueda
+- Ordenamiento de resultados
+- Estado de las fuentes
+
+public/logo.svg
+- Logo actual de CasaMatch
+- Es vectorial y se puede editar
+
+server.js
+- Backend
+- Consulta fuentes
+- Ranking
+- API local
+
+PARA PROBARLO:
+- Doble clic en INICIAR_CASAMATCH.bat
+- O en Terminal:
+  node server.js
+- Después abre:
+  http://localhost:3000
+
+NO USES LIVE SERVER para probar la búsqueda real.
+
+PARA GITHUB:
+Cuando ya estés conforme con el diseño:
+git init
+git add .
+git commit -m "CasaMatch"
+git branch -M main
+git remote add origin https://github.com/TU-USUARIO/casamatch.git
+git push -u origin main

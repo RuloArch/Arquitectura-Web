@@ -1,0 +1,13 @@
+{
+  "name": "casamatch",
+  "version": "11.0.0",
+  "private": true,
+  "description": "CasaMatch V11 - metabuscador inmobiliario accesible y moderno",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/app.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
