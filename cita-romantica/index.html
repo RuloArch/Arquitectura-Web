@@ -1,0 +1,885 @@
+<!doctype html>
+
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  />
+
+  <meta
+    name="theme-color"
+    content="#7c3aed"
+  />
+
+  <title>¿Saldrías conmigo? 💜</title>
+
+
+  <!-- GOOGLE FONTS -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- CSS -->
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  />
+
+</head>
+
+
+<body>
+
+
+<main class="app-shell">
+
+
+<section
+  class="card"
+  aria-live="polite"
+>
+
+
+  <!-- ===================================== -->
+  <!-- CABECERA -->
+  <!-- ===================================== -->
+
+  <header class="topbar">
+
+    <div>
+
+      <span class="eyebrow"></span>
+
+      <h1 id="screenTitle">
+        ¿Saldrías conmigo?
+      </h1>
+
+    </div>
+
+
+    <div class="progress-meta">
+
+      <span id="stepCounter">
+        Pregunta 1 / 4
+      </span>
+
+    </div>
+
+  </header>
+
+
+  <!-- BARRA DE PROGRESO -->
+
+  <div class="progress-track">
+
+    <div
+      class="progress-fill"
+      id="progressFill"
+    ></div>
+
+  </div>
+
+
+
+  <!-- ===================================== -->
+  <!-- PANTALLA 1 -->
+  <!-- ¿QUIERES SALIR CONMIGO? -->
+  <!-- ===================================== -->
+
+  <div
+    class="screen active"
+    data-step="1"
+  >
+
+
+    <div class="mood-blob">
+      🐹
+    </div>
+
+
+    <p class="prompt-code">
+      // modo: valentía_romántica.exe
+    </p>
+
+
+    <h2>
+      Tengo una pregunta importante…
+    </h2>
+
+
+    <p class="muted">
+      ¿Quieres salir conmigo? 💜
+    </p>
+
+
+    <div
+      class="yes-no-zone"
+      id="yesNoZone"
+    >
+
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="yesBtn"
+      >
+        Sí, obvio 💘
+      </button>
+
+
+      <button
+        type="button"
+        class="btn btn-ghost runaway"
+        id="noBtn"
+        aria-label="No"
+      >
+        No 😶
+      </button>
+
+
+    </div>
+
+
+    <p
+      class="tiny"
+      id="noHint"
+    >
+      Pista: el botón “No” está un poquito nervioso 👀
+    </p>
+
+
+  </div>
+
+
+
+  <!-- ===================================== -->
+  <!-- PANTALLA 2 -->
+  <!-- FECHA Y HORA -->
+  <!-- ===================================== -->
+
+  <div
+    class="screen"
+    data-step="2"
+  >
+
+
+    <p class="prompt-code">
+      // agenda_disponibilidad.config
+    </p>
+
+
+    <h2>
+      ¿Cuándo estás disponible?
+    </h2>
+
+
+    <p class="muted">
+      Elige el día y la hora que mejor te funcionen.
+    </p>
+
+
+    <div class="form-grid">
+
+
+      <!-- FECHA -->
+
+      <label>
+
+        <span>
+          📅 Día
+        </span>
+
+        <input
+          type="date"
+          id="dateInput"
+        />
+
+      </label>
+
+
+      <!-- HORA -->
+
+      <label>
+
+        <span>
+          🕐 Hora
+        </span>
+
+        <input
+          type="time"
+          id="timeInput"
+        />
+
+      </label>
+
+
+    </div>
+
+
+    <div class="nav-row">
+
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-back
+      >
+        ← Atrás
+      </button>
+
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="dateNext"
+      >
+        Siguiente →
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- ===================================== -->
+  <!-- PANTALLA 3 -->
+  <!-- ELEGIR CITA -->
+  <!-- ===================================== -->
+
+  <div
+    class="screen"
+    data-step="3"
+  >
+
+
+    <p class="prompt-code">
+      // modulo: actividades_sociales.config
+    </p>
+
+
+    <h2>
+      Elige nuestra cita
+    </h2>
+
+
+    <p class="muted">
+      Selecciona la opción que más te emocione ✨
+    </p>
+
+
+    <div
+      class="options-list"
+      id="dateOptions"
+    >
+
+
+      <!-- A -->
+
+      <button
+        type="button"
+        class="option-card"
+        data-value="Bolos 🎳"
+      >
+
+        <span class="letter">
+          A
+        </span>
+
+        <span>
+          🎳 Bolos
+        </span>
+
+        <span class="check">
+          ✓
+        </span>
+
+      </button>
+
+
+      <!-- B -->
+
+      <button
+        type="button"
+        class="option-card"
+        data-value="Picnic pintando 🎨🧺"
+      >
+
+        <span class="letter">
+          B
+        </span>
+
+        <span>
+          🎨🧺 Picnic pintando
+        </span>
+
+        <span class="check">
+          ✓
+        </span>
+
+      </button>
+
+
+      <!-- C -->
+
+      <button
+        type="button"
+        class="option-card"
+        data-value="Cita en el museo 🖼️"
+      >
+
+        <span class="letter">
+          C
+        </span>
+
+        <span>
+          🖼️ Cita en el museo
+        </span>
+
+        <span class="check">
+          ✓
+        </span>
+
+      </button>
+
+
+      <!-- D -->
+
+      <button
+        type="button"
+        class="option-card"
+        data-value="Cita en el cine 🎬🍿"
+      >
+
+        <span class="letter">
+          D
+        </span>
+
+        <span>
+          🎬🍿 Cita en el cine
+        </span>
+
+        <span class="check">
+          ✓
+        </span>
+
+      </button>
+
+
+      <!-- E -->
+
+      <button
+        type="button"
+        class="option-card"
+        data-value="Cita en el centro 🌆"
+      >
+
+        <span class="letter">
+          E
+        </span>
+
+        <span>
+          🌆 Cita en el centro
+        </span>
+
+        <span class="check">
+          ✓
+        </span>
+
+      </button>
+
+
+      <!-- F -->
+
+      <button
+        type="button"
+        class="option-card"
+        data-value="Cafetería ☕"
+      >
+
+        <span class="letter">
+          F
+        </span>
+
+        <span>
+          ☕ Cafetería
+        </span>
+
+        <span class="check">
+          ✓
+        </span>
+
+      </button>
+
+
+      <!-- G -->
+
+      <button
+        type="button"
+        class="option-card"
+        data-value="Cita de colores 🩷❤️🧡💛💚💙💜"
+      >
+
+        <span class="letter">
+          G
+        </span>
+
+        <span>
+          🩷❤️🧡 Cita de colores 💛💚💙💜
+        </span>
+
+        <span class="check">
+          ✓
+        </span>
+
+      </button>
+
+
+    </div>
+
+
+    <div class="nav-row">
+
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-back
+      >
+        ← Atrás
+      </button>
+
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="activityNext"
+      >
+        Siguiente →
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- ===================================== -->
+  <!-- PANTALLA 4 -->
+  <!-- ÚLTIMOS DETALLES -->
+  <!-- ===================================== -->
+
+  <div
+    class="screen"
+    data-step="4"
+  >
+
+
+    <p class="prompt-code">
+      // preferencias_de_la_cita.config
+    </p>
+
+
+    <h2>
+      Últimos detalles 💜
+    </h2>
+
+
+    <p class="muted">
+      Necesito conocer unas cositas antes de confirmar 👀
+    </p>
+
+
+
+    <!-- ================================= -->
+    <!-- MOOD -->
+    <!-- ================================= -->
+
+    <div class="question-block">
+
+
+      <p class="question-title">
+        ✨ ¿Qué mood quieres para nuestra cita?
+      </p>
+
+
+      <div
+        class="options-list"
+        id="moodOptions"
+      >
+
+
+        <button
+          type="button"
+          class="option-card"
+          data-value="Romántica 💜"
+        >
+
+          <span class="letter">
+            A
+          </span>
+
+          <span>
+            💜 Romántica
+          </span>
+
+          <span class="check">
+            ✓
+          </span>
+
+        </button>
+
+
+
+        <button
+          type="button"
+          class="option-card"
+          data-value="Divertida 😂"
+        >
+
+          <span class="letter">
+            B
+          </span>
+
+          <span>
+            😂 Divertida
+          </span>
+
+          <span class="check">
+            ✓
+          </span>
+
+        </button>
+
+
+
+        <button
+          type="button"
+          class="option-card"
+          data-value="Tranquila 🫶"
+        >
+
+          <span class="letter">
+            C
+          </span>
+
+          <span>
+            🫶 Tranquila
+          </span>
+
+          <span class="check">
+            ✓
+          </span>
+
+        </button>
+
+
+
+        <button
+          type="button"
+          class="option-card"
+          data-value="Sorpresa 👀"
+        >
+
+          <span class="letter">
+            D
+          </span>
+
+          <span>
+            👀 Sorpréndeme
+          </span>
+
+          <span class="check">
+            ✓
+          </span>
+
+        </button>
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- DULCE O SALADO -->
+    <!-- ================================= -->
+
+    <div class="question-block">
+
+
+      <p class="question-title">
+        🍓 Una pregunta muy importante...
+      </p>
+
+
+      <p class="muted">
+        ¿Dulce o salado?
+      </p>
+
+
+      <div
+        class="options-list"
+        id="foodOptions"
+      >
+
+
+        <button
+          type="button"
+          class="option-card"
+          data-value="Dulce 🍰"
+        >
+
+          <span class="letter">
+            A
+          </span>
+
+          <span>
+            🍰 Dulce
+          </span>
+
+          <span class="check">
+            ✓
+          </span>
+
+        </button>
+
+
+
+        <button
+          type="button"
+          class="option-card"
+          data-value="Salado 🍕"
+        >
+
+          <span class="letter">
+            B
+          </span>
+
+          <span>
+            🍕 Salado
+          </span>
+
+          <span class="check">
+            ✓
+          </span>
+
+        </button>
+
+
+
+        <button
+          type="button"
+          class="option-card"
+          data-value="Ambos 😌"
+        >
+
+          <span class="letter">
+            C
+          </span>
+
+          <span>
+            😌 Ambos, obviamente
+          </span>
+
+          <span class="check">
+            ✓
+          </span>
+
+        </button>
+
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- PETICIÓN ESPECIAL -->
+    <!-- ================================= -->
+
+    <label class="notes-label">
+
+
+      <span>
+        💌 ¿Alguna petición especial para la cita?
+      </span>
+
+
+      <textarea
+        id="notesInput"
+        rows="4"
+        placeholder="Ejemplo: quiero helado después 👀🍦"
+      ></textarea>
+
+
+    </label>
+
+
+
+    <!-- ================================= -->
+    <!-- NAVEGACIÓN -->
+    <!-- ================================= -->
+
+    <div class="nav-row">
+
+
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-back
+      >
+        ← Atrás
+      </button>
+
+
+      <!-- MUY IMPORTANTE:
+           ESTE ES finishBtn
+      -->
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        id="finishBtn"
+      >
+        Confirmar cita 💜
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- ===================================== -->
+  <!-- PANTALLA 5 -->
+  <!-- RESUMEN FINAL -->
+  <!-- ===================================== -->
+
+  <div
+    class="screen"
+    data-step="5"
+  >
+
+
+    <div class="final-heart">
+      💜
+    </div>
+
+
+    <p class="prompt-code">
+      // status: cita_confirmada ✅
+    </p>
+
+
+    <h2>
+      Perfecto. Ya tenemos plan.
+    </h2>
+
+
+    <p class="muted">
+      Revisa nuestra cita 💜
+      Si todo está bien, envíame tu respuesta por WhatsApp.
+    </p>
+
+
+
+    <!-- RESUMEN -->
+
+    <div
+      class="summary"
+      id="summary"
+    ></div>
+
+
+
+    <!-- ================================= -->
+    <!-- BOTÓN WHATSAPP -->
+    <!-- ================================= -->
+
+    <button
+      type="button"
+      class="btn btn-primary full"
+      id="sendWhatsAppBtn"
+    >
+      Enviar respuesta por WhatsApp 💚
+    </button>
+
+
+
+    <!-- CAMBIAR RESPUESTAS -->
+
+    <button
+      type="button"
+      class="btn btn-secondary full"
+      id="restartBtn"
+    >
+      Cambiar mis respuestas ↻
+    </button>
+
+
+  </div>
+
+
+
+  <!-- ===================================== -->
+  <!-- MENSAJES -->
+  <!-- ===================================== -->
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+  ></div>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- ===================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================== -->
+
+<script
+  type="module"
+  src="script.js"
+></script>
+
+
+</body>
+
+</html>
