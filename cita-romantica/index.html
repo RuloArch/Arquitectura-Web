@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="theme-color"
+    content="#7c3aed"
+  >
+
+  <title>¿Saldrías conmigo? 💜</title>
+
+  <!-- FUENTES -->
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Quicksand:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+</head>
+
+
+<body>
+
+  <main class="app-shell">
+
+    <section
+      class="card"
+      aria-live="polite"
+    >
+
+      <!-- CABECERA -->
+      <header class="topbar">
+
+        <div>
+          <span class="eyebrow">
+            una pequeña invitación
+          </span>
+
+          <h1 id="screenTitle">
+            ¿Saldrías conmigo?
+          </h1>
+        </div>
+
+        <div class="progress-meta">
+          <span id="stepCounter">
+            Pregunta 1 / 4
+          </span>
+        </div>
+
+      </header>
+
+
+      <!-- PROGRESO -->
+      <div class="progress-track">
+        <div
+          class="progress-fill"
+          id="progressFill"
+        ></div>
+      </div>
+
+
+
+      <!-- ====================================== -->
+      <!-- PANTALLA 1 -->
+      <!-- ====================================== -->
+
+      <div
+        class="screen active"
+        data-step="1"
+      >
+
+        <div class="illustration">
+          <img
+            src="ilustracion-conejo.png"
+            alt=""
+            loading="lazy"
+          >
+        </div>
+
+        <p class="prompt-code">
+   
+        </p>
+
+        <h2>
+          Tengo una pregunta importante…
+        </h2>
+
+        <p class="muted">
+          Prometo que no es nada complicado.
+          Bueno… quizá un poquito. 💜
+        </p>
+
+
+        <div
+          class="question-highlight"
+        >
+          ¿Quieres salir conmigo?
+        </div>
+
+
+        <div
+          class="yes-no-zone"
+          id="yesNoZone"
+        >
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="yesBtn"
+          >
+            Sí, obvio 💘
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-ghost runaway"
+            id="noBtn"
+            aria-label="No"
+          >
+            No 😶
+          </button>
+
+        </div>
+
+
+        <p
+          class="tiny"
+          id="noHint"
+        >
+          Pista: el botón “No” está un poquito nervioso 👀
+        </p>
+
+      </div>
+
+
+
+      <!-- ====================================== -->
+      <!-- PANTALLA 2 -->
+      <!-- ====================================== -->
+
+      <div
+        class="screen"
+        data-step="2"
+      >
+
+        <div class="illustration">
+          <img
+            src="Gato-sonriendo.png"
+            alt=""
+            loading="lazy"
+          >
+        </div>
+
+        <p class="prompt-code">
+        
+        </p>
+
+        <h2>
+          ¿Cuándo estás disponible?
+        </h2>
+
+        <p class="muted">
+          Elige un día y una hora que te funcionen.
+          Yo me encargo del resto.
+        </p>
+
+
+        <div class="form-grid">
+
+          <label class="field">
+
+            <span class="field-label">
+              📅 Día
+            </span>
+
+            <input
+              type="date"
+              id="dateInput"
+            >
+
+          </label>
+
+
+          <label class="field">
+
+            <span class="field-label">
+              🕐 Hora
+            </span>
+
+            <input
+              type="time"
+              id="timeInput"
+            >
+
+          </label>
+
+        </div>
+
+
+        <div class="nav-row">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-back
+          >
+            ← Atrás
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="dateNext"
+          >
+            Siguiente →
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ====================================== -->
+      <!-- PANTALLA 3 -->
+      <!-- ====================================== -->
+
+      <div
+        class="screen"
+        data-step="3"
+      >
+
+        <div class="illustration">
+          <img
+            src="gatitos-juntos.png"
+            alt=""
+            loading="lazy"
+          >
+        </div>
+
+        <p class="prompt-code">
+         
+        </p>
+
+        <h2>
+          Elige nuestra cita
+        </h2>
+
+        <p class="muted">
+          Ahora viene la parte divertida.
+          ¿Cuál se te antoja más? ✨
+        </p>
+
+
+        <div
+          class="options-list"
+          id="dateOptions"
+        >
+
+          <button
+            type="button"
+            class="option-card"
+            data-value="Bolos 🎳"
+          >
+            <span class="letter">A</span>
+            <span class="option-text">🎳 Bolos</span>
+            <span class="check">✓</span>
+          </button>
+
+
+          <button
+            type="button"
+            class="option-card"
+            data-value="Picnic pintando 🎨🧺"
+          >
+            <span class="letter">B</span>
+            <span class="option-text">🎨🧺 Picnic pintando</span>
+            <span class="check">✓</span>
+          </button>
+
+
+          <button
+            type="button"
+            class="option-card"
+            data-value="Cita en el museo 🖼️"
+          >
+            <span class="letter">C</span>
+            <span class="option-text">🖼️ Cita en el museo</span>
+            <span class="check">✓</span>
+          </button>
+
+
+          <button
+            type="button"
+            class="option-card"
+            data-value="Cita en el cine 🎬🍿"
+          >
+            <span class="letter">D</span>
+            <span class="option-text">🎬🍿 Cita en el cine</span>
+            <span class="check">✓</span>
+          </button>
+
+
+          <button
+            type="button"
+            class="option-card"
+            data-value="Cita en el centro 🌆"
+          >
+            <span class="letter">E</span>
+            <span class="option-text">🌆 Cita en el centro</span>
+            <span class="check">✓</span>
+          </button>
+
+
+          <button
+            type="button"
+            class="option-card"
+            data-value="Cafetería ☕"
+          >
+            <span class="letter">F</span>
+            <span class="option-text">☕ Cafetería</span>
+            <span class="check">✓</span>
+          </button>
+
+
+          <button
+            type="button"
+            class="option-card"
+            data-value="Cita de colores 🩷❤️🧡💛💚💙💜"
+          >
+            <span class="letter">G</span>
+            <span class="option-text">
+              🌈 Cita de colores
+            </span>
+            <span class="check">✓</span>
+          </button>
+
+        </div>
+
+
+        <div class="nav-row">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-back
+          >
+            ← Atrás
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="activityNext"
+          >
+            Siguiente →
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ====================================== -->
+      <!-- PANTALLA 4 -->
+      <!-- ====================================== -->
+
+      <div
+        class="screen"
+        data-step="4"
+      >
+
+        <div class="illustration">
+          <img
+            src="gatitoo.png"
+            alt=""
+            loading="lazy"
+          >
+        </div>
+
+        <p class="prompt-code">
+          
+        </p>
+
+        <h2>
+          Casi está lista 💜
+        </h2>
+
+        <p class="muted">
+          Solo necesito conocer unas cositas más
+          antes de confirmar nuestra cita.
+        </p>
+
+
+
+        <!-- MOOD -->
+
+        <div class="question-block">
+
+          <p class="question-title">
+            ¿Qué mood quieres para nuestra cita?
+          </p>
+
+          <div
+            class="options-list compact"
+            id="moodOptions"
+          >
+
+            <button
+              type="button"
+              class="option-card"
+              data-value="Romántica 💜"
+            >
+              <span class="letter">A</span>
+              <span class="option-text">
+                💜 Romántica
+              </span>
+              <span class="check">✓</span>
+            </button>
+
+
+            <button
+              type="button"
+              class="option-card"
+              data-value="Divertida 😂"
+            >
+              <span class="letter">B</span>
+              <span class="option-text">
+                😂 Divertida
+              </span>
+              <span class="check">✓</span>
+            </button>
+
+
+            <button
+              type="button"
+              class="option-card"
+              data-value="Tranquila 🫶"
+            >
+              <span class="letter">C</span>
+              <span class="option-text">
+                🫶 Tranquila
+              </span>
+              <span class="check">✓</span>
+            </button>
+
+
+            <button
+              type="button"
+              class="option-card"
+              data-value="Sorpresa 👀"
+            >
+              <span class="letter">D</span>
+              <span class="option-text">
+                👀 Sorpréndeme
+              </span>
+              <span class="check">✓</span>
+            </button>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- COMIDA -->
+
+        <div class="question-block">
+
+          <p class="question-title">
+            Una decisión muy importante…
+          </p>
+
+          <p class="muted small-gap">
+            ¿Dulce o salado?
+          </p>
+
+          <div
+            class="options-list compact"
+            id="foodOptions"
+          >
+
+            <button
+              type="button"
+              class="option-card"
+              data-value="Dulce 🍰"
+            >
+              <span class="letter">A</span>
+              <span class="option-text">
+                🍰 Dulce
+              </span>
+              <span class="check">✓</span>
+            </button>
+
+
+            <button
+              type="button"
+              class="option-card"
+              data-value="Salado 🍕"
+            >
+              <span class="letter">B</span>
+              <span class="option-text">
+                🍕 Salado
+              </span>
+              <span class="check">✓</span>
+            </button>
+
+
+            <button
+              type="button"
+              class="option-card"
+              data-value="Ambos 😌"
+            >
+              <span class="letter">C</span>
+              <span class="option-text">
+                😌 Ambos, obviamente
+              </span>
+              <span class="check">✓</span>
+            </button>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- PETICIÓN ESPECIAL -->
+
+        <label class="notes-label">
+
+          <span class="field-label">
+            💌 ¿Alguna petición especial?
+          </span>
+
+          <textarea
+            id="notesInput"
+            rows="4"
+            placeholder="Ejemplo: quiero helado después 👀🍦"
+          ></textarea>
+
+        </label>
+
+
+
+        <div class="nav-row">
+
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-back
+          >
+            ← Atrás
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="finishBtn"
+          >
+            Confirmar cita 💜
+          </button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ====================================== -->
+      <!-- PANTALLA 5 -->
+      <!-- ====================================== -->
+
+      <div
+        class="screen"
+        data-step="5"
+      >
+
+        <div class="illustration illustration-final">
+          <img
+            src="ilustracion-gato-teamo.png"
+            alt="Un gatito sosteniendo un cartel que dice Te amo"
+            loading="lazy"
+          >
+        </div>
+
+        <p class="prompt-code">
+        
+        </p>
+
+        <h2>
+          Perfecto.
+          <br>
+          Ya tenemos plan.
+        </h2>
+
+        <p class="muted">
+          Revisa nuestra cita.
+          Si todo está bien, envíame la confirmación
+          por WhatsApp. 💜
+        </p>
+
+
+        <div
+          class="summary"
+          id="summary"
+        ></div>
+
+
+        <button
+          type="button"
+          class="btn btn-primary full whatsapp-button"
+          id="sendWhatsAppBtn"
+        >
+          Enviar respuesta por WhatsApp 💚
+        </button>
+
+
+        <button
+          type="button"
+          class="btn btn-secondary full"
+          id="restartBtn"
+        >
+          Cambiar mis respuestas ↻
+        </button>
+
+      </div>
+
+
+
+      <!-- TOAST -->
+
+      <div
+        class="toast"
+        id="toast"
+        role="status"
+      ></div>
+
+    </section>
+
+  </main>
+
+
+  <script
+    type="module"
+    src="script.js"
+  ></script>
+
+</body>
+</html>
