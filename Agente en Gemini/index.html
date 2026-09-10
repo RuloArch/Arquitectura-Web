@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Agente de Estrategias Comerciales</title>
+
+    <!-- Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Sanitización del HTML generado -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+
+    <style>
+
+        :root {
+            --primary: #123263;
+            --primary-dark: #081d3f;
+            --secondary: #d51145;
+            --background: #eef2f6;
+            --chat-background: #ffffff;
+            --bot-background: #f0f2f6;
+            --text: #252525;
+            --gray: #737373;
+            --success: #198754;
+            --danger: #c62828;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 16px;
+        }
+
+        .chat-container {
+
+            width: 100%;
+            max-width: 900px;
+
+            height: 92vh;
+
+            background: var(--chat-background);
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,.12);
+
+            display: flex;
+            flex-direction: column;
+
+            overflow: hidden;
+        }
+
+        /* HEADER */
+
+        .header {
+
+            background: var(--primary);
+            color: white;
+
+            padding: 22px 150px 22px 25px;
+
+            text-align: center;
+
+            position: relative;
+        }
+
+        .header h1 {
+
+            font-size: 21px;
+            margin-bottom: 7px;
+        }
+
+        .header p {
+
+            font-size: 14px;
+            opacity: .9;
+        }
+
+        .api-button {
+
+            position: absolute;
+
+            right: 20px;
+            top: 24px;
+
+            background: var(--secondary);
+
+            color: white;
+
+            border: none;
+            border-radius: 7px;
+
+            padding: 10px 14px;
+
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .api-button:hover {
+            opacity: .9;
+        }
+
+
+        /* ESTADO */
+
+        .connection-status {
+
+            padding: 8px 20px;
+
+            font-size: 12px;
+
+            border-bottom: 1px solid #e5e5e5;
+
+            background: #fafafa;
+
+            color: var(--gray);
+        }
+
+        .status-connected {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .status-disconnected {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+
+        /* CHAT */
+
+        .chat-history {
+
+            flex: 1;
+
+            padding: 22px;
+
+            overflow-y: auto;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 16px;
+        }
+
+
+        .message {
+
+            max-width: 82%;
+
+            padding: 14px 17px;
+
+            border-radius: 11px;
+
+            line-height: 1.55;
+
+            font-size: 15px;
+
+            word-wrap: break-word;
+        }
+
+
+        .bot {
+
+            align-self: flex-start;
+
+            background: var(--bot-background);
+
+            color: var(--text);
+
+            border-bottom-left-radius: 2px;
+        }
+
+
+        .user {
+
+            align-self: flex-end;
+
+            background: var(--primary);
+
+            color: white;
+
+            border-bottom-right-radius: 2px;
+        }
+
+
+        .bot h1,
+        .bot h2,
+        .bot h3 {
+
+            color: var(--primary);
+
+            margin-top: 12px;
+            margin-bottom: 7px;
+        }
+
+
+        .bot h2 {
+            font-size: 18px;
+        }
+
+        .bot h3 {
+            font-size: 16px;
+        }
+
+
+        .bot p {
+
+            margin-bottom: 9px;
+        }
+
+
+        .bot ul,
+        .bot ol {
+
+            padding-left: 23px;
+            margin-bottom: 10px;
+        }
+
+
+        .bot table {
+
+            border-collapse: collapse;
+
+            width: 100%;
+
+            margin: 12px 0;
+
+            background: white;
+        }
+
+
+        .bot th,
+        .bot td {
+
+            border: 1px solid #ccc;
+
+            padding: 8px;
+
+            text-align: left;
+
+            font-size: 13px;
+        }
+
+
+        .bot th {
+
+            background: var(--primary);
+
+            color: white;
+        }
+
+
+        /* LOADING */
+
+        .loading {
+
+            display: none;
+
+            padding: 0 25px 12px;
+
+            color: var(--gray);
+
+            font-size: 13px;
+            font-style: italic;
+        }
+
+
+        .dots::after {
+
+            content: "";
+
+            animation: dots 1.4s infinite;
+        }
+
+
+        @keyframes dots {
+
+            0%   { content: ""; }
+            25%  { content: "."; }
+            50%  { content: ".."; }
+            75%  { content: "..."; }
+        }
+
+
+        /* INPUT */
+
+        .input-area {
+
+            padding: 15px;
+
+            border-top: 1px solid #ddd;
+
+            display: flex;
+
+            gap: 10px;
+
+            background: white;
+        }
+
+
+        textarea {
+
+            flex: 1;
+
+            min-height: 52px;
+            max-height: 140px;
+
+            resize: none;
+
+            padding: 14px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 9px;
+
+            font-size: 15px;
+
+            outline: none;
+        }
+
+
+        textarea:focus {
+
+            border-color: var(--primary);
+
+            box-shadow: 0 0 0 2px rgba(18,50,99,.08);
+        }
+
+
+        .send-button {
+
+            padding: 0 27px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: var(--primary);
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+
+        .send-button:hover {
+            background: var(--primary-dark);
+        }
+
+
+        .send-button:disabled {
+
+            opacity: .5;
+            cursor: not-allowed;
+        }
+
+
+        /* MODAL */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0,0,0,.65);
+
+            justify-content: center;
+            align-items: center;
+
+            z-index: 1000;
+
+            padding: 20px;
+        }
+
+
+        .modal-content {
+
+            width: 100%;
+            max-width: 470px;
+
+            background: white;
+
+            border-radius: 13px;
+
+            padding: 28px;
+
+            box-shadow: 0 15px 50px rgba(0,0,0,.3);
+        }
+
+
+        .modal-content h2 {
+
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+
+        .modal-content p {
+
+            color: #555;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        .modal-content input {
+
+            width: 100%;
+
+            margin: 17px 0 12px;
+
+            padding: 12px;
+
+            border: 1px solid #bbb;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+
+        .modal-buttons {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 8px;
+        }
+
+
+        .modal-button {
+
+            flex: 1;
+
+            padding: 11px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .save-button {
+
+            background: var(--primary);
+            color: white;
+        }
+
+
+        .cancel-button {
+
+            background: #eee;
+            color: #333;
+        }
+
+
+        .delete-button {
+
+            background: #fff1f1;
+            color: var(--danger);
+
+            border: 1px solid #f0bcbc;
+
+            margin-top: 10px;
+
+            width: 100%;
+        }
+
+
+        .security-note {
+
+            margin-top: 14px;
+
+            padding: 10px;
+
+            background: #fff6dd;
+
+            border-radius: 6px;
+
+            font-size: 12px !important;
+        }
+
+
+        @media (max-width: 650px) {
+
+            body {
+                padding: 0;
+            }
+
+            .chat-container {
+
+                height: 100vh;
+
+                border-radius: 0;
+            }
+
+            .header {
+
+                padding:
+                    18px 100px
+                    18px 15px;
+
+                text-align: left;
+            }
+
+            .header h1 {
+                font-size: 17px;
+            }
+
+            .api-button {
+
+                right: 10px;
+                top: 20px;
+
+                padding: 8px;
+            }
+
+            .message {
+                max-width: 92%;
+            }
+
+            .send-button {
+                padding: 0 16px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<div class="chat-container">
+
+
+    <header class="header">
+
+        <h1>
+            Agente de Estrategias Comerciales
+        </h1>
+
+        <p>
+            Marketing Digital para Entornos Virtuales
+        </p>
+
+        <button
+            class="api-button"
+            onclick="openApiModal()"
+        >
+            ⚙ API Key
+        </button>
+
+    </header>
+
+
+    <div
+        class="connection-status"
+        id="connectionStatus"
+    >
+        Revisando configuración...
+    </div>
+
+
+    <main
+        class="chat-history"
+        id="chatHistory"
+    >
+
+        <div class="message bot">
+
+            <strong>
+                ¡Hola! Soy tu Consultor Junior de Estrategias
+                Comerciales de Marketing Digital.
+            </strong>
+
+            <br><br>
+
+            Estoy diseñado para ayudarte a desarrollar
+            estrategias comerciales reales para negocios,
+            emprendimientos y proyectos escolares.
+
+            <br><br>
+
+            Para comenzar cuéntame:
+
+            <br><br>
+
+            1. ¿Cómo se llama tu negocio?<br>
+            2. ¿Qué producto o servicio vendes?<br>
+            3. ¿En qué ciudad o mercado quieres vender?<br>
+            4. ¿Cuál es tu principal objetivo?
+
+        </div>
+
+    </main>
+
+
+    <div
+        class="loading"
+        id="loading"
+    >
+        El agente está analizando
+        <span class="dots"></span>
+    </div>
+
+
+    <footer class="input-area">
+
+        <textarea
+            id="userInput"
+            placeholder="Ejemplo: Solaris vende calentadores solares en México y queremos aumentar nuestras ventas..."
+        ></textarea>
+
+        <button
+            class="send-button"
+            id="sendButton"
+            onclick="sendMessage()"
+        >
+            Enviar
+        </button>
+
+    </footer>
+
+</div>
+
+
+
+<!-- MODAL API -->
+
+
+<div
+    class="modal"
+    id="apiModal"
+>
+
+    <div class="modal-content">
+
+        <h2>
+            Activar agente con Gemini
+        </h2>
+
+        <p>
+            Pega aquí tu API Key creada en Google AI Studio.
+            La clave se almacenará solamente en este navegador.
+        </p>
+
+
+        <input
+            type="password"
+            id="apiKeyInput"
+            placeholder="Pega aquí tu API Key"
+            autocomplete="off"
+        >
+
+
+        <div class="modal-buttons">
+
+            <button
+                class="modal-button save-button"
+                onclick="saveApiKey()"
+            >
+                Guardar y activar
+            </button>
+
+
+            <button
+                class="modal-button cancel-button"
+                onclick="closeApiModal()"
+            >
+                Cancelar
+            </button>
+
+        </div>
+
+
+        <button
+            class="modal-button delete-button"
+            onclick="deleteApiKey()"
+        >
+            Eliminar clave guardada
+        </button>
+
+
+        <p class="security-note">
+
+            🔒 No escribas tu API Key directamente dentro del
+            archivo index.html si vas a subirlo a GitHub.
+            Cualquier persona podría verla.
+
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* ======================================================
+   CONFIGURACIÓN
+====================================================== */
+
+
+const MODEL = "gemini-3.8-flash";
+
+
+const API_URL =
+    `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+
+
+
+/* ======================================================
+   PROMPT MAESTRO DEL AGENTE
+====================================================== */
+
+
+const systemInstruction = `
+
+ROL
+
+Actúa como un Consultor Junior especializado en
+Estrategias Comerciales y Marketing Digital para
+emprendedores, estudiantes y pequeñas empresas.
+
+
+OBJETIVO
+
+Ayudar al usuario a analizar un negocio y desarrollar
+estrategias comerciales de Marketing Digital que sean
+realistas, claras, medibles y aplicables.
+
+
+CONTEXTO
+
+El agente está diseñado principalmente para pequeños
+negocios, emprendimientos, proyectos universitarios y
+empresas con presupuestos limitados.
+
+Prioriza soluciones realistas, estrategias digitales
+costo-eficientes y acciones que puedan ejecutarse con
+recursos razonables.
+
+
+PROCESO DE TRABAJO
+
+Antes de desarrollar una estrategia completa identifica
+qué información proporcionó el usuario.
+
+Cuando sea necesario solicita:
+
+1. Nombre del negocio.
+2. Producto o servicio.
+3. Ubicación o mercado.
+4. Cliente objetivo.
+5. Precio o rango de precios.
+6. Competidores.
+7. Canales digitales actuales.
+8. Presupuesto aproximado.
+9. Objetivo comercial.
+
+No es obligatorio pedir todos los datos de golpe.
+
+Si el usuario ya proporcionó información suficiente,
+comienza el análisis.
+
+No vuelvas a preguntar información que el usuario ya
+haya dado.
+
+
+CAPACIDADES DEL AGENTE
+
+Puedes:
+
+- Analizar negocios, productos y servicios.
+- Identificar mercados meta.
+- Desarrollar buyer personas.
+- Analizar necesidades del consumidor.
+- Realizar análisis FODA.
+- Analizar competidores.
+- Crear propuestas de valor.
+- Definir objetivos SMART.
+- Diseñar estrategias comerciales.
+- Diseñar estrategias de Marketing Digital.
+- Seleccionar canales digitales.
+- Proponer estrategias para redes sociales.
+- Crear ideas de contenido.
+- Diseñar embudos de ventas.
+- Proponer estrategias de captación.
+- Proponer estrategias de conversión.
+- Diseñar acciones de fidelización.
+- Recomendar campañas digitales.
+- Identificar KPI.
+- Recomendar métricas.
+- Crear planes de acción.
+- Crear cronogramas.
+
+
+REGLAS
+
+No inventes información específica sobre una empresa.
+
+Diferencia claramente entre datos proporcionados por el
+usuario y supuestos o recomendaciones.
+
+Cuando necesites realizar un supuesto, indícalo.
+
+Adapta las recomendaciones al presupuesto, tamaño,
+ubicación y tipo de negocio.
+
+Evita recomendar soluciones innecesariamente caras o
+complejas.
+
+Explica las recomendaciones de forma sencilla.
+
+Cuando existan varias opciones, compara brevemente sus
+ventajas y desventajas.
+
+Mantén un tono profesional pero fácil de comprender para
+un estudiante universitario de cuarto semestre.
+
+
+FORMATO PARA UNA ESTRATEGIA COMPLETA
+
+Cuando haya información suficiente, estructura
+preferentemente la respuesta de la siguiente manera:
+
+1. Diagnóstico del negocio
+2. Mercado meta
+3. Buyer Persona
+4. Análisis FODA
+5. Problema u oportunidad comercial
+6. Objetivo SMART
+7. Propuesta de valor
+8. Estrategia comercial
+9. Estrategia de Marketing Digital
+10. Canales digitales recomendados
+11. Estrategia de contenidos
+12. Embudo de ventas
+13. Acciones específicas
+14. Presupuesto sugerido
+15. KPI y métricas
+16. Cronograma
+17. Recomendaciones finales
+
+
+IMPORTANTE
+
+No respondas como un chatbot genérico.
+
+Tu función es actuar como un agente especializado en
+estrategias comerciales y Marketing Digital y mantener el
+contexto de toda la conversación.
+
+`;
+
+
+
+/* ======================================================
+   HISTORIAL
+====================================================== */
+
+
+let conversationHistory = [];
+
+let isLoading = false;
+
+
+
+/* ======================================================
+   INICIO
+====================================================== */
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        updateConnectionStatus();
+
+        const key =
+            localStorage.getItem("gemini_api_key");
+
+        if (!key) {
+
+            setTimeout(
+                openApiModal,
+                500
+            );
+
+        }
+
+        document
+            .getElementById("userInput")
+            .addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key === "Enter" &&
+                        !event.shiftKey
+                    ) {
+
+                        event.preventDefault();
+
+                        sendMessage();
+
+                    }
+
+                }
+            );
+
+    }
+);
+
+
+
+/* ======================================================
+   API KEY
+====================================================== */
+
+
+function openApiModal() {
+
+    const modal =
+        document.getElementById("apiModal");
+
+    const input =
+        document.getElementById("apiKeyInput");
+
+
+    modal.style.display = "flex";
+
+    input.value =
+        localStorage.getItem("gemini_api_key") || "";
+
+    setTimeout(
+        () => input.focus(),
+        100
+    );
+
+}
+
+
+
+function closeApiModal() {
+
+    document
+        .getElementById("apiModal")
+        .style.display = "none";
+
+}
+
+
+
+function saveApiKey() {
+
+    const input =
+        document.getElementById("apiKeyInput");
+
+    const key =
+        input.value.trim();
+
+
+    if (!key) {
+
+        alert(
+            "Pega primero tu API Key de Gemini."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "gemini_api_key",
+        key
+    );
+
+
+    closeApiModal();
+
+    updateConnectionStatus();
+
+
+    appendMessage(
+        "bot",
+        "✅ **API Key guardada.** El agente está listo. Puedes enviarme la información de tu negocio."
+    );
+
+}
+
+
+
+function deleteApiKey() {
+
+    localStorage.removeItem(
+        "gemini_api_key"
+    );
+
+    document
+        .getElementById("apiKeyInput")
+        .value = "";
+
+    updateConnectionStatus();
+
+
+    alert(
+        "La API Key guardada en este navegador fue eliminada."
+    );
+
+}
+
+
+
+function updateConnectionStatus() {
+
+    const element =
+        document.getElementById(
+            "connectionStatus"
+        );
+
+
+    const key =
+        localStorage.getItem(
+            "gemini_api_key"
+        );
+
+
+    if (key) {
+
+        element.innerHTML =
+            "● Gemini configurado";
+
+        element.className =
+            "connection-status status-connected";
+
+    } else {
+
+        element.innerHTML =
+            "● Falta configurar la API Key de Gemini";
+
+        element.className =
+            "connection-status status-disconnected";
+
+    }
+
+}
+
+
+
+/* ======================================================
+   MOSTRAR MENSAJES
+====================================================== */
+
+
+function appendMessage(role, text) {
+
+    const chat =
+        document.getElementById(
+            "chatHistory"
+        );
+
+
+    const message =
+        document.createElement("div");
+
+
+    message.className =
+        `message ${role}`;
+
+
+    if (role === "bot") {
+
+        const html =
+            marked.parse(text);
+
+        message.innerHTML =
+            DOMPurify.sanitize(html);
+
+    } else {
+
+        message.textContent = text;
+
+    }
+
+
+    chat.appendChild(message);
+
+
+    chat.scrollTop =
+        chat.scrollHeight;
+
+}
+
+
+
+/* ======================================================
+   EXTRAER TEXTO DE GEMINI
+====================================================== */
+
+
+function extractGeminiText(data) {
+
+    if (
+        !data ||
+        !Array.isArray(data.candidates)
+    ) {
+
+        return null;
+
+    }
+
+
+    for (
+        const candidate
+        of data.candidates
+    ) {
+
+        const parts =
+            candidate?.content?.parts;
+
+        if (!Array.isArray(parts)) {
+            continue;
+        }
+
+
+        const texts =
+            parts
+                .filter(
+                    part =>
+                        typeof part.text === "string"
+                )
+                .map(
+                    part => part.text
+                );
+
+
+        if (texts.length) {
+
+            return texts.join("\n");
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+
+/* ======================================================
+   ENVIAR MENSAJE
+====================================================== */
+
+
+async function sendMessage() {
+
+
+    if (isLoading) {
+        return;
+    }
+
+
+    const input =
+        document.getElementById(
+            "userInput"
+        );
+
+
+    const button =
+        document.getElementById(
+            "sendButton"
+        );
+
+
+    const loading =
+        document.getElementById(
+            "loading"
+        );
+
+
+    const text =
+        input.value.trim();
+
+
+    const apiKey =
+        localStorage.getItem(
+            "gemini_api_key"
+        );
+
+
+    if (!text) {
+        return;
+    }
+
+
+    if (!apiKey) {
+
+        openApiModal();
+
+        alert(
+            "Primero debes configurar tu API Key de Gemini."
+        );
+
+        return;
+
+    }
+
+
+
+    /* Mostrar mensaje usuario */
+
+
+    appendMessage(
+        "user",
+        text
+    );
+
+
+    input.value = "";
+
+
+    conversationHistory.push({
+
+        role: "user",
+
+        parts: [
+            {
+                text: text
+            }
+        ]
+
+    });
+
+
+
+    isLoading = true;
+
+    button.disabled = true;
+
+    loading.style.display =
+        "block";
+
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+
+                    method: "POST",
+
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "x-goog-api-key":
+                            apiKey
+
+                    },
+
+
+                    body:
+                        JSON.stringify({
+
+                            systemInstruction: {
+
+                                parts: [
+                                    {
+                                        text:
+                                            systemInstruction
+                                    }
+                                ]
+
+                            },
+
+
+                            contents:
+                                conversationHistory
+
+                        })
+
+                }
+            );
+
+
+
+        const data =
+            await response.json();
+
+
+
+        if (
+            !response.ok ||
+            data.error
+        ) {
+
+
+            console.error(
+                "Gemini API error:",
+                data
+            );
+
+
+            const errorMessage =
+                data?.error?.message ||
+                `Error HTTP ${response.status}`;
+
+
+            appendMessage(
+
+                "bot",
+
+                `⚠️ **Gemini devolvió un error:**\n\n${errorMessage}\n\nSi acabas de cambiar la API Key, pulsa **⚙ API Key** y vuelve a pegarla.`
+
+            );
+
+
+            return;
+
+        }
+
+
+
+        const botReply =
+            extractGeminiText(data);
+
+
+
+        if (!botReply) {
+
+
+            console.log(
+                "Respuesta completa:",
+                data
+            );
+
+
+            appendMessage(
+
+                "bot",
+
+                "⚠️ Gemini respondió a la solicitud, pero no encontré texto en la respuesta. Revisa la consola del navegador para ver los detalles."
+
+            );
+
+
+            return;
+
+        }
+
+
+
+        appendMessage(
+            "bot",
+            botReply
+        );
+
+
+
+        conversationHistory.push({
+
+            role: "model",
+
+            parts: [
+                {
+                    text:
+                        botReply
+                }
+            ]
+
+        });
+
+
+
+        /*
+        Evita mandar un historial gigantesco.
+        Conservamos las últimas 20 intervenciones.
+        */
+
+        if (
+            conversationHistory.length >
+            20
+        ) {
+
+            conversationHistory =
+                conversationHistory.slice(-20);
+
+        }
+
+
+
+    } catch (error) {
+
+
+        console.error(
+            "Error de conexión:",
+            error
+        );
+
+
+        appendMessage(
+
+            "bot",
+
+            `⚠️ **No pude conectarme con Gemini.**
+
+Posibles causas:
+
+- API Key incorrecta o eliminada.
+- La API no está habilitada para ese proyecto.
+- Problema de conexión.
+- Restricciones configuradas en la clave.
+
+Abre **⚙ API Key**, revisa la clave y vuelve a intentarlo.`
+
+        );
+
+
+    } finally {
+
+
+        isLoading = false;
+
+        button.disabled = false;
+
+        loading.style.display =
+            "none";
+
+
+        input.focus();
+
+    }
+
+}
+
+
+
+/* ======================================================
+   CERRAR MODAL AL TOCAR FUERA
+====================================================== */
+
+
+document
+    .getElementById("apiModal")
+    .addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target === this
+            ) {
+
+                closeApiModal();
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+</html>
