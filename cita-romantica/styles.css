@@ -640,3 +640,551 @@ textarea { min-height: 100px; resize: vertical; }
 
   .yes-no-zone { min-height: 180px; }
 }
+
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+   Pegar al FINAL de styles.css
+========================================================= */
+
+
+/* =========================================================
+   REGLAS GENERALES RESPONSIVE
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.app-shell {
+  width: 100%;
+  padding: 24px;
+}
+
+.card {
+  width: min(100%, 900px);
+  margin: 0 auto;
+}
+
+.screen {
+  width: 100%;
+  min-width: 0;
+}
+
+.option-text,
+.muted,
+.question-highlight,
+.summary,
+h1,
+h2,
+p {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+input,
+textarea,
+button {
+  max-width: 100%;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+
+/* =========================================================
+   LAPTOPS
+   Aproximadamente 1024px - 1440px
+========================================================= */
+
+@media screen and (max-width: 1200px) {
+
+  .app-shell {
+    padding: 24px;
+  }
+
+  .card {
+    width: min(100%, 850px);
+  }
+
+  .illustration img {
+    max-width: 320px;
+    margin-inline: auto;
+  }
+
+  .options-list {
+    width: 100%;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+
+/* =========================================================
+   TABLETS
+   iPad, Galaxy Tab, etc.
+========================================================= */
+
+@media screen and (max-width: 900px) {
+
+  .app-shell {
+    padding: 20px;
+    align-items: flex-start;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 720px;
+    padding: 28px;
+  }
+
+  .topbar {
+    gap: 20px;
+  }
+
+  .topbar h1 {
+    font-size: clamp(1.7rem, 4vw, 2.3rem);
+  }
+
+  .screen h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .illustration img {
+    width: auto;
+    max-width: 280px;
+    max-height: 280px;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .options-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .options-list.compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .option-card {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .nav-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .nav-row .btn {
+    flex: 1;
+  }
+
+  .yes-no-zone {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   TABLETS PEQUEÑAS / CELULARES GRANDES
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  .app-shell {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .progress-meta {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+  }
+
+  .illustration img {
+    max-width: 240px;
+    max-height: 240px;
+  }
+
+  .question-highlight {
+    width: 100%;
+    padding: 18px;
+    font-size: 1.15rem;
+  }
+
+  .options-list,
+  .options-list.compact {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  input[type="date"],
+  input[type="time"] {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .option-card {
+    min-height: 58px;
+  }
+
+  .summary {
+    width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES
+   iPhone, Android, etc.
+========================================================= */
+
+@media screen and (max-width: 600px) {
+
+  body {
+    min-height: 100dvh;
+  }
+
+  .app-shell {
+    padding: 10px;
+    min-height: 100dvh;
+  }
+
+  .card {
+    width: 100%;
+    max-width: none;
+    padding: 20px 16px;
+    border-radius: 18px;
+  }
+
+  /* CABECERA */
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 7px;
+  }
+
+  .topbar h1 {
+    font-size: 1.65rem;
+    line-height: 1.15;
+    margin-bottom: 0;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+  }
+
+  .progress-meta {
+    width: 100%;
+    font-size: 0.75rem;
+  }
+
+  .progress-track {
+    width: 100%;
+  }
+
+
+  /* TEXTOS */
+
+  .screen h2 {
+    font-size: 1.45rem;
+    line-height: 1.25;
+  }
+
+  .muted {
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  .tiny {
+    font-size: 0.76rem;
+  }
+
+  .question-title {
+    font-size: 1rem;
+  }
+
+
+  /* ILUSTRACIONES */
+
+  .illustration {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .illustration img {
+    width: auto;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+  }
+
+  .illustration-final img {
+    max-width: 220px;
+  }
+
+
+  /* PREGUNTA PRINCIPAL */
+
+  .question-highlight {
+    width: 100%;
+    padding: 16px 12px;
+    font-size: 1.05rem;
+    text-align: center;
+  }
+
+
+  /* SÍ / NO */
+
+  .yes-no-zone {
+    width: 100%;
+    min-height: 135px;
+    position: relative;
+  }
+
+  #yesBtn {
+    min-width: 130px;
+  }
+
+  #noBtn {
+    min-width: 90px;
+  }
+
+
+  /* FORMULARIO */
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .field {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .field input {
+    width: 100%;
+  }
+
+  input,
+  textarea {
+    font-size: 16px;
+  }
+
+  textarea {
+    min-height: 110px;
+  }
+
+
+  /* OPCIONES */
+
+  .options-list,
+  .options-list.compact {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .option-card {
+    width: 100%;
+    min-width: 0;
+    min-height: 56px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .option-text {
+    text-align: left;
+    min-width: 0;
+    font-size: 0.92rem;
+  }
+
+  .letter {
+    flex-shrink: 0;
+  }
+
+  .check {
+    flex-shrink: 0;
+  }
+
+
+  /* NAVEGACIÓN */
+
+  .nav-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .nav-row .btn {
+    width: 100%;
+  }
+
+  .btn {
+    min-height: 48px;
+    font-size: 0.95rem;
+    padding: 12px 16px;
+  }
+
+  .full {
+    width: 100%;
+  }
+
+
+  /* RESUMEN */
+
+  .summary {
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES PEQUEÑOS
+   320px - 430px
+========================================================= */
+
+@media screen and (max-width: 430px) {
+
+  .app-shell {
+    padding: 7px;
+  }
+
+  .card {
+    padding: 18px 13px;
+    border-radius: 16px;
+  }
+
+  .topbar h1 {
+    font-size: 1.45rem;
+  }
+
+  .screen h2 {
+    font-size: 1.3rem;
+  }
+
+  .muted {
+    font-size: 0.88rem;
+  }
+
+  .illustration img {
+    max-width: 175px;
+    max-height: 175px;
+  }
+
+  .question-highlight {
+    font-size: 1rem;
+    padding: 14px 10px;
+  }
+
+  .option-card {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .option-text {
+    font-size: 0.87rem;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .yes-no-zone {
+    min-height: 125px;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES MUY PEQUEÑOS
+========================================================= */
+
+@media screen and (max-width: 360px) {
+
+  .card {
+    padding: 16px 11px;
+  }
+
+  .topbar h1 {
+    font-size: 1.3rem;
+  }
+
+  .screen h2 {
+    font-size: 1.2rem;
+  }
+
+  .illustration img {
+    max-width: 155px;
+  }
+
+  .option-text {
+    font-size: 0.82rem;
+  }
+
+  .letter {
+    font-size: 0.75rem;
+  }
+
+  .btn {
+    font-size: 0.86rem;
+    padding: 11px 10px;
+  }
+
+}
