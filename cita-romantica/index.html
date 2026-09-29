@@ -6,7 +6,7 @@
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
   <meta
@@ -16,27 +16,19 @@
 
   <title>¿Saldrías conmigo? 💜</title>
 
-  <!-- FUENTES -->
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
-
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Quicksand:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
-  <!-- CSS -->
+  <!-- El número al final obliga a GitHub/Chrome a cargar el CSS nuevo -->
   <link
     rel="stylesheet"
-    href="styles.css"
+    href="styles.css?v=20260928-10"
   >
 </head>
 
@@ -45,10 +37,7 @@
 
   <main class="app-shell">
 
-    <section
-      class="card"
-      aria-live="polite"
-    >
+    <section class="card" aria-live="polite">
 
       <!-- CABECERA -->
       <header class="topbar">
@@ -82,9 +71,9 @@
 
 
 
-      <!-- ====================================== -->
+      <!-- ===================================== -->
       <!-- PANTALLA 1 -->
-      <!-- ====================================== -->
+      <!-- ===================================== -->
 
       <div
         class="screen active"
@@ -94,14 +83,9 @@
         <div class="illustration">
           <img
             src="ilustracion-conejo.png"
-            alt=""
-            loading="lazy"
+            alt="Ilustración romántica"
           >
         </div>
-
-        <p class="prompt-code">
-   
-        </p>
 
         <h2>
           Tengo una pregunta importante…
@@ -112,10 +96,7 @@
           Bueno… quizá un poquito. 💜
         </p>
 
-
-        <div
-          class="question-highlight"
-        >
+        <div class="question-highlight">
           ¿Quieres salir conmigo?
         </div>
 
@@ -137,7 +118,6 @@
             type="button"
             class="btn btn-ghost runaway"
             id="noBtn"
-            aria-label="No"
           >
             No 😶
           </button>
@@ -156,9 +136,9 @@
 
 
 
-      <!-- ====================================== -->
+      <!-- ===================================== -->
       <!-- PANTALLA 2 -->
-      <!-- ====================================== -->
+      <!-- ===================================== -->
 
       <div
         class="screen"
@@ -169,13 +149,8 @@
           <img
             src="Gato-sonriendo.png"
             alt=""
-            loading="lazy"
           >
         </div>
-
-        <p class="prompt-code">
-        
-        </p>
 
         <h2>
           ¿Cuándo estás disponible?
@@ -243,9 +218,9 @@
 
 
 
-      <!-- ====================================== -->
+      <!-- ===================================== -->
       <!-- PANTALLA 3 -->
-      <!-- ====================================== -->
+      <!-- ===================================== -->
 
       <div
         class="screen"
@@ -256,13 +231,8 @@
           <img
             src="gatitos-juntos.png"
             alt=""
-            loading="lazy"
           >
         </div>
-
-        <p class="prompt-code">
-         
-        </p>
 
         <h2>
           Elige nuestra cita
@@ -299,8 +269,6 @@
             <span class="option-text">🎨🧺 Picnic pintando</span>
             <span class="check">✓</span>
           </button>
-
-        
 
 
           <button
@@ -360,23 +328,28 @@
           </button>
 
 
-            <button
+          <button
             type="button"
             class="option-card"
             data-value="Pista de Hielo ⛸️"
           >
             <span class="letter">H</span>
-            <span class="option-text">⛸️ Pista de Hielo</span>
+            <span class="option-text">
+              ⛸️ Pista de Hielo
+            </span>
             <span class="check">✓</span>
           </button>
+
 
           <button
             type="button"
             class="option-card"
-            data-value="Cita cocinando"
+            data-value="Cita cocinando 🍴🥘"
           >
             <span class="letter">I</span>
-            <span class="option-text">🍴🥘🥣 Cita cocinando</span>
+            <span class="option-text">
+              🍴🥘 Cita cocinando
+            </span>
             <span class="check">✓</span>
           </button>
 
@@ -384,14 +357,14 @@
           <button
             type="button"
             class="option-card"
-            data-value="Maratón de Pelis"
+            data-value="Maratón de pelis 🍿🎥"
           >
             <span class="letter">J</span>
-            <span class="option-text">🍿🎥 Maratón de pelis</span>
+            <span class="option-text">
+              🍿🎥 Maratón de pelis
+            </span>
             <span class="check">✓</span>
           </button>
-
-          
 
         </div>
 
@@ -420,9 +393,9 @@
 
 
 
-      <!-- ====================================== -->
+      <!-- ===================================== -->
       <!-- PANTALLA 4 -->
-      <!-- ====================================== -->
+      <!-- ===================================== -->
 
       <div
         class="screen"
@@ -433,13 +406,8 @@
           <img
             src="gatitoo.png"
             alt=""
-            loading="lazy"
           >
         </div>
-
-        <p class="prompt-code">
-          
-        </p>
 
         <h2>
           Casi está lista 💜
@@ -583,7 +551,7 @@
 
 
 
-        <!-- PETICIÓN ESPECIAL -->
+        <!-- PETICIÓN -->
 
         <label class="notes-label">
 
@@ -598,7 +566,6 @@
           ></textarea>
 
         </label>
-
 
 
         <div class="nav-row">
@@ -625,9 +592,9 @@
 
 
 
-      <!-- ====================================== -->
+      <!-- ===================================== -->
       <!-- PANTALLA 5 -->
-      <!-- ====================================== -->
+      <!-- ===================================== -->
 
       <div
         class="screen"
@@ -637,14 +604,9 @@
         <div class="illustration illustration-final">
           <img
             src="ilustracion-gato-teamo.png"
-            alt="Un gatito sosteniendo un cartel que dice Te amo"
-            loading="lazy"
+            alt="Gatito diciendo te amo"
           >
         </div>
-
-        <p class="prompt-code">
-        
-        </p>
 
         <h2>
           Perfecto.
@@ -685,9 +647,7 @@
       </div>
 
 
-
-      <!-- TOAST -->
-
+      <!-- MENSAJES -->
       <div
         class="toast"
         id="toast"
@@ -701,7 +661,7 @@
 
   <script
     type="module"
-    src="script.js"
+    src="script.js?v=20260928-10"
   ></script>
 
 </body>
