@@ -1,0 +1,46 @@
+SUVA - IMAGENES DE PRODUCTO OPTIMIZADAS
+
+Carpeta preparada para copiar directamente dentro del proyecto:
+assets/products/
+
+Formato: WebP
+Tamaño: 500 x 500 px
+Calidad WebP: 80
+Uso recomendado en catálogo: loading='lazy' y decoding='async'
+
+Ejemplo:
+<img src="assets/products/pvc-sanitaria.webp" alt="Tubería PVC sanitaria" loading="lazy" decoding="async" width="500" height="500">
+
+Archivos:
+- pvc-sanitaria.webp  (3.5 KB)
+- pvc-ced40.webp  (5.3 KB)
+- pvc-ced80.webp  (6.1 KB)
+- pvc-rd26.webp  (3.5 KB)
+- cpvc-cts.webp  (6.1 KB)
+- cpvc-ced80.webp  (6.1 KB)
+- codo90-pvc.webp  (2.4 KB)
+- codo45-pvc.webp  (2.4 KB)
+- tee-pvc.webp  (2.4 KB)
+- cople-pvc.webp  (2.7 KB)
+- reduccion-pvc.webp  (2.2 KB)
+- adaptador-pvc.webp  (4.9 KB)
+- conexiones-cpvc.webp  (7.9 KB)
+- alcantarillado.webp  (7.7 KB)
+- cople-alcantarillado.webp  (4.5 KB)
+- hidraulica-campana.webp  (7.6 KB)
+- conexiones-hidraulica-campana.webp  (4.5 KB)
+- tuberia-corrugada.webp  (9.1 KB)
+- conexiones-corrugada.webp  (7.9 KB)
+- tuberia-galvanizada.webp  (6.4 KB)
+- tuberia-cobre.webp  (7.1 KB)
+- tuberia-tuboplus.webp  (6.7 KB)
+- conexiones-metal-tuboplus.webp  (4.9 KB)
+- tinacos.webp  (4.0 KB)
+- cisternas.webp  (5.1 KB)
+- valvula-bola.webp  (8.1 KB)
+- cemento-pvc.webp  (9.3 KB)
+- producto-placeholder.webp  (1.8 KB)
+
+NOTA:
+Para mantener la página ligera, varias variantes de una misma familia reutilizan la misma composición visual
+pero cada producto tiene su propio archivo con nombre independiente para que puedas sustituirlo después sin tocar el código.
