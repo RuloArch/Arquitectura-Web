@@ -1,0 +1,23 @@
+ACTIVIDAD 2.6 - SOLARIS ECO SYSTEMS
+
+Archivos:
+- index.html
+- styles.css
+- script.js
+
+Cómo abrir:
+1. Descomprime este ZIP.
+2. Abre la carpeta en Visual Studio Code.
+3. Abre index.html con Live Server.
+
+El botón "Guardar PDF" utiliza la función de impresión del navegador.
+
+Diseño:
+- Verde salvia
+- Azul pastel
+- Tonos suaves
+- Tarjetas con mayor espacio
+- Diseño responsive
+- Animaciones ligeras al hacer scroll
+- Menú móvil
+- Barra de progreso de lectura
